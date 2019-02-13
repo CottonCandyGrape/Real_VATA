@@ -162,7 +162,7 @@ public class CubemanController : MonoBehaviour
 					bones[i].transform.rotation = rotJoint;
                     if(Input.GetKeyDown(KeyCode.Space))
                     {
-                        if (i == 5)//8¹ø: ¿À¸¥ÂÊ ¾î±ú, 4¹ø: ¿ÞÂÊ ¾î±ú
+                        if (i == 5)//8¹ø: ¿À¸¥ÂÊ ¾î±ú, 4¹ø: ¿ÞÂÊ ¾î±ú, 5¹ø ¿ÞÂÊ ÆÈ²ÞÄ¡
                         {
                             Debug.Log("x = " + bones[i].transform.rotation.eulerAngles.x +
                                 " y = " + bones[i].transform.rotation.eulerAngles.y +
