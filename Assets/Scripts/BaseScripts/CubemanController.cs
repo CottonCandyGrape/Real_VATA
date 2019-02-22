@@ -158,21 +158,17 @@ public class CubemanController : MonoBehaviour
 					}
 
 					bones[i].transform.localPosition = posJoint;
-                    //Debug.Log("localposition" + i + " " + bones[i].transform.localPosition);
 					bones[i].transform.rotation = rotJoint;
-                    if(Input.GetKeyDown(KeyCode.Space))
+                    // 스페이스바를 눌러서 조인트의 각도 얻어오기
+                    if (Input.GetKeyDown(KeyCode.Space))
                     {
                         if (i == 5)//8번: 오른쪽 어깨, 4번: 왼쪽 어깨, 5번 왼쪽 팔꿈치
                         {
                             Debug.Log("x = " + bones[i].transform.rotation.eulerAngles.x +
                                 " y = " + bones[i].transform.rotation.eulerAngles.y +
-                                " z = " + bones[i].transform.rotation.eulerAngles.z);
-                            //Debug.Log("rotation y = " + bones[i].transform.rotation.y);
-                            //Debug.Log("rotation z = " + bones[i].transform.rotation.z);
-                            //Debug.Log("rotation w = " + bones[i].transform.rotation.w);
+                                " z = " + bones[i].transform.rotation.eulerAngles.z);                            
                         }
                     }
-                    //Debug.Log("rotation" + i + " " + bones[i].transform.rotation);
                 }
 				else
 				{
