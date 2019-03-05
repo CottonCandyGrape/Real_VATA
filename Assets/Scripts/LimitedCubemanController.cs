@@ -144,31 +144,36 @@ public class LimitedCubemanController : MonoBehaviour
                     bones[i].gameObject.SetActive(true);
 
                     Vector3 posJoint = manager.GetJointPosition(playerID, joint);
-                    posJoint.z = !MirroredMovement ? -posJoint.z : posJoint.z; //좌우대칭
+                    posJoint.z = !MirroredMovement ? -posJoint.z : posJoint.z;
 
                     Quaternion rotJoint = manager.GetJointOrientation(playerID, joint, !MirroredMovement);
                     rotJoint = initialRotation * rotJoint;
 
                     posJoint -= posPointMan;
 
-                    if (MirroredMovement) //좌우대칭
+                    if (MirroredMovement)
                     {
                         posJoint.x = -posJoint.x;
                         posJoint.z = -posJoint.z;
                     }
 
-                    bones[i].transform.localPosition = posJoint;
+                    //bones[i].transform.localPosition = posJoint;
+                    //bones[i].transform.rotation = rotJoint;
 
                     if (i == 8)
                     {
-                        bones[i].transform.eulerAngles = new Vector3(0, rotJoint.eulerAngles.y, rotJoint.eulerAngles.z);
+                        Vector3 newRot = new Vector3(0f, rotJoint.eulerAngles.y, 0f);
+                        bones[i].transform.localRotation = Quaternion.Euler(newRot);
+                        //bones[i].transform.eulerAngles = new Vector3(0, rotJoint.eulerAngles.y, rotJoint.eulerAngles.z);
                         Debug.Log("어깨 " + bones[i].transform.eulerAngles.x + " " +
                             bones[i].transform.eulerAngles.y + " " +
                             bones[i].transform.eulerAngles.z);
                     }
                     else if (i == 9)
                     {
-                        bones[i].transform.eulerAngles = new Vector3(0, rotJoint.eulerAngles.y, 0);
+                        Vector3 newRot = new Vector3(0f, 0f, rotJoint.eulerAngles.z);
+                        bones[i].transform.localRotation = Quaternion.Euler(newRot);
+                        //bones[i].transform.eulerAngles = new Vector3(initialRotation.eulerAngles.x, rotJoint.eulerAngles.y, initialRotation.eulerAngles.z);
                         Debug.Log("팔꿈치 " + bones[i].transform.eulerAngles.x + " " +
                             bones[i].transform.eulerAngles.y + " " +
                             bones[i].transform.eulerAngles.z);
@@ -177,6 +182,7 @@ public class LimitedCubemanController : MonoBehaviour
                     {
                         bones[i].transform.rotation = rotJoint;
                     }
+
                     //// 스페이스바를 눌러서 조인트의 각도 얻어오기
                     //if (Input.GetKeyDown(KeyCode.Space))
                     //{
@@ -195,40 +201,40 @@ public class LimitedCubemanController : MonoBehaviour
             }
         }
 
-        if (SkeletonLine) //라인그리기
-        {
-            for (int i = startIndex; i < lastIndex; i++)
-            {
-                bool bLineDrawn = false;
+        //if (SkeletonLine) //라인그리기
+        //{
+        //    for (int i = startIndex; i < lastIndex; i++)
+        //    {
+        //        bool bLineDrawn = false;
 
-                if (bones[i] != null)
-                {
-                    if (bones[i].gameObject.activeSelf)
-                    {
-                        Vector3 posJoint = bones[i].transform.position;
+        //        if (bones[i] != null)
+        //        {
+        //            if (bones[i].gameObject.activeSelf)
+        //            {
+        //                Vector3 posJoint = bones[i].transform.position;
 
-                        int parI = parIdxs[i];
-                        Vector3 posParent = bones[parI].transform.position;
+        //                int parI = parIdxs[i];
+        //                Vector3 posParent = bones[parI].transform.position;
 
-                        if (bones[parI].gameObject.activeSelf)
-                        {
-                            lines[i].gameObject.SetActive(true);
+        //                if (bones[parI].gameObject.activeSelf)
+        //                {
+        //                    lines[i].gameObject.SetActive(true);
 
-                            //lines[i].SetVertexCount(2);
-                            lines[i].SetPosition(0, posParent);
-                            lines[i].SetPosition(1, posJoint);
+        //                    //lines[i].SetVertexCount(2);
+        //                    lines[i].SetPosition(0, posParent);
+        //                    lines[i].SetPosition(1, posJoint);
 
-                            bLineDrawn = true;
-                        }
-                    }
-                }
+        //                    bLineDrawn = true;
+        //                }
+        //            }
+        //        }
 
-                if (!bLineDrawn)
-                {
-                    lines[i].gameObject.SetActive(false);
-                }
-            }
-        }
+        //        if (!bLineDrawn)
+        //        {
+        //            lines[i].gameObject.SetActive(false);
+        //        }
+        //    }
+        //}
 
     }
 

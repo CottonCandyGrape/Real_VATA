@@ -1,0 +1,246 @@
+fileFormatVersion: 2
+guid: 813e838c2b95323488b3257f795f47c5
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: arm_l
+    100002: arm_r
+    100004: body
+    100006: head
+    100008: leg_l
+    100010: leg_r
+    100012: //RootNode
+    100014: transform10
+    100016: transform10 1
+    100018: transform14
+    100020: transform14 1
+    100022: transform16
+    100024: transform16 1
+    100026: transform18
+    100028: transform19
+    100030: transform2
+    100032: transform2 1
+    100034: transform21
+    100036: transform22
+    100038: transform25
+    100040: transform25 1
+    100042: transform26
+    100044: transform26 1
+    100046: transform28
+    100048: transform28 1
+    100050: transform3
+    100052: transform32
+    100054: transform33
+    100056: transform33 1
+    100058: transform4
+    100060: transform4 1
+    100062: transform5
+    100064: transform6
+    100066: transform8
+    100068: transform8 1
+    400000: arm_l
+    400002: arm_r
+    400004: body
+    400006: head
+    400008: leg_l
+    400010: leg_r
+    400012: //RootNode
+    400014: transform10
+    400016: transform10 1
+    400018: transform14
+    400020: transform14 1
+    400022: transform16
+    400024: transform16 1
+    400026: transform18
+    400028: transform19
+    400030: transform2
+    400032: transform2 1
+    400034: transform21
+    400036: transform22
+    400038: transform25
+    400040: transform25 1
+    400042: transform26
+    400044: transform26 1
+    400046: transform28
+    400048: transform28 1
+    400050: transform3
+    400052: transform32
+    400054: transform33
+    400056: transform33 1
+    400058: transform4
+    400060: transform4 1
+    400062: transform5
+    400064: transform6
+    400066: transform8
+    400068: transform8 1
+    2100000: lambert1
+    2300000: transform10
+    2300002: transform10 1
+    2300004: transform14
+    2300006: transform14 1
+    2300008: transform16
+    2300010: transform16 1
+    2300012: transform18
+    2300014: transform19
+    2300016: transform2
+    2300018: transform2 1
+    2300020: transform21
+    2300022: transform22
+    2300024: transform25
+    2300026: transform25 1
+    2300028: transform26
+    2300030: transform26 1
+    2300032: transform28
+    2300034: transform28 1
+    2300036: transform3
+    2300038: transform32
+    2300040: transform33
+    2300042: transform33 1
+    2300044: transform4
+    2300046: transform4 1
+    2300048: transform5
+    2300050: transform6
+    2300052: transform8
+    2300054: transform8 1
+    3300000: transform10
+    3300002: transform10 1
+    3300004: transform14
+    3300006: transform14 1
+    3300008: transform16
+    3300010: transform16 1
+    3300012: transform18
+    3300014: transform19
+    3300016: transform2
+    3300018: transform2 1
+    3300020: transform21
+    3300022: transform22
+    3300024: transform25
+    3300026: transform25 1
+    3300028: transform26
+    3300030: transform26 1
+    3300032: transform28
+    3300034: transform28 1
+    3300036: transform3
+    3300038: transform32
+    3300040: transform33
+    3300042: transform33 1
+    3300044: transform4
+    3300046: transform4 1
+    3300048: transform5
+    3300050: transform6
+    3300052: transform8
+    3300054: transform8 1
+    4300000: transform21
+    4300002: transform5
+    4300004: transform6
+    4300006: transform19
+    4300008: transform32
+    4300010: transform3
+    4300012: transform18
+    4300014: transform22
+    4300016: transform10
+    4300018: transform8
+    4300020: transform2
+    4300022: transform4
+    4300024: transform26
+    4300026: transform10
+    4300028: transform8
+    4300030: transform2
+    4300032: transform4
+    4300034: transform26
+    4300036: transform14
+    4300038: transform16
+    4300040: transform33
+    4300042: transform25
+    4300044: transform28
+    4300046: transform14
+    4300048: transform16
+    4300050: transform33
+    4300052: transform25
+    4300054: transform28
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

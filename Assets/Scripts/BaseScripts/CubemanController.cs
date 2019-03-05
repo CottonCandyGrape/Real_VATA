@@ -144,14 +144,14 @@ public class CubemanController : MonoBehaviour
 					bones[i].gameObject.SetActive(true);
 					
 					Vector3 posJoint = manager.GetJointPosition(playerID, joint);
-					posJoint.z = !MirroredMovement ? -posJoint.z : posJoint.z; //좌우대칭
+					posJoint.z = !MirroredMovement ? -posJoint.z : posJoint.z; 
 
                     Quaternion rotJoint = manager.GetJointOrientation(playerID, joint, !MirroredMovement);
 					rotJoint = initialRotation * rotJoint;
 
 					posJoint -= posPointMan;
 
-					if(MirroredMovement) //좌우대칭
+					if(MirroredMovement)
 					{
 						posJoint.x = -posJoint.x;
 						posJoint.z = -posJoint.z;
@@ -159,16 +159,7 @@ public class CubemanController : MonoBehaviour
 
 					bones[i].transform.localPosition = posJoint;
 					bones[i].transform.rotation = rotJoint;
-                    // 스페이스바를 눌러서 조인트의 각도 얻어오기
-                    if (Input.GetKeyDown(KeyCode.Space))
-                    {
-                        if (i == 5)//8번: 오른쪽 어깨, 4번: 왼쪽 어깨, 5번 왼쪽 팔꿈치
-                        {
-                            Debug.Log("x = " + bones[i].transform.rotation.eulerAngles.x +
-                                " y = " + bones[i].transform.rotation.eulerAngles.y +
-                                " z = " + bones[i].transform.rotation.eulerAngles.z);                            
-                        }
-                    }
+                    
                 }
 				else
 				{
@@ -215,3 +206,13 @@ public class CubemanController : MonoBehaviour
 	}
 
 }
+//// 스페이스바를 눌러서 조인트의 각도 얻어오기
+//if (Input.GetKeyDown(KeyCode.Space))
+//{
+//    if (i == 5)//8번: 오른쪽 어깨, 4번: 왼쪽 어깨, 5번 왼쪽 팔꿈치
+//    {
+//        Debug.Log("x = " + bones[i].transform.rotation.eulerAngles.x +
+//            " y = " + bones[i].transform.rotation.eulerAngles.y +
+//            " z = " + bones[i].transform.rotation.eulerAngles.z);                            
+//    }
+//}
