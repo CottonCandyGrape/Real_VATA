@@ -565,8 +565,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_LocalRotation: {x: 0.00015375257, y: -0.9979935, z: 0.06326914, w: 0.0024163707}
-  m_LocalPosition: {x: 0.84118885, y: 4.839396, z: 2.8914342}
+  m_LocalRotation: {x: 0.00032141188, y: -0.9882688, z: 0.15271032, w: 0.0020819202}
+  m_LocalPosition: {x: -0.03837371, y: 0.4571705, z: 0.8613124}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -592,7 +592,7 @@ MonoBehaviour:
   DisplaySkeletonLines: 1
   DisplayMapsWidthPercent: 20
   SensorHeight: 1
-  SensorAngle: 0
+  SensorAngle: 15
   MinUserDistance: 1
   MaxUserDistance: 0
   DetectClosestUser: 1
@@ -1547,6 +1547,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: rbt_mesh
       objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: 813e838c2b95323488b3257f795f47c5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: 813e838c2b95323488b3257f795f47c5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -1840,7 +1844,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1798350603
 Transform:
   m_ObjectHideFlags: 0
@@ -2239,7 +2243,7 @@ PrefabInstance:
     - target: {fileID: 2754577129005297745, guid: b761981c04c38fa4bbf65d2deed26ea6,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2754577129005297747, guid: b761981c04c38fa4bbf65d2deed26ea6,
         type: 3}
@@ -2945,6 +2949,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LightProbeUsage
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2754577129005297746, guid: b761981c04c38fa4bbf65d2deed26ea6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2754577127918931215, guid: b761981c04c38fa4bbf65d2deed26ea6, type: 3}
