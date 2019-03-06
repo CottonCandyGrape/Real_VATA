@@ -591,7 +591,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1420250210}
   m_LocalRotation: {x: 0.00030348703, y: -0.9964415, z: 0.08421085, w: 0.0035941363}
-  m_LocalPosition: {x: 1.9711398, y: 5.430715, z: 4.1658936}
+  m_LocalPosition: {x: 2.146712, y: 5.848931, z: 7.819528}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -763,7 +763,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jointIndex: 8
-  jointTarget: {fileID: 1021247903}
+  sphere1: {fileID: 0}
+  sphere2: {fileID: 0}
+  elbow: {fileID: 1021247903}
+  shoulder1: {fileID: 1534637286}
+  shoulder2: {fileID: 532422898}
 --- !u!4 &1558788617
 Transform:
   m_ObjectHideFlags: 0

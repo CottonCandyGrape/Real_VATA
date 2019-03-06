@@ -2210,10 +2210,10 @@ public class KinectManager : MonoBehaviour
         return false;
     }
 
-    //public Matrix4x4 GetJointOrientationMatrix(KinectWrapper.NuiSkeletonPositionIndex jointIndex)
-    //{
-    //    return player1JointsOri[(int)jointIndex];
-    //}
+    public Matrix4x4 GetJointOrientationMatrix(KinectWrapper.NuiSkeletonPositionIndex jointIndex)
+    {
+        return player1JointsOri[(int)jointIndex];
+    }
 
     public Matrix4x4 GetJointOrientationMatrix(int jointIndex)
     {
