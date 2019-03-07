@@ -19,11 +19,11 @@ public class VectorMaterial
 [Serializable]
 public class Joint
 {
-    public JointIndex jointIndex;
+    public JointIndex jointIndex; //코드에서 사용x. Inspector에서 쉽게 구분하기위해 사용.
     public Transform targetTransform;
 
-    public VectorMaterial childVectorMaterial;
     public VectorMaterial parentVectorMaterial;
+    public VectorMaterial childVectorMaterial;
 
     public float direction = 1f;
     public float offset = 0f;
@@ -32,8 +32,8 @@ public class Joint
 
     public void UpdateRotation()
     {
-        Vector3 vector1;
-        Vector3 vector2;
+        Vector3 vector1; //기준이 되는 벡터.
+        Vector3 vector2; //기준과 비교할 벡터.
 
         if (parentVectorMaterial.Start == JointIndex.HipCenter)
         {
@@ -45,6 +45,7 @@ public class Joint
         }
 
         vector2 = MathUtil.GetVectorBetween(childVectorMaterial.Start, childVectorMaterial.End, manager);
+
         float angle;
         angle = (MathUtil.Dot(vector1, vector2) + offset) * direction;
         Vector3 targetOrientation = Vector3.zero;

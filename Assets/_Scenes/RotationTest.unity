@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -867,8 +867,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1420250210}
-  m_LocalRotation: {x: 0.00030348703, y: -0.9964415, z: 0.08421085, w: 0.0035941363}
-  m_LocalPosition: {x: 2.146712, y: 5.848931, z: 7.819528}
+  m_LocalRotation: {x: -0.0012510202, y: 0.98956794, z: -0.14380458, w: -0.008608255}
+  m_LocalPosition: {x: -0.057115823, y: 7.0710783, z: 9.739041}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1143,7 +1143,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1558788617}
-  - component: {fileID: 1558788616}
   - component: {fileID: 1558788618}
   m_Layer: 0
   m_Name: OrientationManager
@@ -1152,22 +1151,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1558788616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1558788615}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3441fc21fcfc57458663679e8574135, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jointIndex: 8
-  shoulder1: {fileID: 1534637286}
-  shoulder2: {fileID: 532422898}
-  elbow: {fileID: 1021247903}
 --- !u!4 &1558788617
 Transform:
   m_ObjectHideFlags: 0
@@ -1197,39 +1180,75 @@ MonoBehaviour:
   joints:
   - jointIndex: 4
     targetTransform: {fileID: 1534637286}
-    childVectorMaterial:
-      Start: 5
-      End: 4
-      Axis: 0
     parentVectorMaterial:
       Start: 0
       End: 0
       Axis: 1
+    childVectorMaterial:
+      Start: 5
+      End: 4
+      Axis: 0
     direction: -1
     offset: -90
   - jointIndex: 4
     targetTransform: {fileID: 532422898}
-    childVectorMaterial:
-      Start: 5
-      End: 4
-      Axis: 1
     parentVectorMaterial:
       Start: 0
       End: 0
       Axis: 0
+    childVectorMaterial:
+      Start: 5
+      End: 4
+      Axis: 1
     direction: -1
     offset: 0
   - jointIndex: 5
     targetTransform: {fileID: 1021247903}
-    childVectorMaterial:
-      Start: 6
-      End: 5
-      Axis: 2
     parentVectorMaterial:
       Start: 5
       End: 4
       Axis: 0
+    childVectorMaterial:
+      Start: 6
+      End: 5
+      Axis: 2
     direction: 1
+    offset: 0
+  - jointIndex: 8
+    targetTransform: {fileID: 1604851357}
+    parentVectorMaterial:
+      Start: 0
+      End: 0
+      Axis: 1
+    childVectorMaterial:
+      Start: 9
+      End: 8
+      Axis: 0
+    direction: -1
+    offset: -90
+  - jointIndex: 8
+    targetTransform: {fileID: 1485680870}
+    parentVectorMaterial:
+      Start: 0
+      End: 0
+      Axis: 0
+    childVectorMaterial:
+      Start: 9
+      End: 8
+      Axis: 1
+    direction: -1
+    offset: 180
+  - jointIndex: 9
+    targetTransform: {fileID: 1704792089}
+    parentVectorMaterial:
+      Start: 9
+      End: 8
+      Axis: 0
+    childVectorMaterial:
+      Start: 10
+      End: 9
+      Axis: 2
+    direction: -1
     offset: 0
 --- !u!1 &1604851356
 GameObject:
