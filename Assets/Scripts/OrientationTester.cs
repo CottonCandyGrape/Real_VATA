@@ -1,16 +1,26 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using JointIndex = KinectWrapper.NuiSkeletonPositionIndex;
 
 public class OrientationTester : MonoBehaviour
 {
     public JointIndex jointIndex;
 
-    public Transform elbow;
     public Transform shoulder1;
     public Transform shoulder2;
+    public Transform elbow;
 
     private KinectManager manager;
-    
+
+    private Matrix4x4 hipCenter;
+
+    private Vector3 hipCenterX;
+    private Vector3 hipCenterY;
+    private Vector3 hipCenterZ;
+
+    private Vector3 shoulderLeftX;
+    private Vector3 elbowLeftX;
+
     private void Awake()
     {
         manager = KinectManager.Instance;
@@ -18,92 +28,80 @@ public class OrientationTester : MonoBehaviour
 
     private void Update()
     {
-        float angle = GetXVector();
-        Vector3 ori = elbow.rotation.eulerAngles;
-        ori.z = angle;
-        elbow.rotation = Quaternion.Euler(ori);
+        GetJointInfo();
 
-        Matrix4x4 hipCenter = manager.GetJointOrientationMatrix((int)JointIndex.HipCenter);//모든 조인트의 기준점
-        
-        Vector3 shoulderLeftX = GetPositionBetween(JointIndex.ElbowLeft, JointIndex.ShoulderLeft);//순서 중요
-        Vector3 hipCenterX = new Vector3(hipCenter.GetColumn(0).x, hipCenter.GetColumn(0).y, hipCenter.GetColumn(0).z);
-        Vector3 hipCenterY = new Vector3(hipCenter.GetColumn(1).x, hipCenter.GetColumn(1).y, hipCenter.GetColumn(1).z);
-
-        angle = -Dot(hipCenterX, shoulderLeftX);
-        Vector3 shoulderOri = shoulder2.rotation.eulerAngles;
-        shoulderOri.y = angle;
-        shoulder2.rotation = Quaternion.Euler(shoulderOri);
-
-        angle = Dot(hipCenterY, shoulderLeftX);
-        Vector3 shoulderOriX = shoulder1.rotation.eulerAngles;
-        shoulderOriX.x = angle;
-        shoulder1.rotation = Quaternion.Euler(shoulderOriX);
+        Shoulder1Rotation(hipCenterY, shoulderLeftX);
+        Shoulder2Rotation(hipCenterX, shoulderLeftX);
+        ElbowRotation(shoulderLeftX, elbowLeftX);
     }
 
-    Vector3 GetPositionBetween(JointIndex joint1, JointIndex joint2)
+    private void GetJointInfo()
+    {
+        hipCenter = manager.GetJointOrientationMatrix((int)JointIndex.HipCenter);//모든 조인트의 기준점
+
+        hipCenterX = new Vector3(hipCenter.GetColumn(0).x, hipCenter.GetColumn(0).y, hipCenter.GetColumn(0).z);
+        hipCenterY = new Vector3(hipCenter.GetColumn(1).x, hipCenter.GetColumn(1).y, hipCenter.GetColumn(1).z);
+        hipCenterZ = new Vector3(hipCenter.GetColumn(2).x, hipCenter.GetColumn(2).y, hipCenter.GetColumn(2).z);
+
+        shoulderLeftX = GetVectorBetween(JointIndex.ElbowLeft, JointIndex.ShoulderLeft);
+        elbowLeftX = GetVectorBetween(JointIndex.WristLeft, JointIndex.ElbowLeft);
+    }
+
+    private void GetJointRot()
+    {
+
+    }
+
+    private void Shoulder1Rotation(Vector3 vector1, Vector3 vector2)
+    {
+        float angle;
+        angle = -(Dot(vector1, vector2) - 90f);
+        Vector3 shoulderOri = Vector3.zero;
+        shoulderOri.x = angle;
+        shoulder1.localRotation = Quaternion.Euler(shoulderOri);
+    }
+
+    private void Shoulder2Rotation(Vector3 vector1, Vector3 vector2)
+    {
+        float angle;
+        angle = -Dot(vector1, vector2);
+        Vector3 shoulder2Ori = Vector3.zero;
+        shoulder2Ori.y = angle;
+        shoulder2.localRotation = Quaternion.Euler(shoulder2Ori);
+    }
+
+    private void ElbowRotation(Vector3 vector1, Vector3 vector2)
+    {
+        float angle;
+        angle = Dot(vector1, vector2);
+        Vector3 ori = Vector3.zero;
+        ori.z = angle;
+        elbow.localRotation = Quaternion.Euler(ori);
+    }
+
+    Vector3 GetVectorBetween(JointIndex joint1, JointIndex joint2)//순서 중요
     {
         uint playerID = manager != null ? manager.GetPlayer1ID() : 0;
+
         Vector3 pos1 = manager.GetJointPosition(playerID, (int)joint1);
         Vector3 pos2 = manager.GetJointPosition(playerID, (int)joint2);
 
         return pos2 - pos1;
     }
 
-    private float GetXVector()
-    {
-        uint playerID = manager != null ? manager.GetPlayer1ID() : 0;
-
-        Vector3 vx1 = GetPositionBetween(JointIndex.ShoulderLeft, JointIndex.ElbowLeft);
-        Vector3 vx2 = GetPositionBetween(JointIndex.ElbowLeft, JointIndex.WristLeft);
-        
-        return Dot(vx1, vx2);
-        //return 180f - Dot(vx1, vx2);
-    }
-
-    //private float GetDegElbowRight(JointIndex index1, JointIndex index2)
-    //{
-    //    return GetDegElbowRight((int)index1, (int)index2);
-    //}
-
-    //private float GetDegElbowRight(int elbow_right, int wrist_right)
-    //{
-    //    uint playerID = manager != null ? manager.GetPlayer1ID() : 0;
-
-    //    Matrix4x4 elbowOrientation = manager.GetJointOrientationMatrix(elbow_right);
-    //    Matrix4x4 wristOrientation = manager.GetJointOrientationMatrix(wrist_right);
-
-    //    float theta = GetDegBetweenTwoVector(elbowOrientation.GetColumn(0), wristOrientation.GetColumn(0));
-
-    //    Vector3 pos = elbowOrientation.GetColumn(0);
-    //    sphere1.transform.position = pos + manager.GetJointPosition(playerID, elbow_right) * 2f;
-    //    pos = wristOrientation.GetColumn(0);
-    //    sphere2.transform.position = pos + manager.GetJointPosition(playerID, wrist_right) * 2f;
-
-    //    return 180 - theta;
-    //}
-
     private float Dot(Vector3 start, Vector3 end)
     {
-        start.Normalize();
-        end.Normalize();
+        start.Normalize(); end.Normalize();
         float theta = Mathf.Acos(Vector3.Dot(start, end));
 
         return theta * Mathf.Rad2Deg;
     }
 
-    private float GetDegBetweenTwoVector(Vector4 start, Vector4 end)
-    {
-        start.Normalize();
-        end.Normalize();
-        //float theta = Mathf.Acos(Vector4.Dot(start, end) / (start.magnitude * end.magnitude));
-        float theta = Mathf.Acos(Vector4.Dot(start, end));
-
-        return Mathf.Abs(theta * Mathf.Rad2Deg);
-    }
-
-    //private float GetCosBetweenTwoVector(Vector4 start, Vector4 end)
+    //private float GetLeftElbowAngle()
     //{
-    //    float theta = Vector4.Dot(start, end);
-    //    return theta * Mathf.Rad2Deg;
+    //    Vector3 vx1 = GetPositionBetween(JointIndex.ElbowLeft, JointIndex.ShoulderLeft);
+    //    Vector3 vx2 = GetPositionBetween(JointIndex.WristLeft, JointIndex.ElbowLeft);
+
+    //    return Dot(vx1, vx2);
     //}
 }
