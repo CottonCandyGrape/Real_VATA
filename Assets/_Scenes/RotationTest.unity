@@ -1466,6 +1466,18 @@ MonoBehaviour:
       Axis: 2
     direction: -1
     offset: 0
+  - jointIndex: 3
+    targetTransform: {fileID: 43713723}
+    parentVectorMaterial:
+      Start: 0
+      End: 0
+      Axis: 2
+    childVectorMaterial:
+      Start: 0
+      End: 3
+      Axis: 0
+    direction: 1
+    offset: -90
 --- !u!1 &1604851356
 GameObject:
   m_ObjectHideFlags: 0
