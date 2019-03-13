@@ -44,7 +44,17 @@ public class Joint
             vector1 = MathUtil.GetVectorBetween(parentVectorMaterial.Start, parentVectorMaterial.End, manager);
         }
 
+        //if (childVectorMaterial.Start == JointIndex.Head) //회전이 되는 축과 기준이 되는축이 구분 되어야 한다. **변수추가 
+        //{
+        //    vector2 = MathUtil.GetHeadCoordinate(manager)[(int)childVectorMaterial.Axis];
+        //}
+        //else
+        //{
+        //    vector2 = MathUtil.GetVectorBetween(childVectorMaterial.Start, childVectorMaterial.End, manager);
+        //}
+
         vector2 = MathUtil.GetVectorBetween(childVectorMaterial.Start, childVectorMaterial.End, manager);
+
 
         float angle;
         angle = (MathUtil.Dot(vector1, vector2) + offset) * direction;
