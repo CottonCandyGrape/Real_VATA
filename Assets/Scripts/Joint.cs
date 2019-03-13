@@ -20,6 +20,7 @@ public class VectorMaterial
 public class Joint
 {
     public JointIndex jointIndex; //코드에서 사용x. Inspector에서 쉽게 구분하기위해 사용.
+    public TargetAxis rotationAxis;
     public Transform targetTransform;
 
     public VectorMaterial parentVectorMaterial;
@@ -35,32 +36,34 @@ public class Joint
         Vector3 vector1; //기준이 되는 벡터.
         Vector3 vector2; //기준과 비교할 벡터.
 
-        if (parentVectorMaterial.Start == JointIndex.HipCenter)
+        if (parentVectorMaterial.Start == JointIndex.HipCenter) //조인트 고유의 좌표가 필요할 때
         {
-            vector1 = MathUtil.GetHipCenterCoordinate(manager)[(int)parentVectorMaterial.Axis];
+            //vector1 = MathUtil.GetHipCenterCoordinate(manager)[(int)parentVectorMaterial.Axis];
+            vector1 = MathUtil.GetJointCoordinate(manager, JointIndex.HipCenter)[(int)parentVectorMaterial.Axis];
         }
-        else
+        else // 조인트간의 사이 벡터가 필요할 때
         {
             vector1 = MathUtil.GetVectorBetween(parentVectorMaterial.Start, parentVectorMaterial.End, manager);
         }
 
-        //if (childVectorMaterial.Start == JointIndex.Head) //회전이 되는 축과 기준이 되는축이 구분 되어야 한다. **변수추가 
-        //{
-        //    vector2 = MathUtil.GetHeadCoordinate(manager)[(int)childVectorMaterial.Axis];
-        //}
-        //else
-        //{
-        //    vector2 = MathUtil.GetVectorBetween(childVectorMaterial.Start, childVectorMaterial.End, manager);
-        //}
+        if (childVectorMaterial.Start == JointIndex.Head) 
+        {
+            //vector2 = MathUtil.GetHeadCoordinate(manager)[(int)childVectorMaterial.Axis];
+            vector2 = MathUtil.GetJointCoordinate(manager, JointIndex.Head)[(int)parentVectorMaterial.Axis];
+        }
+        else
+        {
+            vector2 = MathUtil.GetVectorBetween(childVectorMaterial.Start, childVectorMaterial.End, manager);
+        }
 
-        vector2 = MathUtil.GetVectorBetween(childVectorMaterial.Start, childVectorMaterial.End, manager);
+        //vector2 = MathUtil.GetVectorBetween(childVectorMaterial.Start, childVectorMaterial.End, manager);
 
 
         float angle;
         angle = (MathUtil.Dot(vector1, vector2) + offset) * direction;
         Vector3 targetOrientation = Vector3.zero;
 
-        switch (childVectorMaterial.Axis)
+        switch (rotationAxis)
         {
             case TargetAxis.X: targetOrientation.x = angle; break;
             case TargetAxis.Y: targetOrientation.y = angle; break;

@@ -36,13 +36,25 @@ class MathUtil
 
     public static Vector3[] GetHeadCoordinate(KinectManager manager)
     {
-        Matrix4x4 head = manager.GetJointOrientationMatrix((int)JointIndex.Head);//모든 조인트의 기준점
+        Matrix4x4 head = manager.GetJointOrientationMatrix((int)JointIndex.Head);
 
         return new Vector3[]
         {
             new Vector3(head.GetColumn(0).x, head.GetColumn(0).y, head.GetColumn(0).z),
             new Vector3(head.GetColumn(1).x, head.GetColumn(1).y, head.GetColumn(1).z),
             new Vector3(head.GetColumn(2).x, head.GetColumn(2).y, head.GetColumn(2).z)
+        };
+    }
+
+    public static Vector3[] GetJointCoordinate(KinectManager manager, JointIndex joint)
+    {
+        Matrix4x4 coordinate = manager.GetJointOrientationMatrix((int)joint);
+
+        return new Vector3[]
+        {
+            new Vector3(coordinate.GetColumn(0).x, coordinate.GetColumn(0).y, coordinate.GetColumn(0).z),
+            new Vector3(coordinate.GetColumn(1).x, coordinate.GetColumn(1).y, coordinate.GetColumn(1).z),
+            new Vector3(coordinate.GetColumn(2).x, coordinate.GetColumn(2).y, coordinate.GetColumn(2).z)
         };
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1083,8 +1083,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1420250210}
-  m_LocalRotation: {x: 0.006491231, y: 0.9914992, z: -0.129666, w: -0.0086108055}
-  m_LocalPosition: {x: 0.08681786, y: 11.2244425, z: 5.074365}
+  m_LocalRotation: {x: -0.0014581381, y: 0.99215364, z: -0.124476366, w: -0.011608418}
+  m_LocalPosition: {x: 0.25707507, y: 12.0771885, z: 6.965399}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1395,6 +1395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joints:
   - jointIndex: 4
+    rotationAxis: 0
     targetTransform: {fileID: 1534637286}
     parentVectorMaterial:
       Start: 0
@@ -1407,6 +1408,7 @@ MonoBehaviour:
     direction: -1
     offset: -90
   - jointIndex: 4
+    rotationAxis: 1
     targetTransform: {fileID: 532422898}
     parentVectorMaterial:
       Start: 0
@@ -1419,6 +1421,7 @@ MonoBehaviour:
     direction: -1
     offset: 0
   - jointIndex: 5
+    rotationAxis: 2
     targetTransform: {fileID: 1021247903}
     parentVectorMaterial:
       Start: 5
@@ -1431,6 +1434,7 @@ MonoBehaviour:
     direction: 1
     offset: 0
   - jointIndex: 8
+    rotationAxis: 0
     targetTransform: {fileID: 1604851357}
     parentVectorMaterial:
       Start: 0
@@ -1443,6 +1447,7 @@ MonoBehaviour:
     direction: -1
     offset: -90
   - jointIndex: 8
+    rotationAxis: 1
     targetTransform: {fileID: 1485680870}
     parentVectorMaterial:
       Start: 0
@@ -1455,6 +1460,7 @@ MonoBehaviour:
     direction: -1
     offset: 180
   - jointIndex: 9
+    rotationAxis: 2
     targetTransform: {fileID: 1704792089}
     parentVectorMaterial:
       Start: 9
@@ -1467,16 +1473,30 @@ MonoBehaviour:
     direction: -1
     offset: 0
   - jointIndex: 3
+    rotationAxis: 0
     targetTransform: {fileID: 43713723}
     parentVectorMaterial:
       Start: 0
       End: 0
       Axis: 2
     childVectorMaterial:
+      Start: 3
+      End: 3
+      Axis: 1
+    direction: 1
+    offset: -90
+  - jointIndex: 3
+    rotationAxis: 1
+    targetTransform: {fileID: 970866173}
+    parentVectorMaterial:
       Start: 0
+      End: 0
+      Axis: 2
+    childVectorMaterial:
+      Start: 3
       End: 3
       Axis: 0
-    direction: 1
+    direction: -1
     offset: -90
 --- !u!1 &1604851356
 GameObject:
