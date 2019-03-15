@@ -846,12 +846,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 922915278}
   m_Mesh: {fileID: 4300000, guid: cd3c5224aa8373348bbba5bbad1ffb2b, type: 3}
---- !u!1 &972352029 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100046, guid: 41d98ec10a3f7b547b5cb96d958b75d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 1374794224}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1015037270
 GameObject:
   m_ObjectHideFlags: 0
@@ -1299,54 +1293,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1374794224}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1374794226 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100020, guid: 41d98ec10a3f7b547b5cb96d958b75d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 1374794224}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1374794227 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100126, guid: 41d98ec10a3f7b547b5cb96d958b75d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 1374794224}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1374794228 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100010, guid: 41d98ec10a3f7b547b5cb96d958b75d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 1374794224}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1374794229 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100044, guid: 41d98ec10a3f7b547b5cb96d958b75d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 1374794224}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1374794230 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100024, guid: 41d98ec10a3f7b547b5cb96d958b75d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 1374794224}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1374794231 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100048, guid: 41d98ec10a3f7b547b5cb96d958b75d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 1374794224}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1374794232 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100050, guid: 41d98ec10a3f7b547b5cb96d958b75d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 1374794224}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1374794233 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100028, guid: 41d98ec10a3f7b547b5cb96d958b75d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 1374794224}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1374794234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1359,29 +1305,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a36215cd5d2fc04f917c489bf737049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveVertically: 1
-  MirroredMovement: 1
-  Hip_Center: {fileID: 1374794233}
-  Spine: {fileID: 1374794232}
-  Shoulder_Center: {fileID: 1374794231}
-  Head: {fileID: 1374794230}
-  Shoulder_Left: {fileID: 1374794229}
-  Elbow_Left: {fileID: 1374794228}
-  Wrist_Left: {fileID: 1374794227}
-  Hand_Left: {fileID: 1374794226}
-  Shoulder_Right: {fileID: 972352029}
-  Elbow_Right: {fileID: 1984079138}
-  Wrist_Right: {fileID: 1700577006}
-  Hand_Right: {fileID: 601144153}
-  Hip_Left: {fileID: 1497767503}
-  Knee_Left: {fileID: 23055232}
-  Ankle_Left: {fileID: 606472453}
-  Foot_Left: {fileID: 175993854}
-  Hip_Right: {fileID: 922915278}
-  Knee_Right: {fileID: 1858181487}
-  Ankle_Right: {fileID: 1845178754}
-  Foot_Right: {fileID: 1695709109}
-  SkeletonLine: {fileID: 12000000, guid: 7c3268df83a094b40bbeae3d757b3415, type: 3}
 --- !u!1 &1497767503
 GameObject:
   m_ObjectHideFlags: 0
@@ -1891,29 +1814,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a36215cd5d2fc04f917c489bf737049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveVertically: 1
-  MirroredMovement: 1
-  Hip_Center: {fileID: 1171260984}
-  Spine: {fileID: 523167639}
-  Shoulder_Center: {fileID: 437374122}
-  Head: {fileID: 1015037270}
-  Shoulder_Left: {fileID: 1563766922}
-  Elbow_Left: {fileID: 1016597882}
-  Wrist_Left: {fileID: 1704786247}
-  Hand_Left: {fileID: 1044260508}
-  Shoulder_Right: {fileID: 2078291746}
-  Elbow_Right: {fileID: 2091379949}
-  Wrist_Right: {fileID: 1700577006}
-  Hand_Right: {fileID: 601144153}
-  Hip_Left: {fileID: 1497767503}
-  Knee_Left: {fileID: 23055232}
-  Ankle_Left: {fileID: 606472453}
-  Foot_Left: {fileID: 175993854}
-  Hip_Right: {fileID: 922915278}
-  Knee_Right: {fileID: 1858181487}
-  Ankle_Right: {fileID: 1845178754}
-  Foot_Right: {fileID: 1695709109}
-  SkeletonLine: {fileID: 12000000, guid: 7c3268df83a094b40bbeae3d757b3415, type: 3}
 --- !u!1 &1845178754
 GameObject:
   m_ObjectHideFlags: 0
@@ -2068,12 +1968,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1858181487}
   m_Mesh: {fileID: 4300000, guid: cd3c5224aa8373348bbba5bbad1ffb2b, type: 3}
---- !u!1 &1984079138 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100012, guid: 41d98ec10a3f7b547b5cb96d958b75d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 1374794224}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2078291746
 GameObject:
   m_ObjectHideFlags: 0
@@ -2243,7 +2137,7 @@ PrefabInstance:
     - target: {fileID: 2754577129005297745, guid: b761981c04c38fa4bbf65d2deed26ea6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2754577129005297747, guid: b761981c04c38fa4bbf65d2deed26ea6,
         type: 3}

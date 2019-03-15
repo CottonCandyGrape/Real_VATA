@@ -38,18 +38,18 @@ public class Joint
 
         if (parentVectorMaterial.Start == JointIndex.HipCenter) //조인트 고유의 좌표가 필요할 때
         {
-            //vector1 = MathUtil.GetHipCenterCoordinate(manager)[(int)parentVectorMaterial.Axis];
-            vector1 = MathUtil.GetJointCoordinate(manager, JointIndex.HipCenter)[(int)parentVectorMaterial.Axis];
+            vector1 = MathUtil.GetHipCenterCoordinate(manager)[(int)parentVectorMaterial.Axis];
+            //vector1 = MathUtil.GetJointCoordinate(manager, JointIndex.HipCenter)[(int)parentVectorMaterial.Axis];
         }
         else // 조인트간의 사이 벡터가 필요할 때
         {
             vector1 = MathUtil.GetVectorBetween(parentVectorMaterial.Start, parentVectorMaterial.End, manager);
         }
 
-        if (childVectorMaterial.Start == JointIndex.Head) 
+        if (childVectorMaterial.Start == JointIndex.Head)
         {
-            //vector2 = MathUtil.GetHeadCoordinate(manager)[(int)childVectorMaterial.Axis];
-            vector2 = MathUtil.GetJointCoordinate(manager, JointIndex.Head)[(int)parentVectorMaterial.Axis];
+            vector2 = MathUtil.GetHeadCoordinate(manager)[(int)childVectorMaterial.Axis];
+            //vector2 = MathUtil.GetJointCoordinate(manager, JointIndex.Head)[(int)parentVectorMaterial.Axis];
         }
         else
         {
