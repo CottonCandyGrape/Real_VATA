@@ -57,4 +57,20 @@ class MathUtil
             new Vector3(coordinate.GetColumn(2).x, coordinate.GetColumn(2).y, coordinate.GetColumn(2).z)
         };
     }
+
+    //public float LimitJointAngle(JointIndex jointIndex, float angle)
+    //{
+    //    switch (jointIndex)
+    //    {
+    //        case JointIndex.: break;
+    //        case JointIndex.: break;
+    //        case JointIndex.: break;
+    //        case JointIndex.: break;
+    //        case JointIndex.: break;
+    //        case JointIndex.: break;
+    //        default: break;
+    //    }
+
+    //    return angle;
+    //}
 }

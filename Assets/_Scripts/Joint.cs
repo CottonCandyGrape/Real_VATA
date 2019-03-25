@@ -8,6 +8,11 @@ public enum TargetAxis
     X, Y, Z
 }
 
+public enum JointName
+{
+    shoulder_l1, shoulder_l2, elbow_l, shoulder_r1, shoulder_r2, elbow_r
+}
+
 [Serializable]
 public class VectorMaterial
 {
@@ -19,7 +24,8 @@ public class VectorMaterial
 [Serializable]
 public class Joint
 {
-    public JointIndex jointIndex; //코드에서 사용x. Inspector에서 쉽게 구분하기위해 사용.
+    //public JointIndex jointIndex; //코드에서 사용x. Inspector에서 쉽게 구분하기위해 사용.
+    public JointName jointName;
     public TargetAxis rotationAxis;
     public Transform targetTransform;
 
@@ -41,7 +47,7 @@ public class Joint
             vector1 = MathUtil.GetHipCenterCoordinate(manager)[(int)parentVectorMaterial.Axis];
             //vector1 = MathUtil.GetJointCoordinate(manager, JointIndex.HipCenter)[(int)parentVectorMaterial.Axis];
         }
-        else // 조인트간의 사이 벡터가 필요할 때
+        else //조인트간의 사이 벡터가 필요할 때
         {
             vector1 = MathUtil.GetVectorBetween(parentVectorMaterial.Start, parentVectorMaterial.End, manager);
         }

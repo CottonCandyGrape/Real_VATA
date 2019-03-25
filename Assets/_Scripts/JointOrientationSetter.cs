@@ -8,13 +8,14 @@ public class JointOrientationSetter : MonoBehaviour
 
     private KinectManager manager;
 
-    private void Awake()
+    private void Awake() //Joint 여러개 한꺼번에 제어.
     {
         manager = KinectManager.Instance;
 
         foreach (Joint joint in joints)
         {
             joint.manager = manager;
+            Debug.Log(joint.jointName);
         }
     }
 

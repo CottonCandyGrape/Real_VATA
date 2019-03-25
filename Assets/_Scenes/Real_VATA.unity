@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -537,7 +537,7 @@ GameObject:
   - component: {fileID: 212943573}
   - component: {fileID: 212943572}
   m_Layer: 0
-  m_Name: shoulder_r
+  m_Name: shoulder_r2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -787,7 +787,7 @@ Transform:
   m_Children:
   - {fileID: 388015301}
   m_Father: {fileID: 558496942}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &277968136
 GameObject:
@@ -801,7 +801,7 @@ GameObject:
   - component: {fileID: 277968139}
   - component: {fileID: 277968138}
   m_Layer: 0
-  m_Name: scalpular_r
+  m_Name: shoulder_r1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1595,7 +1595,7 @@ GameObject:
   - component: {fileID: 388015303}
   - component: {fileID: 388015302}
   m_Layer: 0
-  m_Name: scalpular_l
+  m_Name: shoulder_l1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1998,12 +1998,12 @@ Transform:
   m_LocalPosition: {x: -10, y: 1.417, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1397736380}
   - {fileID: 277611078}
+  - {fileID: 1397736380}
   - {fileID: 1286194962}
   - {fileID: 94692597}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &566817404
 GameObject:
@@ -4149,7 +4149,7 @@ GameObject:
   - component: {fileID: 1076066561}
   - component: {fileID: 1076066560}
   m_Layer: 0
-  m_Name: shoulder_l
+  m_Name: shoulder_l2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5399,7 +5399,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1261848557
 GameObject:
@@ -6008,7 +6008,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joints:
-  - jointIndex: 4
+  - jointName: 0
     rotationAxis: 0
     targetTransform: {fileID: 277968137}
     parentVectorMaterial:
@@ -6021,7 +6021,7 @@ MonoBehaviour:
       Axis: 0
     direction: -1
     offset: -90
-  - jointIndex: 4
+  - jointName: 1
     rotationAxis: 1
     targetTransform: {fileID: 212943571}
     parentVectorMaterial:
@@ -6034,7 +6034,7 @@ MonoBehaviour:
       Axis: 1
     direction: -1
     offset: 0
-  - jointIndex: 5
+  - jointName: 2
     rotationAxis: 1
     targetTransform: {fileID: 1597917832}
     parentVectorMaterial:
@@ -6047,7 +6047,7 @@ MonoBehaviour:
       Axis: 2
     direction: -1
     offset: 0
-  - jointIndex: 8
+  - jointName: 3
     rotationAxis: 0
     targetTransform: {fileID: 388015301}
     parentVectorMaterial:
@@ -6060,7 +6060,7 @@ MonoBehaviour:
       Axis: 0
     direction: -1
     offset: -90
-  - jointIndex: 8
+  - jointName: 4
     rotationAxis: 1
     targetTransform: {fileID: 1076066559}
     parentVectorMaterial:
@@ -6073,7 +6073,7 @@ MonoBehaviour:
       Axis: 1
     direction: -1
     offset: 180
-  - jointIndex: 9
+  - jointName: 5
     rotationAxis: 1
     targetTransform: {fileID: 1261848558}
     parentVectorMaterial:
@@ -6360,7 +6360,7 @@ Transform:
   m_Children:
   - {fileID: 277968137}
   m_Father: {fileID: 558496942}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1399446795
 GameObject:
@@ -6669,8 +6669,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1420250210}
-  m_LocalRotation: {x: -0.23436105, y: 0.31885964, z: -0.08169499, w: -0.9147291}
-  m_LocalPosition: {x: 3.626303, y: 3.2663655, z: 0.23448376}
+  m_LocalRotation: {x: -0.09614865, y: -0.015828403, z: 0.0015292132, w: -0.99524}
+  m_LocalPosition: {x: -0.101261824, y: 2.1893554, z: -5.5737324}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7378,7 +7378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joints:
-  - jointIndex: 4
+  - jointName: 0
     rotationAxis: 0
     targetTransform: {fileID: 1534637286}
     parentVectorMaterial:
@@ -7391,7 +7391,7 @@ MonoBehaviour:
       Axis: 0
     direction: -1
     offset: -90
-  - jointIndex: 4
+  - jointName: 0
     rotationAxis: 1
     targetTransform: {fileID: 532422898}
     parentVectorMaterial:
@@ -7404,7 +7404,7 @@ MonoBehaviour:
       Axis: 1
     direction: -1
     offset: 0
-  - jointIndex: 5
+  - jointName: 0
     rotationAxis: 2
     targetTransform: {fileID: 1021247903}
     parentVectorMaterial:
@@ -7417,7 +7417,7 @@ MonoBehaviour:
       Axis: 2
     direction: 1
     offset: 0
-  - jointIndex: 8
+  - jointName: 0
     rotationAxis: 0
     targetTransform: {fileID: 1604851357}
     parentVectorMaterial:
@@ -7430,7 +7430,7 @@ MonoBehaviour:
       Axis: 0
     direction: -1
     offset: -90
-  - jointIndex: 8
+  - jointName: 0
     rotationAxis: 1
     targetTransform: {fileID: 1485680870}
     parentVectorMaterial:
@@ -7443,7 +7443,7 @@ MonoBehaviour:
       Axis: 1
     direction: -1
     offset: 180
-  - jointIndex: 9
+  - jointName: 0
     rotationAxis: 2
     targetTransform: {fileID: 1704792089}
     parentVectorMaterial:
@@ -7456,7 +7456,7 @@ MonoBehaviour:
       Axis: 2
     direction: -1
     offset: 0
-  - jointIndex: 3
+  - jointName: 0
     rotationAxis: 0
     targetTransform: {fileID: 43713723}
     parentVectorMaterial:
