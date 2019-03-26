@@ -21,7 +21,6 @@ public class CollisionTest : MonoBehaviour
         Debug.Log("<color=red>OnTriggerEnter: " + other.gameObject + "</color>");
     }
 
-
     private void OnTriggerStay(Collider other)
     {
         Debug.Log("<color=green>OnTriggerStay: " + other.gameObject + "</color>");
