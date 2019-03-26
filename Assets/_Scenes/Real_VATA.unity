@@ -4535,7 +4535,6 @@ GameObject:
   - component: {fileID: 1189546195}
   - component: {fileID: 1189546197}
   - component: {fileID: 1189546196}
-  - component: {fileID: 1189546198}
   - component: {fileID: 1189546200}
   - component: {fileID: 1189546199}
   m_Layer: 0
@@ -4604,18 +4603,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1189546194}
   m_Mesh: {fileID: 4300064, guid: 4ea7efc808e42574b83614a72ae9be34, type: 3}
---- !u!114 &1189546198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1189546194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f52aca347731be7479709340a1735e3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1189546199
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6072,7 +6059,7 @@ MonoBehaviour:
       End: 8
       Axis: 1
     direction: -1
-    offset: 180
+    offset: -180
   - jointName: 5
     rotationAxis: 1
     targetTransform: {fileID: 1261848558}
@@ -6669,8 +6656,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1420250210}
-  m_LocalRotation: {x: -0.09614865, y: -0.015828403, z: 0.0015292132, w: -0.99524}
-  m_LocalPosition: {x: -0.101261824, y: 2.1893554, z: -5.5737324}
+  m_LocalRotation: {x: -0.094664454, y: -0.01136014, z: 0.0010803802, w: -0.9954438}
+  m_LocalPosition: {x: -9.875398, y: 2.094573, z: -5.2213416}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

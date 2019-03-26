@@ -12,7 +12,7 @@ class MathUtil
         return theta * Mathf.Rad2Deg;
     }
 
-    public static Vector3 GetVectorBetween(JointIndex joint1, JointIndex joint2, KinectManager manager)//순서 중요
+    public static Vector3 GetVectorBetween(JointIndex joint1, JointIndex joint2, KinectManager manager)//순서 중요 | joint1->joint2
     {
         uint playerID = manager != null ? manager.GetPlayer1ID() : 0;
 
@@ -58,19 +58,19 @@ class MathUtil
         };
     }
 
-    //public float LimitJointAngle(JointIndex jointIndex, float angle)
-    //{
-    //    switch (jointIndex)
-    //    {
-    //        case JointIndex.: break;
-    //        case JointIndex.: break;
-    //        case JointIndex.: break;
-    //        case JointIndex.: break;
-    //        case JointIndex.: break;
-    //        case JointIndex.: break;
-    //        default: break;
-    //    }
+    public static float LimitJointAngle(JointName jointName, float angle) // angle 제한하는 함수
+    {
+        switch (jointName)
+        {
+            case JointName.shoulder_l1: angle = Mathf.Clamp(angle, -90f, 90f); break;
+            case JointName.shoulder_l2: angle = Mathf.Clamp(angle, -90f, 0f); break;
+            case JointName.elbow_l: angle = Mathf.Clamp(angle, -90f, 0f); break;
+            case JointName.shoulder_r1: angle = Mathf.Clamp(angle, -90f, 90f); break;
+            case JointName.shoulder_r2: angle = Mathf.Clamp(angle, 0f, 90f); break;
+            case JointName.elbow_r: angle = Mathf.Clamp(angle, 0f, 90f); break;
+            default: break;
+        }
 
-    //    return angle;
-    //}
+        return angle;
+    }
 }

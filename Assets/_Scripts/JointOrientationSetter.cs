@@ -15,7 +15,6 @@ public class JointOrientationSetter : MonoBehaviour
         foreach (Joint joint in joints)
         {
             joint.manager = manager;
-            Debug.Log(joint.jointName);
         }
     }
 

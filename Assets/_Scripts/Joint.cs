@@ -24,13 +24,12 @@ public class VectorMaterial
 [Serializable]
 public class Joint
 {
-    //public JointIndex jointIndex; //코드에서 사용x. Inspector에서 쉽게 구분하기위해 사용.
-    public JointName jointName;
+    public JointName jointName; //JointIndex는 shoulder1, 2 구분 못함 => JointName 사용.
     public TargetAxis rotationAxis;
     public Transform targetTransform;
 
-    public VectorMaterial parentVectorMaterial;
-    public VectorMaterial childVectorMaterial;
+    public VectorMaterial parentVectorMaterial; //기준이 되는 벡터.
+    public VectorMaterial childVectorMaterial; //기준과 비교할 벡터.
 
     public float direction = 1f;
     public float offset = 0f;
@@ -39,15 +38,16 @@ public class Joint
 
     public void UpdateRotation()
     {
-        Vector3 vector1; //기준이 되는 벡터.
-        Vector3 vector2; //기준과 비교할 벡터.
+        Vector3 vector1; //parentVectorMaterial
+        Vector3 vector2; //childVectorMaterial
+        float angle; //Joint회전 각도.
 
-        if (parentVectorMaterial.Start == JointIndex.HipCenter) //조인트 고유의 좌표가 필요할 때
+        if (parentVectorMaterial.Start == JointIndex.HipCenter) //Joint 고유의 좌표가 필요할 때
         {
             vector1 = MathUtil.GetHipCenterCoordinate(manager)[(int)parentVectorMaterial.Axis];
             //vector1 = MathUtil.GetJointCoordinate(manager, JointIndex.HipCenter)[(int)parentVectorMaterial.Axis];
         }
-        else //조인트간의 사이 벡터가 필요할 때
+        else //Joint간의 사이 벡터가 필요할 때
         {
             vector1 = MathUtil.GetVectorBetween(parentVectorMaterial.Start, parentVectorMaterial.End, manager);
         }
@@ -61,12 +61,16 @@ public class Joint
         {
             vector2 = MathUtil.GetVectorBetween(childVectorMaterial.Start, childVectorMaterial.End, manager);
         }
-
         //vector2 = MathUtil.GetVectorBetween(childVectorMaterial.Start, childVectorMaterial.End, manager);
 
+        angle = (MathUtil.Dot(vector1, vector2) + offset) * direction; // 두개의 벡터로 angle 계산
+        angle = MathUtil.LimitJointAngle(jointName, angle); // angle 제한
 
-        float angle;
-        angle = (MathUtil.Dot(vector1, vector2) + offset) * direction;
+        RotateJoint(angle); // angle만큼 Joint 회전
+    }
+
+    private void RotateJoint(float angle)
+    {
         Vector3 targetOrientation = Vector3.zero;
 
         switch (rotationAxis)
