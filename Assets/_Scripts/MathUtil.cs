@@ -22,6 +22,35 @@ class MathUtil
         return pos2 - pos1;
     }
 
+    public static Vector3[] GetJointCoordinate(KinectManager manager, JointIndex joint)
+    {
+        Matrix4x4 coordinate = manager.GetJointOrientationMatrix((int)joint);
+
+        return new Vector3[]
+        {
+            new Vector3(coordinate.GetColumn(0).x, coordinate.GetColumn(0).y, coordinate.GetColumn(0).z),
+            new Vector3(coordinate.GetColumn(1).x, coordinate.GetColumn(1).y, coordinate.GetColumn(1).z),
+            new Vector3(coordinate.GetColumn(2).x, coordinate.GetColumn(2).y, coordinate.GetColumn(2).z)
+        };
+    }
+
+    public static float LimitJointAngle(JointName jointName, float angle) // angle 제한하는 함수
+    {
+        switch (jointName)
+        {
+            case JointName.shoulder_l1: 
+            case JointName.shoulder_r1: angle = Mathf.Clamp(angle, -90f, 90f); break;
+            case JointName.shoulder_l2: 
+            case JointName.elbow_l: angle = Mathf.Clamp(angle, -90f, 0f); break;
+            case JointName.shoulder_r2: 
+            case JointName.elbow_r: angle = Mathf.Clamp(angle, 0f, 90f); break;
+            default: break;
+        }
+
+        return angle;
+    }
+
+    /*--------------------------------------not use------------------------------------
     public static Vector3[] GetHipCenterCoordinate(KinectManager manager)
     {
         Matrix4x4 hipCenter = manager.GetJointOrientationMatrix((int)JointIndex.HipCenter);//모든 조인트의 기준점
@@ -45,32 +74,5 @@ class MathUtil
             new Vector3(head.GetColumn(2).x, head.GetColumn(2).y, head.GetColumn(2).z)
         };
     }
-
-    public static Vector3[] GetJointCoordinate(KinectManager manager, JointIndex joint)
-    {
-        Matrix4x4 coordinate = manager.GetJointOrientationMatrix((int)joint);
-
-        return new Vector3[]
-        {
-            new Vector3(coordinate.GetColumn(0).x, coordinate.GetColumn(0).y, coordinate.GetColumn(0).z),
-            new Vector3(coordinate.GetColumn(1).x, coordinate.GetColumn(1).y, coordinate.GetColumn(1).z),
-            new Vector3(coordinate.GetColumn(2).x, coordinate.GetColumn(2).y, coordinate.GetColumn(2).z)
-        };
-    }
-
-    public static float LimitJointAngle(JointName jointName, float angle) // angle 제한하는 함수
-    {
-        switch (jointName)
-        {
-            case JointName.shoulder_l1: angle = Mathf.Clamp(angle, -90f, 90f); break;
-            case JointName.shoulder_l2: angle = Mathf.Clamp(angle, -90f, 0f); break;
-            case JointName.elbow_l: angle = Mathf.Clamp(angle, -90f, 0f); break;
-            case JointName.shoulder_r1: angle = Mathf.Clamp(angle, -90f, 90f); break;
-            case JointName.shoulder_r2: angle = Mathf.Clamp(angle, 0f, 90f); break;
-            case JointName.elbow_r: angle = Mathf.Clamp(angle, 0f, 90f); break;
-            default: break;
-        }
-
-        return angle;
-    }
+    --------------------------------------not use------------------------------------*/
 }

@@ -10,7 +10,7 @@ public enum TargetAxis
 
 public enum JointName
 {
-    shoulder_l1 = 0, shoulder_l2, elbow_l, shoulder_r1, shoulder_r2, elbow_r
+    shoulder_l1, shoulder_l2, elbow_l, shoulder_r1, shoulder_r2, elbow_r
 }
 
 [Serializable]
@@ -38,33 +38,30 @@ public class CDJoint
 
     public void UpdateRotation()
     {
-        Vector3 vector1; //parentVectorMaterial
-        Vector3 vector2; //childVectorMaterial
+        Vector3 parentVector;
+        Vector3 childVector;
         float angle; //Joint회전 각도.
 
         if (parentVectorMaterial.Start == JointIndex.HipCenter)
         {
-            vector1 = MathUtil.GetHipCenterCoordinate(manager)[(int)parentVectorMaterial.Axis];
-            //vector1 = MathUtil.GetJointCoordinate(manager, JointIndex.HipCenter)[(int)parentVectorMaterial.Axis];
+            parentVector = MathUtil.GetJointCoordinate(manager, JointIndex.HipCenter)[(int)parentVectorMaterial.Axis];
         }
         else
         {
-            vector1 = MathUtil.GetVectorBetween(parentVectorMaterial.Start, parentVectorMaterial.End, manager);
+            parentVector = MathUtil.GetVectorBetween(parentVectorMaterial.Start, parentVectorMaterial.End, manager);
         }
 
         if (childVectorMaterial.Start == JointIndex.Head)
         {
-            vector2 = MathUtil.GetHeadCoordinate(manager)[(int)childVectorMaterial.Axis];
-            //vector2 = MathUtil.GetJointCoordinate(manager, JointIndex.Head)[(int)parentVectorMaterial.Axis];
+            childVector = MathUtil.GetJointCoordinate(manager, JointIndex.Head)[(int)parentVectorMaterial.Axis];
         }
         else
         {
-            vector2 = MathUtil.GetVectorBetween(childVectorMaterial.Start, childVectorMaterial.End, manager);
+            childVector = MathUtil.GetVectorBetween(childVectorMaterial.Start, childVectorMaterial.End, manager);
         }
-        //vector2 = MathUtil.GetVectorBetween(childVectorMaterial.Start, childVectorMaterial.End, manager);
 
-        angle = (MathUtil.Dot(vector1, vector2) + offset) * direction; //얻은 두개의 벡터로 angle 계산
-        angle = MathUtil.LimitJointAngle(jointName, angle); //angle 제한
+        angle = (MathUtil.Dot(parentVector, childVector) + offset) * direction; //얻은 두개의 벡터로 angle 계산
+        angle = MathUtil.LimitJointAngle(jointName, angle);
 
         RotateJoint(angle);
     }
