@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using JointName = JointComponent.JointName;
+
 using JointIndex = KinectWrapper.NuiSkeletonPositionIndex;
 
 class MathUtil

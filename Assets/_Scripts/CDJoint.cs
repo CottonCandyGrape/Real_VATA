@@ -3,26 +3,26 @@ using UnityEngine;
 
 using JointIndex = KinectWrapper.NuiSkeletonPositionIndex;
 
-//public enum TargetAxis
-//{
-//    X, Y, Z
-//}
+public enum TargetAxis
+{
+    X, Y, Z
+}
 
-//public enum JointName
-//{
-//    shoulder_l1, shoulder_l2, elbow_l, shoulder_r1, shoulder_r2, elbow_r
-//}
-
-//[Serializable]
-//public class VectorMaterial
-//{
-//    public JointIndex Start;
-//    public JointIndex End;
-//    public TargetAxis Axis;
-//}
+public enum JointName
+{
+    shoulder_l1 = 0, shoulder_l2, elbow_l, shoulder_r1, shoulder_r2, elbow_r
+}
 
 [Serializable]
-public class CDJoint : JointComponent
+public class VectorMaterial
+{
+    public JointIndex Start;
+    public JointIndex End;
+    public TargetAxis Axis;
+}
+
+[Serializable]
+public class CDJoint
 {
     public JointName jointName; //JointIndex는 shoulder1, 2 구분 못함 => JointName 사용.
     public TargetAxis rotationAxis;
@@ -42,12 +42,12 @@ public class CDJoint : JointComponent
         Vector3 vector2; //childVectorMaterial
         float angle; //Joint회전 각도.
 
-        if (parentVectorMaterial.Start == JointIndex.HipCenter) //Joint 고유의 좌표가 필요할 때
+        if (parentVectorMaterial.Start == JointIndex.HipCenter)
         {
             vector1 = MathUtil.GetHipCenterCoordinate(manager)[(int)parentVectorMaterial.Axis];
             //vector1 = MathUtil.GetJointCoordinate(manager, JointIndex.HipCenter)[(int)parentVectorMaterial.Axis];
         }
-        else //Joint간의 사이 벡터가 필요할 때
+        else
         {
             vector1 = MathUtil.GetVectorBetween(parentVectorMaterial.Start, parentVectorMaterial.End, manager);
         }
@@ -63,13 +63,13 @@ public class CDJoint : JointComponent
         }
         //vector2 = MathUtil.GetVectorBetween(childVectorMaterial.Start, childVectorMaterial.End, manager);
 
-        angle = (MathUtil.Dot(vector1, vector2) + offset) * direction; // 두개의 벡터로 angle 계산
-        angle = MathUtil.LimitJointAngle(jointName, angle); // angle 제한
+        angle = (MathUtil.Dot(vector1, vector2) + offset) * direction; //얻은 두개의 벡터로 angle 계산
+        angle = MathUtil.LimitJointAngle(jointName, angle); //angle 제한
 
-        RotateJoint(angle); 
+        RotateJoint(angle);
     }
 
-    private void RotateJoint(float angle) // angle만큼 Joint 회전
+    private void RotateJoint(float angle) //angle만큼 Joint 회전
     {
         Vector3 targetOrientation = Vector3.zero;
 

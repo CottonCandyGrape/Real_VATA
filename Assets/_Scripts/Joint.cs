@@ -2,12 +2,7 @@
 using UnityEngine;
 
 [Serializable]
-public class Joint : JointComponent
+public class Joint
 {
-    public Transform targetTransform;
 
-    public void UpdateRotation()
-    {
-
-    }
 }

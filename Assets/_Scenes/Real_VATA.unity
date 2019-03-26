@@ -7427,33 +7427,7 @@ MonoBehaviour:
   joints:
   - jointName: 0
     rotationAxis: 0
-    targetTransform: {fileID: 1534637286}
-    parentVectorMaterial:
-      Start: 0
-      End: 0
-      Axis: 0
-    childVectorMaterial:
-      Start: 0
-      End: 0
-      Axis: 0
-    direction: -1
-    offset: -90
-  - jointName: 0
-    rotationAxis: 1
-    targetTransform: {fileID: 532422898}
-    parentVectorMaterial:
-      Start: 0
-      End: 0
-      Axis: 0
-    childVectorMaterial:
-      Start: 0
-      End: 0
-      Axis: 0
-    direction: -1
-    offset: 0
-  - jointName: 0
-    rotationAxis: 2
-    targetTransform: {fileID: 1021247903}
+    targetTransform: {fileID: 0}
     parentVectorMaterial:
       Start: 0
       End: 0
@@ -7466,46 +7440,7 @@ MonoBehaviour:
     offset: 0
   - jointName: 0
     rotationAxis: 0
-    targetTransform: {fileID: 1604851357}
-    parentVectorMaterial:
-      Start: 0
-      End: 0
-      Axis: 0
-    childVectorMaterial:
-      Start: 0
-      End: 0
-      Axis: 0
-    direction: -1
-    offset: -90
-  - jointName: 0
-    rotationAxis: 1
-    targetTransform: {fileID: 1485680870}
-    parentVectorMaterial:
-      Start: 0
-      End: 0
-      Axis: 0
-    childVectorMaterial:
-      Start: 0
-      End: 0
-      Axis: 0
-    direction: -1
-    offset: 180
-  - jointName: 0
-    rotationAxis: 2
-    targetTransform: {fileID: 1704792089}
-    parentVectorMaterial:
-      Start: 0
-      End: 0
-      Axis: 0
-    childVectorMaterial:
-      Start: 0
-      End: 0
-      Axis: 0
-    direction: -1
-    offset: 0
-  - jointName: 0
-    rotationAxis: 0
-    targetTransform: {fileID: 43713723}
+    targetTransform: {fileID: 0}
     parentVectorMaterial:
       Start: 0
       End: 0
@@ -7515,7 +7450,72 @@ MonoBehaviour:
       End: 0
       Axis: 0
     direction: 1
-    offset: -90
+    offset: 0
+  - jointName: 0
+    rotationAxis: 0
+    targetTransform: {fileID: 0}
+    parentVectorMaterial:
+      Start: 0
+      End: 0
+      Axis: 0
+    childVectorMaterial:
+      Start: 0
+      End: 0
+      Axis: 0
+    direction: 1
+    offset: 0
+  - jointName: 0
+    rotationAxis: 0
+    targetTransform: {fileID: 0}
+    parentVectorMaterial:
+      Start: 0
+      End: 0
+      Axis: 0
+    childVectorMaterial:
+      Start: 0
+      End: 0
+      Axis: 0
+    direction: 1
+    offset: 0
+  - jointName: 0
+    rotationAxis: 0
+    targetTransform: {fileID: 0}
+    parentVectorMaterial:
+      Start: 0
+      End: 0
+      Axis: 0
+    childVectorMaterial:
+      Start: 0
+      End: 0
+      Axis: 0
+    direction: 1
+    offset: 0
+  - jointName: 0
+    rotationAxis: 0
+    targetTransform: {fileID: 0}
+    parentVectorMaterial:
+      Start: 0
+      End: 0
+      Axis: 0
+    childVectorMaterial:
+      Start: 0
+      End: 0
+      Axis: 0
+    direction: 1
+    offset: 0
+  - jointName: 0
+    rotationAxis: 0
+    targetTransform: {fileID: 0}
+    parentVectorMaterial:
+      Start: 0
+      End: 0
+      Axis: 0
+    childVectorMaterial:
+      Start: 0
+      End: 0
+      Axis: 0
+    direction: 1
+    offset: 0
 --- !u!1 &1594200901
 GameObject:
   m_ObjectHideFlags: 0
