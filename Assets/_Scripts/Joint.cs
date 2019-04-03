@@ -9,7 +9,10 @@ namespace Real_VATA
         public JointName jointName;
         public TargetAxis rotationAxis;
         public Transform targetTransform;
-        public float angle;
+
+        public float direction = 1f;
+        public float offset = 0f;
+        public float angle { private get; set; }
 
         public void UpdateRotation()
         {

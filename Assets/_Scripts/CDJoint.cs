@@ -35,14 +35,14 @@ namespace Real_VATA
 
         public float direction = 1f;
         public float offset = 0f;
+        public float angle { get; private set; }//Joint회전 각도.
 
-        public KinectManager manager { get; set; }
+        public KinectManager manager { get; set; }        
 
         public void UpdateRotation()
         {
             Vector3 parentVector;
             Vector3 childVector;
-            float angle; //Joint회전 각도.
 
             if (parentVectorMaterial.Start == JointIndex.HipCenter)
             {
