@@ -1,37 +1,34 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Real_VATA
+[Serializable]
+public class Joint
 {
-    [Serializable]
-    public class Joint
+    public JointName jointName;
+    public TargetAxis rotationAxis;
+    public Transform targetTransform;
+
+    public float direction = 1f;
+    public float offset = 0f;
+    public float angle { private get; set; }
+
+    public void UpdateRotation()
     {
-        public JointName jointName;
-        public TargetAxis rotationAxis;
-        public Transform targetTransform;
+        RotateJoint(angle);
+    }
 
-        public float direction = 1f;
-        public float offset = 0f;
-        public float angle { private get; set; }
+    private void RotateJoint(float angle)
+    {
+        Vector3 targetOrientation = Vector3.zero;
 
-        public void UpdateRotation()
+        switch (rotationAxis)
         {
-            RotateJoint(angle);
+            case TargetAxis.X: targetOrientation.x = angle; break;
+            case TargetAxis.Y: targetOrientation.y = angle; break;
+            case TargetAxis.Z: targetOrientation.z = angle; break;
+            default: break;
         }
 
-        private void RotateJoint(float angle)
-        {
-            Vector3 targetOrientation = Vector3.zero;
-
-            switch (rotationAxis)
-            {
-                case TargetAxis.X: targetOrientation.x = angle; break;
-                case TargetAxis.Y: targetOrientation.y = angle; break;
-                case TargetAxis.Z: targetOrientation.z = angle; break;
-                default: break;
-            }
-
-            targetTransform.localRotation = Quaternion.Euler(targetOrientation);
-        }
+        targetTransform.localRotation = Quaternion.Euler(targetOrientation);
     }
 }

@@ -2,36 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Real_VATA
+public class CDJointOrientationSetter : MonoBehaviour
 {
-    public class CDJointOrientationSetter : MonoBehaviour
+    public CDJoint[] joints;
+
+    private KinectManager manager;
+
+    private void Awake() //CDJoint 여러개 한꺼번에 제어.
     {
-        public CDJoint[] joints;
+        manager = KinectManager.Instance;
 
-        private KinectManager manager;
-
-        private void Awake() //CDJoint 여러개 한꺼번에 제어.
+        foreach (CDJoint joint in joints)
         {
-            manager = KinectManager.Instance;
-
-            foreach (CDJoint joint in joints)
-            {
-                joint.manager = manager;
-            }
-        }
-
-        private void Update()
-        {
-            UpdateJointRotations();
-        }
-
-        private void UpdateJointRotations()
-        {
-            foreach (CDJoint joint in joints)
-            {
-                joint.UpdateRotation();
-            }
+            joint.manager = manager;
         }
     }
 
+    private void Update()
+    {
+        UpdateJointRotations();
+    }
+
+    private void UpdateJointRotations()
+    {
+        foreach (CDJoint joint in joints)
+        {
+            joint.UpdateRotation();
+        }
+    }
 }

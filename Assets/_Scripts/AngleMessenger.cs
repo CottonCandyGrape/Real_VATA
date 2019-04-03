@@ -3,36 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Real_VATA
+public class AngleMessenger : MonoBehaviour
 {
-    public class AngleMessenger : MonoBehaviour
+    private CDJointOrientationSetter cdJointOrientationSetter;
+    private JointOrientationSetter jointOrientationSetter;
+
+    private CDJoint[] cdJoints;
+    private Joint[] joints;
+
+    private void Awake()
     {
-        private CDJointOrientationSetter cdJointOrientationSetter;
-        private JointOrientationSetter jointOrientationSetter;
+        cdJointOrientationSetter = GameObject.Find("OrientationManager_CDMOCCA").GetComponent<CDJointOrientationSetter>();
+        cdJoints = cdJointOrientationSetter.joints;
 
-        private CDJoint[] cdJoints;
-        private Joint[] joints;
+        jointOrientationSetter = GameObject.Find("OrientationManager_MOCCA").GetComponent<JointOrientationSetter>();
+        joints = jointOrientationSetter.joints;
+    }
 
-        private void Awake()
+    private void Update()
+    {
+        SendAngle();
+    }
+
+    void SendAngle()
+    {
+        for (int i = 0; i < joints.Length; i++)
         {
-            cdJointOrientationSetter = GameObject.Find("OrientationManager_CDMOCCA").GetComponent<CDJointOrientationSetter>();
-            cdJoints = cdJointOrientationSetter.joints;
-
-            jointOrientationSetter = GameObject.Find("OrientationManager_MOCCA").GetComponent<JointOrientationSetter>();
-            joints = jointOrientationSetter.joints;
-        }
-
-        private void Update()
-        {
-            SendAngle();
-        }
-
-        void SendAngle()
-        {
-            for (int i = 0; i < joints.Length; i++)
-            {
-                joints[i].angle = cdJoints[i].angle;
-            }
+            joints[i].angle = cdJoints[i].angle;
         }
     }
 }

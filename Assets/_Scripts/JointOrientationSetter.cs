@@ -2,23 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Real_VATA
+public class JointOrientationSetter : MonoBehaviour
 {
-    public class JointOrientationSetter : MonoBehaviour
+    public Joint[] joints;
+
+    private void Update()
     {
-        public Joint[] joints;
+        UpdateJointRotations();
+    }
 
-        private void Update()
+    private void UpdateJointRotations()
+    {
+        foreach (Joint joint in joints)
         {
-            UpdateJointRotations();
-        }
-
-        private void UpdateJointRotations()
-        {
-            foreach (Joint joint in joints)
-            {
-                joint.UpdateRotation();
-            }
+            joint.UpdateRotation();
         }
     }
 }
