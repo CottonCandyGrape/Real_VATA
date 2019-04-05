@@ -4,30 +4,19 @@ using UnityEngine;
 
 public class CollisionTest : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject targetObject;
+
+    private MOCCAPart moccaPartScript;
+    private bool collision;
+
+    private void Start()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        targetObject.AddComponent<MOCCAPart>();
+        moccaPartScript = targetObject.GetComponent<MOCCAPart>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("<color=red>OnTriggerEnter: " + other.gameObject + "</color>");
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        Debug.Log("<color=green>OnTriggerStay: " + other.gameObject + "</color>");
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        Debug.Log("<color=blue>OnTriggerExit: " + other.gameObject + "</color>");
+        collision = moccaPartScript.collision;
     }
 }

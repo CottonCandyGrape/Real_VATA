@@ -24,9 +24,21 @@ public class AngleMessenger : MonoBehaviour
 
     void SendAngle()
     {
-        for (int i = 0; i < joints.Length; i++)
-        {
+        if (!CollisionManager.RightArmMove)
+            SendAngleToRightArm();
+        if (!CollisionManager.LeftArmMove)
+            SendAngleToLeftArm();
+    }
+
+    void SendAngleToRightArm()
+    {
+        for (int i = 0; i < 3; i++)
             joints[i].angle = cdJoints[i].angle;
-        }
+    }
+
+    void SendAngleToLeftArm()
+    {
+        for (int i = 3; i < 6; i++)
+            joints[i].angle = cdJoints[i].angle;
     }
 }
