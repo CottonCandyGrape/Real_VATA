@@ -10,4 +10,8 @@ public class MoveCubeTest : MonoBehaviour
     {
         transform.position += Vector3.forward * moveSpeed * Time.deltaTime;
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(transform.gameObject);
+    }
 }
