@@ -24,9 +24,10 @@ public class AngleMessenger : MonoBehaviour
 
     void SendAngle()
     {
-        if (!CollisionManager.RightArmMove)
+        if (CollisionManager.rightArmMove)
             SendAngleToRightArm();
-        if (!CollisionManager.LeftArmMove)
+
+        if (CollisionManager.leftArmMove)
             SendAngleToLeftArm();
     }
 
