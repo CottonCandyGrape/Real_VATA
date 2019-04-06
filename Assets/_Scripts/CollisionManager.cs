@@ -7,7 +7,7 @@ public class CollisionManager : MonoBehaviour
     public GameObject[] rightArm; //오른팔 오브젝트 배열
     public GameObject[] leftArm; //왼팔 오브젝트 배열
 
-    private bool[] rightArmCollision; //오브젝트들의 충돌 boolean      
+    private bool[] rightArmCollision; //오브젝트들의 충돌여부 boolean 배열    
     private bool[] leftArmCollision;
 
     public static bool rightArmMove = true; // 오른팔 동작 boolean
@@ -15,15 +15,16 @@ public class CollisionManager : MonoBehaviour
 
     void Start()
     {
-        InitArm();
+        InitBothArms();
     }
 
     void Update()
     {
+        UpdateArmCollision();
         CheckCollisionArm();
     }
 
-    private void InitArm() //양팔 오브젝트에 MOOCAPart.cs 추가, boolean 추가.
+    private void InitBothArms() //양팔 오브젝트에 MOOCAPart.cs 컴포넌트 추가, boolean 배열 초기화.
     {
         rightArmCollision = new bool[rightArm.Length];
         leftArmCollision = new bool[leftArm.Length];
@@ -32,15 +33,22 @@ public class CollisionManager : MonoBehaviour
         {
             rightArm[i].AddComponent<MOCCAPart>();
             leftArm[i].AddComponent<MOCCAPart>();
+        }
+    }
+
+    private void UpdateArmCollision() //부품의 충돌 여부를 갱신
+    {
+        for (int i = 0; i < rightArmCollision.Length; i++)
+        {
             rightArmCollision[i] = rightArm[i].GetComponent<MOCCAPart>().collision;
             leftArmCollision[i] = leftArm[i].GetComponent<MOCCAPart>().collision;
         }
     }
 
-    private void CheckCollisionArm()
+    private void CheckCollisionArm() //충돌 여부에 따라 팔 전체를 컨트롤하는 boolean값 toggle
     {
-        CheckCollisionRightArm();
-        CheckCollisionLeftArm();
+        CheckCollisionRightArm(); //오른팔
+        CheckCollisionLeftArm(); //왼팔
     }
 
     private void CheckCollisionRightArm()
@@ -51,6 +59,10 @@ public class CollisionManager : MonoBehaviour
             {
                 rightArmMove = false;
                 break;
+            }
+            else if (!rightArmCollision[i])
+            {
+                rightArmMove = true;
             }
         }
     }
@@ -63,6 +75,10 @@ public class CollisionManager : MonoBehaviour
             {
                 leftArmMove = false;
                 break;
+            }
+            else if (!leftArmCollision[i])
+            {
+                leftArmMove = true;
             }
         }
     }
