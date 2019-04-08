@@ -11,6 +11,11 @@ public class MOCCAPart : MonoBehaviour //충돌이 일어나는 오브젝트들�
         collision = true;
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        collision = true;
+    }
+
     private void OnTriggerExit(Collider other)
     {
         collision = false;
