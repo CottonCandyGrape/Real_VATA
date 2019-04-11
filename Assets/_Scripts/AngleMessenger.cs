@@ -2,7 +2,10 @@
 
 public class AngleMessenger : MonoBehaviour
 {
+    [SerializeField]
     private CDJointOrientationSetter cdJointOrientationSetter;
+
+    [SerializeField]
     private JointOrientationSetter jointOrientationSetter;
 
     private CDJoint[] cdJoints;
@@ -10,10 +13,7 @@ public class AngleMessenger : MonoBehaviour
 
     private void Awake()
     {
-        cdJointOrientationSetter = GameObject.Find("OrientationManager_CDMOCCA").GetComponent<CDJointOrientationSetter>();
         cdJoints = cdJointOrientationSetter.joints;
-
-        jointOrientationSetter = GameObject.Find("OrientationManager_MOCCA").GetComponent<JointOrientationSetter>();
         joints = jointOrientationSetter.joints;
     }
 
