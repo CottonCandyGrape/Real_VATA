@@ -57,9 +57,9 @@ public class FaceTrackingExample : MonoBehaviour
     {
         _hasNewData = true;
         var animUnits = new AnimationUnits(au0, au1, au2, au3, au4, au5);
-        //_position = new Vector3(posX, posY, posZ);
-        //_rotation = new Vector3(rotX, rotY, rotZ);
-        _rotation = new Vector3(rotX, 0f, 0f);
+        _position = new Vector3(posX, posY, posZ);
+        _rotation = new Vector3(rotX, rotY, rotZ);
+        //_rotation = new Vector3(rotX, 0f, 0f);
 
         // We amplify the position to exagerate the head movements.
         _position *= 10;
