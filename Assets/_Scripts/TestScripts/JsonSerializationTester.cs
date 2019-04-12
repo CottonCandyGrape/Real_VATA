@@ -25,10 +25,10 @@ public class JsonSerializationTester : MonoBehaviour
 
     void Start()
     {
-        string[] topics = new string[]
+        string[] topics = new string[] //subscribe할 토픽들
         {
             Utils.TopicHeader + D2EConstants.TOPIC_TTS,
-            Utils.TopicHeader + D2EConstants.TOPIC_MOTION,//모션만 사용 topic = /raw_motion
+            Utils.TopicHeader + D2EConstants.TOPIC_MOTION,//모션만 사용 topic = /raw_motion (publisher에서 쓴다.)
 			Utils.TopicHeader + D2EConstants.TOPIC_MOBILITY,
             Utils.TopicHeader + D2EConstants.TOPIC_FACIAL
         };
