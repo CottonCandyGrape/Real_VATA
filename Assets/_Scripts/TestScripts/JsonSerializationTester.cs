@@ -25,19 +25,28 @@ public class JsonSerializationTester : MonoBehaviour
 
     void Start()
     {
-        // 데이터 추가.
-        JsonFloatArray data = new JsonFloatArray();
-        data.Add(0.1f);
-
-        // joints 배열에 각도 설정.(테스트용).
-        jointSetter.joints[3].angle = 45f;
-        jointSetter.joints[3].UpdateRotation();
-
-        for (int ix = 0; ix < jointSetter.joints.Length; ++ix)
+        string[] topics = new string[]
         {
-            float angle = jointSetter.joints[ix].angle;
-            data.Add(angle);
-        }
+            Utils.TopicHeader + D2EConstants.TOPIC_TTS,
+            Utils.TopicHeader + D2EConstants.TOPIC_MOTION,//모션만 사용 topic = /raw_motion
+			Utils.TopicHeader + D2EConstants.TOPIC_MOBILITY,
+            Utils.TopicHeader + D2EConstants.TOPIC_FACIAL
+        };
+        Mqtt.Instance.Connect("52.78.62.151", topics);
+
+        //// 데이터 추가.
+        //JsonFloatArray data = new JsonFloatArray();
+        //data.Add(0.1f);
+
+        //// joints 배열에 각도 설정.(테스트용).
+        //jointSetter.joints[3].angle = 45f;
+        //jointSetter.joints[3].UpdateRotation();
+
+        //for (int ix = 0; ix < jointSetter.joints.Length; ++ix)
+        //{
+        //    float angle = jointSetter.joints[ix].angle;
+        //    data.Add(angle);
+        //}
 
         //data.Add(90f);
         //data.Add(90f);
@@ -49,18 +58,23 @@ public class JsonSerializationTester : MonoBehaviour
         //data.Add(90f);
 
         // 사이즈 설정 - 클래스 안에 배열 값 크기로 size 변수 설정하는 함수 호출.
-        data.SetSize();
+        //data.SetSize();
 
         // JSON 문자열 얻기.
-        string jsonString = JsonUtility.ToJson(data);
+        //string jsonString = JsonUtility.ToJson(data);
 
         // 필요한 형태로 문자열 조합.
-        jsonString = "mot:raw(" + jsonString + ")";
+        //jsonString = "mot:raw(" + jsonString + ")";
 
         //Debug.Log(jsonString);
 
         // 파일로 저장.
-        File.WriteAllText(filePath + "TestData.json", jsonString);
+        //File.WriteAllText(filePath + "TestData.json", jsonString);
+    }
+
+    private void Update()
+    {
+        Mqtt.Instance.Send("/raw_motion", "123");
     }
 
     //IEnumerator DelayedSend()
