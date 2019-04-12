@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45140028, g: 0.5008927, b: 0.57231224, a: 1}
+  m_IndirectSpecularColor: {r: 0.45140022, g: 0.50089264, b: 0.57231236, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1113,6 +1113,16 @@ MonoBehaviour:
   - jointName: 5
     rotationAxis: 1
     targetTransform: {fileID: 1746867459}
+    direction: 1
+    offset: 0
+  - jointName: 6
+    rotationAxis: 1
+    targetTransform: {fileID: 1151755054}
+    direction: 1
+    offset: 0
+  - jointName: 7
+    rotationAxis: 0
+    targetTransform: {fileID: 1594200902}
     direction: 1
     offset: 0
 --- !u!1 &293647904
@@ -6776,6 +6786,32 @@ MonoBehaviour:
   - jointName: 5
     rotationAxis: 1
     targetTransform: {fileID: 1261848558}
+    parentVectorMaterial:
+      Start: 8
+      End: 9
+      Axis: 0
+    childVectorMaterial:
+      Start: 9
+      End: 10
+      Axis: 0
+    direction: 1
+    offset: 0
+  - jointName: 6
+    rotationAxis: 1
+    targetTransform: {fileID: 358999564}
+    parentVectorMaterial:
+      Start: 8
+      End: 9
+      Axis: 0
+    childVectorMaterial:
+      Start: 9
+      End: 10
+      Axis: 0
+    direction: 1
+    offset: 0
+  - jointName: 7
+    rotationAxis: 0
+    targetTransform: {fileID: 1719856218}
     parentVectorMaterial:
       Start: 8
       End: 9

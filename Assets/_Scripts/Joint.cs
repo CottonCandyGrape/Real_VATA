@@ -10,7 +10,7 @@ public class Joint
 
     public float direction = 1f;
     public float offset = 0f;
-    public float angle { private get; set; }
+    public float angle { get; set; }
 
     public void UpdateRotation()
     {

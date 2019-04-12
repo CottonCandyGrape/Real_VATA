@@ -45,4 +45,9 @@ public class AngleMessenger : MonoBehaviour
                 joints[i].angle = cdJoints[i].angle;
         }
     }
+
+    //void SendAngleTo()
+    //{
+
+    //}
 }
