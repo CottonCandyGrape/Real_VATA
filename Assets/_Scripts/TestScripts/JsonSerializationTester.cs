@@ -90,7 +90,7 @@ public class JsonSerializationTester : MonoBehaviour
     //private void Update()
     //{
     //    elapsedTime += Time.deltaTime;
-    //    if (elapsedTime > targetFrameTime)
+    //    if (elapsedTime >= targetFrameTime)
     //    {
     //        Debug.Log("Hello: " + elapsedTime);
     //        elapsedTime = 0f;

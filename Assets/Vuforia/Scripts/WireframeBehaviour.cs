@@ -18,7 +18,7 @@ namespace Vuforia
     {
         #region PRIVATE_MEMBERS
 
-        private Material mLineMaterial;
+        //private Material mLineMaterial;
 
         #endregion // PRIVATE_MEMBERS
 
@@ -35,12 +35,12 @@ namespace Vuforia
 
         private void CreateLineMaterial() 
         {
-            mLineMaterial = new Material("Shader \"Lines/Colored Blended\" {" +
-                "SubShader {" +
-                    "Pass { Color (" + LineColor.r + "," + LineColor.g + "," + LineColor.b + "," + LineColor.a + ") }" + 
-                "} }" );
-            mLineMaterial.hideFlags = HideFlags.HideAndDontSave;
-            mLineMaterial.shader.hideFlags = HideFlags.HideAndDontSave; 
+            //mLineMaterial = new Material("Shader \"Lines/Colored Blended\" {" +
+            //    "SubShader {" +
+            //        "Pass { Color (" + LineColor.r + "," + LineColor.g + "," + LineColor.b + "," + LineColor.a + ") }" + 
+            //    "} }" );
+            //mLineMaterial.hideFlags = HideFlags.HideAndDontSave;
+            //mLineMaterial.shader.hideFlags = HideFlags.HideAndDontSave; 
         }
 
         #endregion // PRIVATE_METHODS
@@ -67,8 +67,8 @@ namespace Vuforia
             var mf = GetComponent<MeshFilter>();
             if (!mf) return;
 
-            if (mLineMaterial == null)
-                CreateLineMaterial();
+            //if (mLineMaterial == null)
+            //    CreateLineMaterial();
 
             var mesh = mf.sharedMesh;
             var vertices = mesh.vertices;
@@ -78,7 +78,7 @@ namespace Vuforia
 
             GL.MultMatrix(transform.localToWorldMatrix);
 
-            mLineMaterial.SetPass(0);
+            //mLineMaterial.SetPass(0);
             GL.Begin(GL.LINES); 
             for (int i=0; i<triangles.Length; i+=3) {
 

@@ -17,7 +17,7 @@ namespace Vuforia
     /// </summary>
     class IOSUnityPlayer : IUnityPlayer
     {
-        private ScreenOrientation mScreenOrientation = ScreenOrientation.Unknown;
+        //private ScreenOrientation mScreenOrientation = ScreenOrientation.Unknown;
 
         /// <summary>
         /// Loads native plugin libraries on platforms where this is explicitly required.
@@ -58,7 +58,7 @@ namespace Vuforia
             else
             {
                 // if Unity reports that the orientation has changed, set it correctly in native
-                if (Screen.orientation != mScreenOrientation)
+                //if (Screen.orientation != mScreenOrientation)
                     SetUnityScreenOrientation();
             }
 
@@ -102,10 +102,10 @@ namespace Vuforia
 
         private void SetUnityScreenOrientation()
         {
-            mScreenOrientation = Screen.orientation;
-            SurfaceUtilities.SetSurfaceOrientation(mScreenOrientation);
+            //mScreenOrientation = Screen.orientation;
+            //SurfaceUtilities.SetSurfaceOrientation(mScreenOrientation);
             // set the native orientation (only required on iOS)
-            setSurfaceOrientationiOS((int) mScreenOrientation);
+            //setSurfaceOrientationiOS((int) mScreenOrientation);
         }
 
         [DllImport("__Internal")]

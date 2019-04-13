@@ -21,8 +21,8 @@ namespace Vuforia
         // querying for the next 20 frames seems to yield the correct orientation eventually across all devices.
         private const int NUM_FRAMES_TO_QUERY_ORIENTATION = 25;
         private const int JAVA_ORIENTATION_CHECK_FRM_INTERVAL = 60;
-        private ScreenOrientation mScreenOrientation = ScreenOrientation.Unknown;
-        private ScreenOrientation mJavaScreenOrientation = ScreenOrientation.Unknown;
+        //private ScreenOrientation mScreenOrientation = ScreenOrientation.Unknown;
+        //private ScreenOrientation mJavaScreenOrientation = ScreenOrientation.Unknown;
         private int mFramesSinceLastOrientationReset;
         private int mFramesSinceLastJavaOrientationCheck;
 
@@ -76,8 +76,8 @@ namespace Vuforia
             {
                 // if Unity reports that the orientation has changed, reset the member variable
                 // - this will trigger a check in Java for a few frames...
-                if (Screen.orientation != mScreenOrientation)
-                    ResetUnityScreenOrientation();
+                //if (Screen.orientation != mScreenOrientation)
+                //    ResetUnityScreenOrientation();
 
                 CheckOrientation();
             }
@@ -182,7 +182,7 @@ namespace Vuforia
 
         private void ResetUnityScreenOrientation()
         {
-            mScreenOrientation = Screen.orientation;
+            //mScreenOrientation = Screen.orientation;
             mFramesSinceLastOrientationReset = 0;
         }
 
@@ -197,7 +197,7 @@ namespace Vuforia
             {
                 // mScreenOrientation remains at the value reported by Unity even when the activity reports a different one
                 // otherwise the check for orientation changes will return true every frame.
-                int correctScreenOrientation = (int) mScreenOrientation;
+                //int correctScreenOrientation = (int) mScreenOrientation;
 
 #if UNITY_ANDROID
                 if (mCurrentActivity != null)
@@ -209,12 +209,12 @@ namespace Vuforia
                         correctScreenOrientation = activityOrientation;
                 }
     #endif
-                ScreenOrientation javaScreenOrientation = (ScreenOrientation) correctScreenOrientation;
-                if (javaScreenOrientation != mJavaScreenOrientation)
-                {
-                    mJavaScreenOrientation = javaScreenOrientation;
-                    SurfaceUtilities.SetSurfaceOrientation(mJavaScreenOrientation);
-                }
+                //ScreenOrientation javaScreenOrientation = (ScreenOrientation) correctScreenOrientation;
+                //if (javaScreenOrientation != mJavaScreenOrientation)
+                //{
+                //    mJavaScreenOrientation = javaScreenOrientation;
+                //    SurfaceUtilities.SetSurfaceOrientation(mJavaScreenOrientation);
+                //}
             
                 mFramesSinceLastJavaOrientationCheck = 0;
             }

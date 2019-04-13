@@ -84,7 +84,7 @@ public class KinectManager : MonoBehaviour
     public List<MonoBehaviour> GestureListeners;
 
     // GUI Text to show messages.
-    public GUIText CalibrationText;
+    //public GUIText CalibrationText;
 
     // GUI Texture to display the hand cursor for Player1
     public GameObject HandCursor1;
@@ -96,7 +96,7 @@ public class KinectManager : MonoBehaviour
     public bool ControlMouseCursor = false;
 
     // GUI Text to show gesture debug message.
-    public GUIText GesturesDebugText;
+    //public GUIText GesturesDebugText;
 
 
     // Bool to keep track of whether Kinect has been initialized
@@ -1003,8 +1003,8 @@ public class KinectManager : MonoBehaviour
             string message = "Please check the Kinect SDK installation.";
             Debug.LogError(message);
             Debug.LogError(e.ToString());
-            if (CalibrationText != null)
-                CalibrationText.GetComponent<GUIText>().text = message;
+            //if (CalibrationText != null)
+            //    CalibrationText.GetComponent<GUIText>().text = message;
 
             return;
         }
@@ -1013,8 +1013,8 @@ public class KinectManager : MonoBehaviour
             string message = e.Message + " - " + KinectWrapper.GetNuiErrorString(hr);
             Debug.LogError(message);
             Debug.LogError(e.ToString());
-            if (CalibrationText != null)
-                CalibrationText.GetComponent<GUIText>().text = message;
+            //if (CalibrationText != null)
+            //    CalibrationText.GetComponent<GUIText>().text = message;
 
             return;
         }
@@ -1088,10 +1088,10 @@ public class KinectManager : MonoBehaviour
         }
 
         // GUI Text.
-        if (CalibrationText != null)
-        {
-            CalibrationText.GetComponent<GUIText>().text = "WAITING FOR USERS";
-        }
+        //if (CalibrationText != null)
+        //{
+        //    CalibrationText.GetComponent<GUIText>().text = "WAITING FOR USERS";
+        //}
 
         Debug.Log("Waiting for users.");
 
@@ -1186,23 +1186,23 @@ public class KinectManager : MonoBehaviour
                                 {
                                     Vector3 vCursorPos = gestureData.screenPos;
 
-                                    if (HandCursor1.GetComponent<GUITexture>() == null)
-                                    {
-                                        float zDist = HandCursor1.transform.position.z - Camera.main.transform.position.z;
-                                        vCursorPos.z = zDist;
+                                    //if (HandCursor1.GetComponent<GUITexture>() == null)
+                                    //{
+                                    //    float zDist = HandCursor1.transform.position.z - Camera.main.transform.position.z;
+                                    //    vCursorPos.z = zDist;
 
-                                        vCursorPos = Camera.main.ViewportToWorldPoint(vCursorPos);
-                                    }
+                                    //    vCursorPos = Camera.main.ViewportToWorldPoint(vCursorPos);
+                                    //}
 
                                     HandCursor1.transform.position = Vector3.Lerp(HandCursor1.transform.position, vCursorPos, 3 * Time.deltaTime);
                                 }
 
-                                if (ControlMouseCursor)
-                                {
-                                    Vector3 vCursorPos = HandCursor1.GetComponent<GUITexture>() != null ? HandCursor1.transform.position :
-                                        Camera.main.WorldToViewportPoint(HandCursor1.transform.position);
-                                    MouseControl.MouseMove(vCursorPos, CalibrationText);
-                                }
+                                //if (ControlMouseCursor)
+                                //{
+                                //    Vector3 vCursorPos = HandCursor1.GetComponent<GUITexture>() != null ? HandCursor1.transform.position :
+                                //        Camera.main.WorldToViewportPoint(HandCursor1.transform.position);
+                                //    //MouseControl.MouseMove(vCursorPos, CalibrationText);
+                                //}
                             }
                         }
 
@@ -1271,23 +1271,23 @@ public class KinectManager : MonoBehaviour
                                 {
                                     Vector3 vCursorPos = gestureData.screenPos;
 
-                                    if (HandCursor2.GetComponent<GUITexture>() == null)
-                                    {
-                                        float zDist = HandCursor2.transform.position.z - Camera.main.transform.position.z;
-                                        vCursorPos.z = zDist;
+                                    //if (HandCursor2.GetComponent<GUITexture>() == null)
+                                    //{
+                                    //    float zDist = HandCursor2.transform.position.z - Camera.main.transform.position.z;
+                                    //    vCursorPos.z = zDist;
 
-                                        vCursorPos = Camera.main.ViewportToWorldPoint(vCursorPos);
-                                    }
+                                    //    vCursorPos = Camera.main.ViewportToWorldPoint(vCursorPos);
+                                    //}
 
                                     HandCursor2.transform.position = Vector3.Lerp(HandCursor2.transform.position, vCursorPos, 3 * Time.deltaTime);
                                 }
 
-                                if (ControlMouseCursor)
-                                {
-                                    Vector3 vCursorPos = HandCursor2.GetComponent<GUITexture>() != null ? HandCursor2.transform.position :
-                                        Camera.main.WorldToViewportPoint(HandCursor2.transform.position);
-                                    MouseControl.MouseMove(vCursorPos, CalibrationText);
-                                }
+                                //if (ControlMouseCursor)
+                                //{
+                                //    Vector3 vCursorPos = HandCursor2.GetComponent<GUITexture>() != null ? HandCursor2.transform.position :
+                                //        Camera.main.WorldToViewportPoint(HandCursor2.transform.position);
+                                //    //MouseControl.MouseMove(vCursorPos, CalibrationText);
+                                //}
                             }
                         }
 
@@ -1601,10 +1601,10 @@ public class KinectManager : MonoBehaviour
         {
             Debug.Log("All players calibrated.");
 
-            if (CalibrationText != null)
-            {
-                CalibrationText.GetComponent<GUIText>().text = "";
-            }
+            //if (CalibrationText != null)
+            //{
+            //    CalibrationText.GetComponent<GUIText>().text = "";
+            //}
         }
     }
 
@@ -1663,10 +1663,10 @@ public class KinectManager : MonoBehaviour
         // Try to replace that user!
         Debug.Log("Waiting for users.");
 
-        if (CalibrationText != null)
-        {
-            CalibrationText.GetComponent<GUIText>().text = "WAITING FOR USERS";
-        }
+        //if (CalibrationText != null)
+        //{
+        //    CalibrationText.GetComponent<GUIText>().text = "WAITING FOR USERS";
+        //}
     }
 
     // Some internal constants
@@ -1839,33 +1839,33 @@ public class KinectManager : MonoBehaviour
                             }
                         }
 
-                        if (GesturesDebugText)
-                        {
-                            sDebugGestures += string.Format("\n HandLeft: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.HandLeft] ?
-                                                            player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.HandLeft].ToString() : "");
-                            sDebugGestures += string.Format("\n HandRight: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.HandRight] ?
-                                                            player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.HandRight].ToString() : "");
-                            sDebugGestures += string.Format("\n ElbowLeft: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.ElbowLeft] ?
-                                                            player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.ElbowLeft].ToString() : "");
-                            sDebugGestures += string.Format("\n ElbowRight: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.ElbowRight] ?
-                                                            player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.ElbowRight].ToString() : "");
+                        //if (GesturesDebugText)
+                        //{
+                        //    sDebugGestures += string.Format("\n HandLeft: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.HandLeft] ?
+                        //                                    player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.HandLeft].ToString() : "");
+                        //    sDebugGestures += string.Format("\n HandRight: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.HandRight] ?
+                        //                                    player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.HandRight].ToString() : "");
+                        //    sDebugGestures += string.Format("\n ElbowLeft: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.ElbowLeft] ?
+                        //                                    player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.ElbowLeft].ToString() : "");
+                        //    sDebugGestures += string.Format("\n ElbowRight: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.ElbowRight] ?
+                        //                                    player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.ElbowRight].ToString() : "");
 
-                            sDebugGestures += string.Format("\n ShoulderLeft: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.ShoulderLeft] ?
-                                                            player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.ShoulderLeft].ToString() : "");
-                            sDebugGestures += string.Format("\n ShoulderRight: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.ShoulderRight] ?
-                                                            player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.ShoulderRight].ToString() : "");
+                        //    sDebugGestures += string.Format("\n ShoulderLeft: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.ShoulderLeft] ?
+                        //                                    player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.ShoulderLeft].ToString() : "");
+                        //    sDebugGestures += string.Format("\n ShoulderRight: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.ShoulderRight] ?
+                        //                                    player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.ShoulderRight].ToString() : "");
 
-                            sDebugGestures += string.Format("\n Neck: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.ShoulderCenter] ?
-                                                            player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.ShoulderCenter].ToString() : "");
-                            sDebugGestures += string.Format("\n Hips: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.HipCenter] ?
-                                                            player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.HipCenter].ToString() : "");
-                            sDebugGestures += string.Format("\n HipLeft: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.HipLeft] ?
-                                                            player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.HipLeft].ToString() : "");
-                            sDebugGestures += string.Format("\n HipRight: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.HipRight] ?
-                                                            player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.HipRight].ToString() : "");
+                        //    sDebugGestures += string.Format("\n Neck: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.ShoulderCenter] ?
+                        //                                    player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.ShoulderCenter].ToString() : "");
+                        //    sDebugGestures += string.Format("\n Hips: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.HipCenter] ?
+                        //                                    player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.HipCenter].ToString() : "");
+                        //    sDebugGestures += string.Format("\n HipLeft: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.HipLeft] ?
+                        //                                    player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.HipLeft].ToString() : "");
+                        //    sDebugGestures += string.Format("\n HipRight: {0}", player1JointsTracked[(int)KinectWrapper.NuiSkeletonPositionIndex.HipRight] ?
+                        //                                    player1JointsPos[(int)KinectWrapper.NuiSkeletonPositionIndex.HipRight].ToString() : "");
 
-                            GesturesDebugText.GetComponent<GUIText>().text = sDebugGestures;
-                        }
+                        //    GesturesDebugText.GetComponent<GUIText>().text = sDebugGestures;
+                        //}
                     }
                 }
                 else if (userId == Player2ID && Mathf.Abs(skeletonPos.z) >= MinUserDistance &&

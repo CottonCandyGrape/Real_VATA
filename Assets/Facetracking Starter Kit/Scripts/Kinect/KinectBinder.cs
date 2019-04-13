@@ -19,13 +19,13 @@ public class KinectBinder : MonoBehaviour
     public event FaceTrackingDataDelegate FaceTrackingDataReceived;
 
     public delegate void VideoFrameDataDelegate(Color32[] pixels);
-    public event VideoFrameDataDelegate VideoFrameDataReceived;
+    //public event VideoFrameDataDelegate VideoFrameDataReceived;
 
     public delegate void DepthFrameDataDelegate(short[] pixels);
-    public event DepthFrameDataDelegate DepthFrameDataReceived;
+    //public event DepthFrameDataDelegate DepthFrameDataReceived;
 
     public delegate void SkeletonDataDelegate(JointData[] jointsData);
-    public event SkeletonDataDelegate SkeletonDataReceived;
+    //public event SkeletonDataDelegate SkeletonDataReceived;
 
     private float _timeOfLastFrame;
     private int _frameNumber = -1;
@@ -35,8 +35,8 @@ public class KinectBinder : MonoBehaviour
     private int _kinectFps;
     private int _kinectLastFps;
     private float _kinectFpsTimer;
-    private bool _hasNewVideoContent;
-    private bool _hasNewDepthContent;
+    //private bool _hasNewVideoContent;
+    //private bool _hasNewDepthContent;
     private string _faceTrackingData;
 	private string _skeletonData;
     private short[] _depthBuffer;
@@ -98,11 +98,11 @@ public class KinectBinder : MonoBehaviour
         }
         else if (Converter.IsVideoFrameData(data))
         {
-            _hasNewVideoContent = true;
+            //_hasNewVideoContent = true;
         }
         else if (Converter.IsDepthFrameData(data))
         {
-            _hasNewDepthContent = true;
+            //_hasNewDepthContent = true;
         }
         else if (Converter.IsPing(data))
         {

@@ -37,8 +37,8 @@ public class ImageFeedback : MonoBehaviour
 
         ColorRenderer.material.mainTexture = _colorTex;
         DepthRenderer.material.mainTexture = _depthTex;
-        Kinect.VideoFrameDataReceived += ProcessVideoFrame;
-        Kinect.DepthFrameDataReceived += ProcessDepthFrame;
+        //Kinect.VideoFrameDataReceived += ProcessVideoFrame;
+        //Kinect.DepthFrameDataReceived += ProcessDepthFrame;
     }
 
     private void ProcessVideoFrame(Color32[] pixels)
