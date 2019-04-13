@@ -2,12 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MqttTest : MonoBehaviour
+public class TestAll : MonoBehaviour
 {
+    A a;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        a = new A();
+        a.num = 1;
+        Debug.Log(a.num);
+
+        a = new A();
+        Debug.Log(a.num);
     }
 
     // Update is called once per frame
@@ -15,4 +22,9 @@ public class MqttTest : MonoBehaviour
     {
         
     }
+}
+
+public class A
+{
+    public int num = 0;
 }
