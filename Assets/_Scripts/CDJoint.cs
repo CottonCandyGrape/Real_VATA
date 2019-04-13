@@ -60,8 +60,15 @@ public class CDJoint
             childVector = MathUtil.GetVectorBetween(childVectorMaterial.Start, childVectorMaterial.End, manager);
         }
 
-        angle = (MathUtil.Dot(parentVector, childVector) + offset) * direction; //얻은 두개의 벡터로 angle 계산
-        angle = MathUtil.LimitJointAngle(jointName, angle);
+        if(jointName == JointName.neck || jointName == JointName.head)
+        {
+            //angle;
+        }
+        else
+        {
+            angle = (MathUtil.Dot(parentVector, childVector) + offset) * direction; //얻은 두개의 벡터로 angle 계산
+            angle = MathUtil.LimitJointAngle(jointName, angle);
+        }        
 
         RotateJoint(angle);
     }

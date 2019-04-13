@@ -49,11 +49,6 @@ public class KinectBinder : MonoBehaviour
         BootProcess();
     }
 
-    void ParseReceivedDataHandler(object sender, DataReceivedEventArgs args)
-    {
-        ParseReceivedData(args.Data);
-    }
-
     private void BootProcess()
     {
         const string dataTransmitterFilename = "KinectDataTransmitter.exe";
@@ -84,6 +79,11 @@ public class KinectBinder : MonoBehaviour
         }
         _otherProcess.BeginOutputReadLine();
         _otherProcess.StandardInput.WriteLine("1"); // gets rid of the Byte-order mark in the pipe.
+    }
+
+    void ParseReceivedDataHandler(object sender, DataReceivedEventArgs args)
+    {
+        ParseReceivedData(args.Data);
     }
 
     void ParseReceivedData(string data)
@@ -141,17 +141,17 @@ public class KinectBinder : MonoBehaviour
             _processedFrame = _frameNumber;
         }
 
-        if (_hasNewVideoContent)
-        {
-            _hasNewVideoContent = false;
-            ProcessVideoFrame(Converter.GetVideoStreamData());
-        }
+        //if (_hasNewVideoContent)
+        //{
+        //    _hasNewVideoContent = false;
+        //    ProcessVideoFrame(Converter.GetVideoStreamData());
+        //}
 
-        if (_hasNewDepthContent)
-        {
-            _hasNewDepthContent = false;
-            ProcessDepthFrame(Converter.GetDepthStreamData());
-        }
+        //if (_hasNewDepthContent)
+        //{
+        //    _hasNewDepthContent = false;
+        //    ProcessDepthFrame(Converter.GetDepthStreamData());
+        //}
 
         if (_faceTrackingData != null)
         {
@@ -170,42 +170,42 @@ public class KinectBinder : MonoBehaviour
         UpdateFrameCounter();
     }
 
-    private void ProcessDepthFrame(byte[] bytes)
-    {
-        if (DepthFrameDataReceived == null || bytes == null)
-            return;
+    //private void ProcessDepthFrame(byte[] bytes)
+    //{
+    //    if (DepthFrameDataReceived == null || bytes == null)
+    //        return;
 
-        if (_depthBuffer == null || _depthBuffer.Length != bytes.Length/2)
-        {
-            _depthBuffer = new short[bytes.Length / 2];
-        }
-        for (int i = 0; i < _depthBuffer.Length; i++)
-        {
-            int byteIndex = i * 2;
-            _depthBuffer[i] = BitConverter.ToInt16(bytes, byteIndex);
-        }
+    //    if (_depthBuffer == null || _depthBuffer.Length != bytes.Length/2)
+    //    {
+    //        _depthBuffer = new short[bytes.Length / 2];
+    //    }
+    //    for (int i = 0; i < _depthBuffer.Length; i++)
+    //    {
+    //        int byteIndex = i * 2;
+    //        _depthBuffer[i] = BitConverter.ToInt16(bytes, byteIndex);
+    //    }
 
-        DepthFrameDataReceived(_depthBuffer);
-    }
+    //    DepthFrameDataReceived(_depthBuffer);
+    //}
 
-    private void ProcessVideoFrame(byte[] bytes)
-    {
-        if (VideoFrameDataReceived == null || bytes == null)
-            return;
+    //private void ProcessVideoFrame(byte[] bytes)
+    //{
+    //    if (VideoFrameDataReceived == null || bytes == null)
+    //        return;
 
-        if (_colorBuffer == null || _colorBuffer.Length != bytes.Length / 4)
-        {
-            _colorBuffer = new Color32[bytes.Length / 4];
-        }
+    //    if (_colorBuffer == null || _colorBuffer.Length != bytes.Length / 4)
+    //    {
+    //        _colorBuffer = new Color32[bytes.Length / 4];
+    //    }
 
-        for (int i = 0; i < _colorBuffer.Length; i++)
-        {
-            int byteIndex = i*4;
-            _colorBuffer[i] = new Color32(bytes[byteIndex+2], bytes[byteIndex+1], bytes[byteIndex], byte.MaxValue);
-        }
+    //    for (int i = 0; i < _colorBuffer.Length; i++)
+    //    {
+    //        int byteIndex = i*4;
+    //        _colorBuffer[i] = new Color32(bytes[byteIndex+2], bytes[byteIndex+1], bytes[byteIndex], byte.MaxValue);
+    //    }
 
-        VideoFrameDataReceived(_colorBuffer);
-    }
+    //    VideoFrameDataReceived(_colorBuffer);
+    //}
 
     private void ProcessFaceTrackingData(string data)
     {
@@ -220,19 +220,19 @@ public class KinectBinder : MonoBehaviour
         FaceTrackingDataReceived(au0, au1, au2, au3, au4, au5, posX, posY, posZ, rotX, rotY, rotZ);
     }
 
-    private void ProcessSkeletonData(string data)
-    {
-        if (SkeletonDataReceived == null)
-            return;
+    //private void ProcessSkeletonData(string data)
+    //{
+    //    if (SkeletonDataReceived == null)
+    //        return;
 
-        _frameNumber++;
-        if (_jointsData == null)
-        {
-            _jointsData = new JointData[(int)JointType.NumberOfJoints];
-        }
-        Converter.DecodeSkeletonData(data, _jointsData);
-        SkeletonDataReceived(_jointsData);
-    }
+    //    _frameNumber++;
+    //    if (_jointsData == null)
+    //    {
+    //        _jointsData = new JointData[(int)JointType.NumberOfJoints];
+    //    }
+    //    Converter.DecodeSkeletonData(data, _jointsData);
+    //    SkeletonDataReceived(_jointsData);
+    //}
 
     private void UpdateFrameCounter()
     {
@@ -245,19 +245,19 @@ public class KinectBinder : MonoBehaviour
         }
     }
 
-    void OnGUI()
-    {
-        if (Event.current.type != EventType.Repaint)
-            return;
+    //void OnGUI()
+    //{
+    //    if (Event.current.type != EventType.Repaint)
+    //        return;
 
-        GUI.color = Color.white;
-        GUI.Label(new Rect(5, 5, 250, 30), "Kinect FPS: " + _kinectLastFps);
-        if (_kinectLastFps == 0)
-        {
-            GUI.Label(new Rect(5, 25, 400, 30), "(Kinect is not tracking... please get in range.)");
-        }
+    //    GUI.color = Color.white;
+    //    GUI.Label(new Rect(5, 5, 250, 30), "Kinect FPS: " + _kinectLastFps);
+    //    if (_kinectLastFps == 0)
+    //    {
+    //        GUI.Label(new Rect(5, 25, 400, 30), "(Kinect is not tracking... please get in range.)");
+    //    }
 
-    }
+    //}
 
     void OnApplicationQuit()
     {

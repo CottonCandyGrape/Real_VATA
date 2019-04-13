@@ -12,10 +12,11 @@ public class FaceTrackingExample : MonoBehaviour
 
     //public GameObject Flames;
 
-    private Vector3 _position;
+    //private Vector3 _position;
     private Vector3 _rotation;
+    //public Vector3 _rotation { get; private set; }
     private Vector3 _smoothedRotation;
-    private Vector3 _currentPosVelocity;
+    //private Vector3 _currentPosVelocity;
     private Vector3 _currentRotVelocity;
 
     //private AnimationUnits _animUnits, _targetAnimUnits;
@@ -23,17 +24,17 @@ public class FaceTrackingExample : MonoBehaviour
 
     private bool _isInitialized;
     private bool _hasNewData;
-    private float _waitTimer;
+    //private float _waitTimer;
     private float _timeOfLastFrame;
-    private float _gravityStartTime;
-    private AnimationUnits _startGravityAu;
-    private Vector3 _startGravityPos;
-    private Vector3 _startGravityRot;
+    //private float _gravityStartTime;
+    //private AnimationUnits _startGravityAu;
+    //private Vector3 _startGravityPos;
+    //private Vector3 _startGravityRot;
 
-    private AnimationUnits _accAu;
-    private float[] _morphCoefs = new float[7];
+    //private AnimationUnits _accAu;
+    //private float[] _morphCoefs = new float[7];
 
-    private Vector3 _userInitialPosition;
+    //private Vector3 _userInitialPosition;
 
     public enum TrackingMode
     {
@@ -45,24 +46,23 @@ public class FaceTrackingExample : MonoBehaviour
     public TrackingMode CurrentMode { get; set; }
 
 
-    void Start ()
+    void Start()
     {
-        _position = _userInitialPosition;
+        //_position = _userInitialPosition;
         _rotation = Model.transform.rotation.eulerAngles;
         Kinect.FaceTrackingDataReceived += ProcessFaceTrackingData;
     }
-    
+
 
     void ProcessFaceTrackingData(float au0, float au1, float au2, float au3, float au4, float au5, float posX, float posY, float posZ, float rotX, float rotY, float rotZ)
     {
         _hasNewData = true;
-        var animUnits = new AnimationUnits(au0, au1, au2, au3, au4, au5);
-        _position = new Vector3(posX, posY, posZ);
+        //var animUnits = new AnimationUnits(au0, au1, au2, au3, au4, au5);
+        //_position = new Vector3(posX, posY, posZ);
         _rotation = new Vector3(rotX, rotY, rotZ);
-        //_rotation = new Vector3(rotX, 0f, 0f);
 
         // We amplify the position to exagerate the head movements.
-        _position *= 10;
+        //_position *= 10;
         //SetCurrentAUs(animUnits);
     }
 
@@ -86,53 +86,53 @@ public class FaceTrackingExample : MonoBehaviour
     //}
 
 
-    #region Au Range Calibration
-    /**
-     * Notes on the Animation Units remapping:
-     * In this part we simply that the raw data from the kinect and filter/re-mapped it.
-     * In some cases we amplify it, we in others we use a bit of logic to manipulate the data.
-     * 
-     * The magic numbers only reflect what we found worked well for the experience we wanted to setup.
-     */
-    // AU0
-    private float MapLipRaiserValue(float coef)
-    {
-        return coef;
-    }
+    //#region Au Range Calibration
+    ///**
+    // * Notes on the Animation Units remapping:
+    // * In this part we simply that the raw data from the kinect and filter/re-mapped it.
+    // * In some cases we amplify it, we in others we use a bit of logic to manipulate the data.
+    // * 
+    // * The magic numbers only reflect what we found worked well for the experience we wanted to setup.
+    // */
+    //// AU0
+    //private float MapLipRaiserValue(float coef)
+    //{
+    //    return coef;
+    //}
 
-    // AU1
-    private float MapJawLowererValue(float coef)
-    {
-        return coef;
-    }
+    //// AU1
+    //private float MapJawLowererValue(float coef)
+    //{
+    //    return coef;
+    //}
 
-    // AU2
-    private float MapLipStretcherValue(float coef)
-    {
-        return coef;
-    }
+    //// AU2
+    //private float MapLipStretcherValue(float coef)
+    //{
+    //    return coef;
+    //}
 
-    // AU3
-    private float MapBrowLowererValue(AnimationUnits animUnits)
-    {
-        if (animUnits.OuterBrowRaiser > 0f)
-            return Mathf.Clamp(animUnits.BrowLowerer - animUnits.OuterBrowRaiser, -1f, 1.7f);
+    //// AU3
+    //private float MapBrowLowererValue(AnimationUnits animUnits)
+    //{
+    //    if (animUnits.OuterBrowRaiser > 0f)
+    //        return Mathf.Clamp(animUnits.BrowLowerer - animUnits.OuterBrowRaiser, -1f, 1.7f);
 
-        return Mathf.Clamp(animUnits.BrowLowerer - 3 * animUnits.OuterBrowRaiser, -1f, 1.7f);
-    }
+    //    return Mathf.Clamp(animUnits.BrowLowerer - 3 * animUnits.OuterBrowRaiser, -1f, 1.7f);
+    //}
 
-    // AU4
-    private float MapLipCornerDepressorValue(float coef)
-    {
-        return 2 * coef;
-    }
+    //// AU4
+    //private float MapLipCornerDepressorValue(float coef)
+    //{
+    //    return 2 * coef;
+    //}
 
-    // AU5
-    private float MapOuterBrowRaiserValue(float coef)
-    {
-        return Mathf.Clamp(coef * 2, -1f, 1f);
-    }
-    #endregion
+    //// AU5
+    //private float MapOuterBrowRaiserValue(float coef)
+    //{
+    //    return Mathf.Clamp(coef * 2, -1f, 1f);
+    //}
+    //#endregion
 
 
     void Update()
@@ -143,18 +143,18 @@ public class FaceTrackingExample : MonoBehaviour
             _timeOfLastFrame = Time.time;
             ProcessFaceData();
         }
-        else
-        {
-            float timeSinceLastFrame = Time.time - _timeOfLastFrame;
-            if (timeSinceLastFrame > TimeToReturnToDefault + FaceTrackingTimeout)
-            {
-                //ManipulateMaskAutomatically();
-            }
-            else if (timeSinceLastFrame > FaceTrackingTimeout)
-            {
-                ReturnMaskToNeutralState();
-            }
-        }
+        //else
+        //{
+        //    float timeSinceLastFrame = Time.time - _timeOfLastFrame;
+        //    if (timeSinceLastFrame > TimeToReturnToDefault + FaceTrackingTimeout)
+        //    {
+        //        //ManipulateMaskAutomatically();
+        //    }
+        //    else if (timeSinceLastFrame > FaceTrackingTimeout)
+        //    {
+        //        ReturnMaskToNeutralState();
+        //    }
+        //}
 
         UpdateTransform();
         //UpdateAUs();
@@ -168,17 +168,17 @@ public class FaceTrackingExample : MonoBehaviour
         if (!_isInitialized)
         {
             _isInitialized = true;
-            InitializeUserData();
+            //InitializeUserData();
         }
 
         CurrentMode = TrackingMode.UserFace;
     }
 
 
-    private void InitializeUserData()
-    {
-        _userInitialPosition = _position;
-    }
+    //private void InitializeUserData()
+    //{
+    //    _userInitialPosition = _position;
+    //}
 
 
     // Perform random faces automatically to fill the gaps whenever we do not have any input data from kinect.
@@ -197,40 +197,40 @@ public class FaceTrackingExample : MonoBehaviour
     //}
 
 
-    private void ReturnMaskToNeutralState()
-    {
-        if (CurrentMode != TrackingMode.Gravity)
-        {
-            InitializeGravity();
-            CurrentMode = TrackingMode.Gravity;
-        }
+    //private void ReturnMaskToNeutralState()
+    //{
+    //    if (CurrentMode != TrackingMode.Gravity)
+    //    {
+    //        InitializeGravity();
+    //        CurrentMode = TrackingMode.Gravity;
+    //    }
 
-        ApplyGravityToParams();
-    }
+    //    ApplyGravityToParams();
+    //}
 
 
     // By gravity we mean the force that will pull the mask back to its neutral state.
-    private void InitializeGravity()
-    {
-        _isInitialized = false;
-        _gravityStartTime = Time.time;
-        //_startGravityAu = _animUnits;
-        _startGravityPos = _position;
-        _startGravityRot = _rotation;
-    }
+    //private void InitializeGravity()
+    //{
+    //    _isInitialized = false;
+    //    _gravityStartTime = Time.time;
+    //    //_startGravityAu = _animUnits;
+    //    //_startGravityPos = _position;
+    //    _startGravityRot = _rotation;
+    //}
 
 
-    private void ApplyGravityToParams()
-    {
-        float time = Mathf.Clamp01((Time.time - _gravityStartTime) / TimeToReturnToDefault);
-        _position = Vector3.Lerp(_startGravityPos, _userInitialPosition, time);
-        _rotation = Vector3.Lerp(_startGravityRot, new Vector3(0, 0, 0), time);
+    //private void ApplyGravityToParams()
+    //{
+    //    float time = Mathf.Clamp01((Time.time - _gravityStartTime) / TimeToReturnToDefault);
+    //    _position = Vector3.Lerp(_startGravityPos, _userInitialPosition, time);
+    //    _rotation = Vector3.Lerp(_startGravityRot, new Vector3(0, 0, 0), time);
 
-        var animUnits = new AnimationUnits();
-        animUnits.Au012 = Vector3.Lerp(_startGravityAu.Au012, Vector3.zero, time);
-        animUnits.Au345 = Vector3.Lerp(_startGravityAu.Au345, Vector3.zero, time);
-        //SetCurrentAUs(animUnits);
-    }
+    //    var animUnits = new AnimationUnits();
+    //    animUnits.Au012 = Vector3.Lerp(_startGravityAu.Au012, Vector3.zero, time);
+    //    animUnits.Au345 = Vector3.Lerp(_startGravityAu.Au345, Vector3.zero, time);
+    //    SetCurrentAUs(animUnits);
+    //}
 
 
     private void UpdateTransform()
@@ -238,7 +238,7 @@ public class FaceTrackingExample : MonoBehaviour
         // Apply some smoothing to both the position and rotation. The raw input data is quite noisy.
         _smoothedRotation = Vector3.SmoothDamp(_smoothedRotation, _rotation, ref _currentRotVelocity, SmoothTime);
         Model.rotation = Quaternion.Euler(_smoothedRotation);
-        Model.position = Vector3.SmoothDamp(Model.position, _position - _userInitialPosition, ref _currentPosVelocity, SmoothTime);
+        //Model.position = Vector3.SmoothDamp(Model.position, _position - _userInitialPosition, ref _currentPosVelocity, SmoothTime);
     }
 
 
