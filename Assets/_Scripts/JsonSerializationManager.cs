@@ -7,7 +7,7 @@ public class JsonSerializationManager : MonoBehaviour
 {
     public JointOrientationSetter jointSetter;
 
-    private JsonFloatArray motionData;
+    private JsonDoubleArray motionData;
     private string jsonString;
     private readonly string filePath = "Assets/JsonData/";
 
@@ -54,13 +54,13 @@ public class JsonSerializationManager : MonoBehaviour
     private void UpdateMotionData()
     {
         // 데이터 추가.
-        motionData = new JsonFloatArray();
+        motionData = new JsonDoubleArray();
 
-        motionData.Add(0.1f);
+        motionData.Add(0.1);
         for (int ix = 0; ix < jointSetter.joints.Length; ++ix)
         {
-            float angle = jointSetter.joints[ix].angle;
-            motionData.Add(angle);
+            double angle = jointSetter.joints[ix].angle;
+            motionData.Add((double)Mathf.Round((float)(angle * 10)) / 10);
         }
 
         //사이즈 설정 -클래스 안에 배열 값 크기로 size 변수 설정하는 함수 호출.

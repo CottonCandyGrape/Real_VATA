@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public class JsonFloatArray
+public class JsonDoubleArray
 {
     [SerializeField]
     private int size;
 
     [SerializeField]
-    private float[] array;
+    private double[] array;
 
     public void SetSize()
     {
@@ -19,29 +19,29 @@ public class JsonFloatArray
         get { return array == null ? -1 : array.Length; }
     }
 
-    public float this[int index]
+    public double this[int index]
     {
         get { return array == null ? -1 : array[index]; }
         set { array[index] = value; }
     }
 
-    public void Add(float angle)
+    public void Add(double angle)
     {
         if (array == null)
         {
-            array = new float[1];
+            array = new double[1];
             array[0] = angle;
 
             return;
         }
 
-        float[] tempArray = new float[array.Length];
+        double[] tempArray = new double[array.Length];
         for (int ix = 0; ix < tempArray.Length; ++ix)
         {
             tempArray[ix] = array[ix];
         }
 
-        array = new float[array.Length + 1];
+        array = new double[array.Length + 1];
         for (int ix = 0; ix < tempArray.Length; ++ix)
         {
             array[ix] = tempArray[ix];
@@ -54,7 +54,7 @@ public class JsonFloatArray
     {
         if (array == null) return;
 
-        float[] tempArray = new float[array.Length - 1];
+        double[] tempArray = new double[array.Length - 1];
         int idx = 0;
         for (int ix = 0; ix < array.Length; ++ix)
         {
@@ -63,7 +63,7 @@ public class JsonFloatArray
             ++idx;
         }
 
-        array = new float[tempArray.Length];
+        array = new double[tempArray.Length];
         for (int ix = 0; ix < array.Length; ++ix)
         {
             array[ix] = tempArray[ix];

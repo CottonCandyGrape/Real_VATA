@@ -4,27 +4,10 @@ using UnityEngine;
 
 public class TestAll : MonoBehaviour
 {
-    A a;
-
-    // Start is called before the first frame update
     void Start()
     {
-        a = new A();
-        a.num = 1;
-        Debug.Log(a.num);
-
-        a = new A();
-        Debug.Log(a.num);
+        float[] a = new float[1];
+        a[0] = 0.1f;
+        Debug.Log(a[0]);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
-
-public class A
-{
-    public int num = 0;
 }
