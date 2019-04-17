@@ -4,7 +4,7 @@
 [Bb]uild/
 [Bb]uilds/
 Assets/AssetStoreTools*
-Assts/JsonData/*.json
+Assets/JsonData/*
 
 # Visual Studio cache directory
 .vs/
