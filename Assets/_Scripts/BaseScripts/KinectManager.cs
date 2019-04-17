@@ -84,7 +84,7 @@ public class KinectManager : MonoBehaviour
     public List<MonoBehaviour> GestureListeners;
 
     // GUI Text to show messages.
-    //public GUIText CalibrationText;
+    public GUIText CalibrationText;
 
     // GUI Texture to display the hand cursor for Player1
     public GameObject HandCursor1;
@@ -1003,8 +1003,8 @@ public class KinectManager : MonoBehaviour
             string message = "Please check the Kinect SDK installation.";
             Debug.LogError(message);
             Debug.LogError(e.ToString());
-            //if (CalibrationText != null)
-            //    CalibrationText.GetComponent<GUIText>().text = message;
+            if (CalibrationText != null)
+                CalibrationText.GetComponent<GUIText>().text = message;
 
             return;
         }
@@ -1013,8 +1013,8 @@ public class KinectManager : MonoBehaviour
             string message = e.Message + " - " + KinectWrapper.GetNuiErrorString(hr);
             Debug.LogError(message);
             Debug.LogError(e.ToString());
-            //if (CalibrationText != null)
-            //    CalibrationText.GetComponent<GUIText>().text = message;
+            if (CalibrationText != null)
+                CalibrationText.GetComponent<GUIText>().text = message;
 
             return;
         }
@@ -1088,10 +1088,10 @@ public class KinectManager : MonoBehaviour
         }
 
         // GUI Text.
-        //if (CalibrationText != null)
-        //{
-        //    CalibrationText.GetComponent<GUIText>().text = "WAITING FOR USERS";
-        //}
+        if (CalibrationText != null)
+        {
+            CalibrationText.GetComponent<GUIText>().text = "WAITING FOR USERS";
+        }
 
         Debug.Log("Waiting for users.");
 
@@ -1186,23 +1186,23 @@ public class KinectManager : MonoBehaviour
                                 {
                                     Vector3 vCursorPos = gestureData.screenPos;
 
-                                    //if (HandCursor1.GetComponent<GUITexture>() == null)
-                                    //{
-                                    //    float zDist = HandCursor1.transform.position.z - Camera.main.transform.position.z;
-                                    //    vCursorPos.z = zDist;
+                                    if (HandCursor1.GetComponent<GUITexture>() == null)
+                                    {
+                                        float zDist = HandCursor1.transform.position.z - Camera.main.transform.position.z;
+                                        vCursorPos.z = zDist;
 
-                                    //    vCursorPos = Camera.main.ViewportToWorldPoint(vCursorPos);
-                                    //}
+                                        vCursorPos = Camera.main.ViewportToWorldPoint(vCursorPos);
+                                    }
 
                                     HandCursor1.transform.position = Vector3.Lerp(HandCursor1.transform.position, vCursorPos, 3 * Time.deltaTime);
                                 }
 
-                                //if (ControlMouseCursor)
-                                //{
-                                //    Vector3 vCursorPos = HandCursor1.GetComponent<GUITexture>() != null ? HandCursor1.transform.position :
-                                //        Camera.main.WorldToViewportPoint(HandCursor1.transform.position);
-                                //    //MouseControl.MouseMove(vCursorPos, CalibrationText);
-                                //}
+                                if (ControlMouseCursor)
+                                {
+                                    Vector3 vCursorPos = HandCursor1.GetComponent<GUITexture>() != null ? HandCursor1.transform.position :
+                                        Camera.main.WorldToViewportPoint(HandCursor1.transform.position);
+                                    MouseControl.MouseMove(vCursorPos, CalibrationText);
+                                }
                             }
                         }
 
@@ -1271,23 +1271,23 @@ public class KinectManager : MonoBehaviour
                                 {
                                     Vector3 vCursorPos = gestureData.screenPos;
 
-                                    //if (HandCursor2.GetComponent<GUITexture>() == null)
-                                    //{
-                                    //    float zDist = HandCursor2.transform.position.z - Camera.main.transform.position.z;
-                                    //    vCursorPos.z = zDist;
+                                    if (HandCursor2.GetComponent<GUITexture>() == null)
+                                    {
+                                        float zDist = HandCursor2.transform.position.z - Camera.main.transform.position.z;
+                                        vCursorPos.z = zDist;
 
-                                    //    vCursorPos = Camera.main.ViewportToWorldPoint(vCursorPos);
-                                    //}
+                                        vCursorPos = Camera.main.ViewportToWorldPoint(vCursorPos);
+                                    }
 
                                     HandCursor2.transform.position = Vector3.Lerp(HandCursor2.transform.position, vCursorPos, 3 * Time.deltaTime);
                                 }
 
-                                //if (ControlMouseCursor)
-                                //{
-                                //    Vector3 vCursorPos = HandCursor2.GetComponent<GUITexture>() != null ? HandCursor2.transform.position :
-                                //        Camera.main.WorldToViewportPoint(HandCursor2.transform.position);
-                                //    //MouseControl.MouseMove(vCursorPos, CalibrationText);
-                                //}
+                                if (ControlMouseCursor)
+                                {
+                                    Vector3 vCursorPos = HandCursor2.GetComponent<GUITexture>() != null ? HandCursor2.transform.position :
+                                        Camera.main.WorldToViewportPoint(HandCursor2.transform.position);
+                                    MouseControl.MouseMove(vCursorPos, CalibrationText);
+                                }
                             }
                         }
 
@@ -1601,10 +1601,10 @@ public class KinectManager : MonoBehaviour
         {
             Debug.Log("All players calibrated.");
 
-            //if (CalibrationText != null)
-            //{
-            //    CalibrationText.GetComponent<GUIText>().text = "";
-            //}
+            if (CalibrationText != null)
+            {
+                CalibrationText.GetComponent<GUIText>().text = "";
+            }
         }
     }
 
@@ -1663,10 +1663,10 @@ public class KinectManager : MonoBehaviour
         // Try to replace that user!
         Debug.Log("Waiting for users.");
 
-        //if (CalibrationText != null)
-        //{
-        //    CalibrationText.GetComponent<GUIText>().text = "WAITING FOR USERS";
-        //}
+        if (CalibrationText != null)
+        {
+            CalibrationText.GetComponent<GUIText>().text = "WAITING FOR USERS";
+        }
     }
 
     // Some internal constants

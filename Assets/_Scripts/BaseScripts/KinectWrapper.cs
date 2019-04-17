@@ -1,9 +1,9 @@
 // comment or uncomment the following #define directives
 // depending on whether you use KinectExtras together with KinectManager
 
-//#define USE_KINECT_INTERACTION_OR_FACETRACKING
+#define USE_KINECT_INTERACTION_OR_FACETRACKING
 //#define USE_SPEECH_RECOGNITION
-	
+
 using UnityEngine;
 
 using System;
