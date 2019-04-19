@@ -24,6 +24,7 @@ public class AngleMessenger : MonoBehaviour
 
     void SendAngle()
     {
+        SendAngleToNeck();
         SendAngleToRightArm();
         SendAngleToLeftArm();
     }
@@ -42,6 +43,15 @@ public class AngleMessenger : MonoBehaviour
         if (CollisionManager.leftArmMove)
         {
             for (int i = 3; i < 6; i++)
+                joints[i].angle = cdJoints[i].angle;
+        }
+    }
+
+    void SendAngleToNeck()
+    {
+        if (CollisionManager.neckMove)
+        {
+            for (int i = 6; i < 8; i++)
                 joints[i].angle = cdJoints[i].angle;
         }
     }

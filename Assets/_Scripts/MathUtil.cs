@@ -34,16 +34,49 @@ class MathUtil
         };
     }
 
+    public static float GetNeckAngle(FacetrackingManager facetrackingManager, JointName joint)
+    {
+        float angle = 0;
+
+        if (facetrackingManager == null)
+        {
+            facetrackingManager = FacetrackingManager.Instance;
+        }
+
+        if (facetrackingManager && facetrackingManager.IsTrackingFace())
+        {
+            switch (joint)
+            {
+                case JointName.pan:
+                    angle = facetrackingManager.GetHeadRotation().eulerAngles.y;
+                    if (angle > 180f) angle = angle - 360f; //180도를 넘을리는 없지만 각의 범위를 -180~180로 쓰겠다는 의미
+                    break;
+                case JointName.tilt:
+                    angle = facetrackingManager.GetHeadRotation().eulerAngles.x;
+                    if (angle > 180f) angle = angle - 360f;
+                    break;
+                default: break;
+            }
+        }
+
+        return angle;
+    }
+
     public static float LimitJointAngle(JointName jointName, float angle) // angle 제한하는 함수
     {
         switch (jointName)
         {
             case JointName.shoulder_l1:
-            case JointName.shoulder_r1: angle = Mathf.Clamp(angle, -90f, 90f); break;
+            case JointName.shoulder_r1:
+            case JointName.pan: angle = Mathf.Clamp(angle, -90f, 90f); break;
+            case JointName.tilt: angle = Mathf.Clamp(angle, -30f, 15f); break;
+
             case JointName.shoulder_l2:
             case JointName.elbow_l: angle = Mathf.Clamp(angle, -90f, 0f); break;
+
             case JointName.shoulder_r2:
             case JointName.elbow_r: angle = Mathf.Clamp(angle, 0f, 90f); break;
+
             default: break;
         }
 

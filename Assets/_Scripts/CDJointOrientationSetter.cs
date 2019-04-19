@@ -12,7 +12,7 @@ public class CDJointOrientationSetter : MonoBehaviour
 
         foreach (CDJoint joint in joints)
         {
-            joint.manager = manager;
+            joint.kinectManager = manager;
         }
     }
 

@@ -10,7 +10,7 @@ public enum TargetAxis
 
 public enum JointName
 {
-    shoulder_l1, shoulder_l2, elbow_l, shoulder_r1, shoulder_r2, elbow_r, neck, head
+    shoulder_l1, shoulder_l2, elbow_l, shoulder_r1, shoulder_r2, elbow_r, pan, tilt
 }
 
 [Serializable]
@@ -35,7 +35,8 @@ public class CDJoint
     public float offset = 0f;
     public float angle { get; private set; }//Joint회전 각도.
 
-    public KinectManager manager { get; set; }
+    public KinectManager kinectManager { get; set; } //CDJointOrientationSetter에서 쓰기 때문에 public
+    private FacetrackingManager faceTrackingManager;
 
     public void UpdateRotation()
     {
@@ -44,32 +45,25 @@ public class CDJoint
 
         if (parentVectorMaterial.Start == JointIndex.HipCenter)
         {
-            parentVector = MathUtil.GetJointCoordinate(manager, JointIndex.HipCenter)[(int)parentVectorMaterial.Axis];
+            parentVector = MathUtil.GetJointCoordinate(kinectManager, JointIndex.HipCenter)[(int)parentVectorMaterial.Axis];
         }
-        else
+        else //팔꿈치에만 쓰임
         {
-            parentVector = MathUtil.GetVectorBetween(parentVectorMaterial.Start, parentVectorMaterial.End, manager);
-        }
-
-        if (childVectorMaterial.Start == JointIndex.Head)
-        {
-            childVector = MathUtil.GetJointCoordinate(manager, JointIndex.Head)[(int)parentVectorMaterial.Axis];
-        }
-        else
-        {
-            childVector = MathUtil.GetVectorBetween(childVectorMaterial.Start, childVectorMaterial.End, manager);
+            parentVector = MathUtil.GetVectorBetween(parentVectorMaterial.Start, parentVectorMaterial.End, kinectManager);
         }
 
-        if(jointName == JointName.neck || jointName == JointName.head)
+        childVector = MathUtil.GetVectorBetween(childVectorMaterial.Start, childVectorMaterial.End, kinectManager);
+
+        if (jointName == JointName.pan || jointName == JointName.tilt) //목 제어
         {
-            //angle;
+            angle = MathUtil.GetNeckAngle(faceTrackingManager, jointName);
         }
         else
         {
             angle = (MathUtil.Dot(parentVector, childVector) + offset) * direction; //얻은 두개의 벡터로 angle 계산
-            angle = MathUtil.LimitJointAngle(jointName, angle);
-        }        
+        }
 
+        angle = MathUtil.LimitJointAngle(jointName, angle);
         RotateJoint(angle);
     }
 

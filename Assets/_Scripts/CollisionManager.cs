@@ -4,31 +4,39 @@ using UnityEngine;
 
 public class CollisionManager : MonoBehaviour
 {
-    public GameObject[] rightArm; //오른팔 오브젝트 배열
+    public GameObject[] neck; //목 오브젝트 배열 //구조의 통일성과 CheckAllPartsCollision 함수를 위해 배열로 선언(필요한 오브젝트는 1개)
+    public GameObject[] rightArm; //오른팔 오브젝트 배열                       //InitParts, UpdatePartsCollision 함수는 조금 아쉽쓰.
     public GameObject[] leftArm; //왼팔 오브젝트 배열
 
-    private bool[] rightArmCollision; //오브젝트들의 충돌여부 boolean 배열    
+    private bool[] neckCollision; //오브젝트들의 충돌여부 boolean 배열
+    private bool[] rightArmCollision;
     private bool[] leftArmCollision;
 
+    public static bool neckMove = true; // 목 동작 boolean
     public static bool rightArmMove = true; // 오른팔 동작 boolean
     public static bool leftArmMove = true; // 왼팔 동작 boolean
 
     void Start()
     {
-        InitBothArms();
+        InitParts();
     }
 
     void Update()
     {
-        UpdateArmCollision();
-        CheckCollisionArm();
+        UpdatePartsCollision();
+        CheckAllPartsCollision();
     }
 
-    private void InitBothArms() //양팔 오브젝트에 MOOCAPart.cs 컴포넌트 추가, boolean 배열 초기화.
+    private void InitParts() //양팔 오브젝트에 MOOCAPart.cs 컴포넌트 추가, boolean 배열 초기화.
     {
+        neckCollision = new bool[neck.Length];
         rightArmCollision = new bool[rightArm.Length];
         leftArmCollision = new bool[leftArm.Length];
 
+        for (int i = 0; i < neck.Length; i++)
+        {
+            neck[i].AddComponent<MOCCAPart>();
+        }
         for (int i = 0; i < rightArm.Length; i++)
         {
             rightArm[i].AddComponent<MOCCAPart>();
@@ -36,8 +44,12 @@ public class CollisionManager : MonoBehaviour
         }
     }
 
-    private void UpdateArmCollision() //부품의 충돌 여부를 갱신
+    private void UpdatePartsCollision() //부품의 충돌 여부를 갱신
     {
+        for (int i = 0; i < neck.Length; i++)
+        {
+            neckCollision[i] = neck[i].GetComponent<MOCCAPart>().collision;
+        }
         for (int i = 0; i < rightArmCollision.Length; i++)
         {
             rightArmCollision[i] = rightArm[i].GetComponent<MOCCAPart>().collision;
@@ -45,41 +57,74 @@ public class CollisionManager : MonoBehaviour
         }
     }
 
-    private void CheckCollisionArm() //충돌 여부에 따라 팔 전체를 컨트롤하는 boolean값 toggle
+    private void CheckAllPartsCollision() //충돌 여부에 따라 파트 전체를 컨트롤하는 boolean값 toggle
     {
-        CheckCollisionRightArm(); //오른팔
-        CheckCollisionLeftArm(); //왼팔
+        CheckPartCollision(ref neckCollision, ref neckMove); //목
+        CheckPartCollision(ref rightArmCollision, ref rightArmMove); //오른팔
+        CheckPartCollision(ref leftArmCollision, ref leftArmMove); //왼팔
     }
 
-    private void CheckCollisionRightArm()
+    private void CheckPartCollision(ref bool[] collision, ref bool partMove)
     {
-        for (int i = 0; i < rightArmCollision.Length; i++)
+        for (int i = 0; i < collision.Length; i++)
         {
-            if (rightArmCollision[i])
+            if (collision[i])
             {
-                rightArmMove = false;
+                partMove = false;
                 break;
             }
-            else if (!rightArmCollision[i])
+            else if (!collision[i])
             {
-                rightArmMove = true;
+                partMove = true;
             }
         }
     }
 
-    private void CheckCollisionLeftArm()
-    {
-        for (int i = 0; i < leftArmCollision.Length; i++)
-        {
-            if (leftArmCollision[i])
-            {
-                leftArmMove = false;
-                break;
-            }
-            else if (!leftArmCollision[i])
-            {
-                leftArmMove = true;
-            }
-        }
-    }
+    //private void CheckCollisionNeck()
+    //{
+    //    for (int i = 0; i < neckCollision.Length; i++)
+    //    {
+    //        if (neckCollision[i])
+    //        {
+    //            neckMove = false;
+    //            break;
+    //        }
+    //        else if (!neckCollision[i])
+    //        {
+    //            neckMove = true;
+    //        }
+    //    }
+    //}
+
+    //private void CheckCollisionRightArm()
+    //{
+    //    for (int i = 0; i < rightArmCollision.Length; i++)
+    //    {
+    //        if (rightArmCollision[i])
+    //        {
+    //            rightArmMove = false;
+    //            break;
+    //        }
+    //        else if (!rightArmCollision[i])
+    //        {
+    //            rightArmMove = true;
+    //        }
+    //    }
+    //}
+
+    //private void CheckCollisionLeftArm()
+    //{
+    //    for (int i = 0; i < leftArmCollision.Length; i++)
+    //    {
+    //        if (leftArmCollision[i])
+    //        {
+    //            leftArmMove = false;
+    //            break;
+    //        }
+    //        else if (!leftArmCollision[i])
+    //        {
+    //            leftArmMove = true;
+    //        }
+    //    }
+    //}
 }

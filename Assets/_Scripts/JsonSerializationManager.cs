@@ -19,14 +19,14 @@ public class JsonSerializationManager : MonoBehaviour
     {
         targetFrameTime = 1f / fps;
 
-        string[] topics = new string[] //subscribe할 토픽들
-        {
-             Utils.TopicHeader + D2EConstants.TOPIC_TTS,
-             Utils.TopicHeader + D2EConstants.TOPIC_MOTION, //모션만 사용 topic = /raw_motion (publisher에서 쓴다.)
-             Utils.TopicHeader + D2EConstants.TOPIC_MOBILITY,
-             Utils.TopicHeader + D2EConstants.TOPIC_FACIAL
-        };
-        Mqtt.Instance.Connect("52.78.62.151", topics);
+        //string[] topics = new string[] //subscribe할 토픽들
+        //{
+        //     Utils.TopicHeader + D2EConstants.TOPIC_TTS,
+        //     Utils.TopicHeader + D2EConstants.TOPIC_MOTION, //모션만 사용 topic = /raw_motion (publisher에서 쓴다.)
+        //     Utils.TopicHeader + D2EConstants.TOPIC_MOBILITY,
+        //     Utils.TopicHeader + D2EConstants.TOPIC_FACIAL
+        //};
+        //Mqtt.Instance.Connect("52.78.62.151", topics);
     }
 
     private void Update()
@@ -48,7 +48,7 @@ public class JsonSerializationManager : MonoBehaviour
     {
         UpdateMotionData();
         UpdateJsonString();
-        Mqtt.Instance.Send("/raw_motion", jsonString);
+        //Mqtt.Instance.Send("/raw_motion", jsonString);
     }
 
     private void UpdateMotionData()
