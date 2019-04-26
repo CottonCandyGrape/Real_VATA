@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using System.Net.Sockets;
+using System.Text;
 
 public class JsonSerializationManager : MonoBehaviour
 {
@@ -11,22 +13,17 @@ public class JsonSerializationManager : MonoBehaviour
     private string jsonString;
     private readonly string filePath = "Assets/JsonData/";
 
-    private float fps = 1f;
+    private float fps = 10f;
     private float targetFrameTime = 0f;
     private float elapsedTime = 0f;
+
+    const string IP = "52.78.62.151";
+    const int PORT = 5001;
+    UdpClient udpClient = new UdpClient(IP, PORT);
 
     void Start()
     {
         targetFrameTime = 1f / fps;
-
-        //string[] topics = new string[] //subscribe할 토픽들
-        //{
-        //     Utils.TopicHeader + D2EConstants.TOPIC_TTS,
-        //     Utils.TopicHeader + D2EConstants.TOPIC_MOTION, //모션만 사용 topic = /raw_motion (publisher에서 쓴다.)
-        //     Utils.TopicHeader + D2EConstants.TOPIC_MOBILITY,
-        //     Utils.TopicHeader + D2EConstants.TOPIC_FACIAL
-        //};
-        //Mqtt.Instance.Connect("52.78.62.151", topics);
     }
 
     private void Update()
@@ -44,10 +41,18 @@ public class JsonSerializationManager : MonoBehaviour
         }
     }
 
+    private void Send(string rawMotion)
+    {
+        byte[] data = new byte[1024];
+        data = Encoding.UTF8.GetBytes(rawMotion);
+        udpClient.Send(data, data.Length);
+    }
+
     private void SendJsonStringWithMqtt()
     {
         UpdateMotionData();
         UpdateJsonString();
+        //Send(jsonString);
         //Mqtt.Instance.Send("/raw_motion", jsonString);
     }
 
@@ -73,7 +78,7 @@ public class JsonSerializationManager : MonoBehaviour
         jsonString = JsonUtility.ToJson(motionData);
 
         //필요한 형태로 문자열 조합.
-        jsonString = "mot:raw(" + jsonString + ")";
+        jsonString = "mot:raw(" + jsonString + ")\n";
 
         //파일로 저장.
         File.WriteAllText(filePath + "TestData.json", jsonString);
