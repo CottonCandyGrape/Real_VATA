@@ -10,58 +10,16 @@ public class JsonSerializationManager : MonoBehaviour
     public JointOrientationSetter jointSetter;
 
     private JsonDoubleArray motionData;
-    private string jsonString;
+    private double targetFrameTime = 0.2;
+
     private readonly string filePath = "Assets/JsonData/";
 
-    private float fps = 5f;
-    private float targetFrameTime = 0f;
-    private float elapsedTime = 0f;
-
-    const string IP = "52.78.62.151";
-    const int PORT = 5001;
-    UdpClient udpClient = new UdpClient(IP, PORT);
-
-    void Start()
-    {
-        targetFrameTime = 1f / fps;
-    }
-
-    private void Update()
-    {
-        TimeCounter(targetFrameTime);
-    }
-
-    private void TimeCounter(float targetFrameTime)
-    {
-        elapsedTime += Time.deltaTime;
-        if (elapsedTime >= targetFrameTime)
-        {
-            SendJsonStringWithMqtt();
-            elapsedTime = 0f;
-        }
-    }
-
-    private void Send(string rawMotion)
-    {
-        byte[] data = new byte[1024];
-        data = Encoding.UTF8.GetBytes(rawMotion);
-        udpClient.Send(data, data.Length);
-    }
-
-    private void SendJsonStringWithMqtt()
-    {
-        UpdateMotionData();
-        UpdateJsonString();
-        Send(jsonString);
-        //Mqtt.Instance.Send("/raw_motion", jsonString);
-    }
-
-    private void UpdateMotionData()
+    public void UpdateMotionData()
     {
         // 데이터 추가.
         motionData = new JsonDoubleArray();
 
-        motionData.Add(targetFrameTime);
+        motionData.Add(0.2);
         for (int ix = 0; ix < jointSetter.joints.Length; ++ix)
         {
             double angle = jointSetter.joints[ix].angle;
@@ -79,8 +37,10 @@ public class JsonSerializationManager : MonoBehaviour
         motionData.SetSize();
     }
 
-    private void UpdateJsonString()
+    public string UpdateJsonString()
     {
+        string jsonString;
+
         //JSON 문자열 얻기.
         jsonString = JsonUtility.ToJson(motionData);
 
@@ -89,6 +49,8 @@ public class JsonSerializationManager : MonoBehaviour
 
         //파일로 저장.
         File.WriteAllText(filePath + "TestData.json", jsonString);
+
+        return jsonString;
     }
 }
 
