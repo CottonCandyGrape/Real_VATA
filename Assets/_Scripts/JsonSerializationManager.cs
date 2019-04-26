@@ -13,7 +13,7 @@ public class JsonSerializationManager : MonoBehaviour
     private string jsonString;
     private readonly string filePath = "Assets/JsonData/";
 
-    private float fps = 10f;
+    private float fps = 5f;
     private float targetFrameTime = 0f;
     private float elapsedTime = 0f;
 
@@ -52,7 +52,7 @@ public class JsonSerializationManager : MonoBehaviour
     {
         UpdateMotionData();
         UpdateJsonString();
-        //Send(jsonString);
+        Send(jsonString);
         //Mqtt.Instance.Send("/raw_motion", jsonString);
     }
 
@@ -61,11 +61,18 @@ public class JsonSerializationManager : MonoBehaviour
         // 데이터 추가.
         motionData = new JsonDoubleArray();
 
-        motionData.Add(0.1);
+        motionData.Add(targetFrameTime);
         for (int ix = 0; ix < jointSetter.joints.Length; ++ix)
         {
             double angle = jointSetter.joints[ix].angle;
-            motionData.Add((double)Mathf.Round((float)(angle * 10)) / 10);
+            if (ix == 3 || ix == 7)
+            {
+                motionData.Add(-(double)Mathf.Round((float)(angle * 10)) / 10);
+            }
+            else
+            {
+                motionData.Add((double)Mathf.Round((float)(angle * 10)) / 10);
+            }
         }
 
         //사이즈 설정 -클래스 안에 배열 값 크기로 size 변수 설정하는 함수 호출.

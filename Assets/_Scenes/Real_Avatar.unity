@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45140028, g: 0.5008927, b: 0.57231224, a: 1}
+  m_IndirectSpecularColor: {r: 0.45140022, g: 0.50089264, b: 0.57231236, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1159,21 +1159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joints:
-  - jointName: 0
-    rotationAxis: 0
-    targetTransform: {fileID: 1603227144}
-    direction: -1
-    offset: -90
-  - jointName: 1
-    rotationAxis: 1
-    targetTransform: {fileID: 1311726671}
-    direction: -1
-    offset: 0
-  - jointName: 2
-    rotationAxis: 1
-    targetTransform: {fileID: 1250266109}
-    direction: -1
-    offset: 0
   - jointName: 3
     rotationAxis: 0
     targetTransform: {fileID: 1472634667}
@@ -1188,6 +1173,21 @@ MonoBehaviour:
     rotationAxis: 1
     targetTransform: {fileID: 1746867459}
     direction: 1
+    offset: 0
+  - jointName: 0
+    rotationAxis: 0
+    targetTransform: {fileID: 1603227144}
+    direction: -1
+    offset: -90
+  - jointName: 1
+    rotationAxis: 1
+    targetTransform: {fileID: 1311726671}
+    direction: -1
+    offset: 0
+  - jointName: 2
+    rotationAxis: 1
+    targetTransform: {fileID: 1250266109}
+    direction: -1
     offset: 0
   - jointName: 6
     rotationAxis: 1
@@ -3816,7 +3816,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &807761359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7247,45 +7247,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joints:
-  - jointName: 0
-    rotationAxis: 0
-    targetTransform: {fileID: 277968137}
-    parentVectorMaterial:
-      Start: 0
-      End: 0
-      Axis: 1
-    childVectorMaterial:
-      Start: 5
-      End: 4
-      Axis: 0
-    direction: -1
-    offset: -90
-  - jointName: 1
-    rotationAxis: 1
-    targetTransform: {fileID: 212943571}
-    parentVectorMaterial:
-      Start: 0
-      End: 0
-      Axis: 0
-    childVectorMaterial:
-      Start: 5
-      End: 4
-      Axis: 0
-    direction: -1
-    offset: 0
-  - jointName: 2
-    rotationAxis: 1
-    targetTransform: {fileID: 1597917832}
-    parentVectorMaterial:
-      Start: 4
-      End: 5
-      Axis: 0
-    childVectorMaterial:
-      Start: 5
-      End: 6
-      Axis: 0
-    direction: -1
-    offset: 0
   - jointName: 3
     rotationAxis: 0
     targetTransform: {fileID: 388015301}
@@ -7324,6 +7285,45 @@ MonoBehaviour:
       End: 10
       Axis: 0
     direction: 1
+    offset: 0
+  - jointName: 0
+    rotationAxis: 0
+    targetTransform: {fileID: 277968137}
+    parentVectorMaterial:
+      Start: 0
+      End: 0
+      Axis: 1
+    childVectorMaterial:
+      Start: 5
+      End: 4
+      Axis: 0
+    direction: -1
+    offset: -90
+  - jointName: 1
+    rotationAxis: 1
+    targetTransform: {fileID: 212943571}
+    parentVectorMaterial:
+      Start: 0
+      End: 0
+      Axis: 0
+    childVectorMaterial:
+      Start: 5
+      End: 4
+      Axis: 0
+    direction: -1
+    offset: 0
+  - jointName: 2
+    rotationAxis: 1
+    targetTransform: {fileID: 1597917832}
+    parentVectorMaterial:
+      Start: 4
+      End: 5
+      Axis: 0
+    childVectorMaterial:
+      Start: 5
+      End: 6
+      Axis: 0
+    direction: -1
     offset: 0
   - jointName: 6
     rotationAxis: 1
