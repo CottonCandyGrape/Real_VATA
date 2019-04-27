@@ -20,17 +20,41 @@ public class JsonSerializationManager : MonoBehaviour
         motionData = new JsonDoubleArray();
 
         motionData.Add(0.2);
-        for (int ix = 0; ix < jointSetter.joints.Length; ++ix)
+        //for (int ix = 0; ix < jointSetter.joints.Length; ++ix)
+        //{
+        //    double angle = jointSetter.joints[ix].angle;
+        //    if (ix == 3 || ix == 7)
+        //    {
+        //        motionData.Add(-(double)Mathf.Round((float)(angle * 10)) / 10);
+        //    }
+        //    else
+        //    {
+        //        motionData.Add((double)Mathf.Round((float)(angle * 10)) / 10);
+        //    }
+        //}
+
+        for (int i = 3; i < 6; i++) // 실물 모카 왼팔
         {
-            double angle = jointSetter.joints[ix].angle;
-            if (ix == 3 || ix == 7)
-            {
-                motionData.Add(-(double)Mathf.Round((float)(angle * 10)) / 10);
-            }
-            else
-            {
+            double angle = jointSetter.joints[i].angle;
+            if (i == 3)
                 motionData.Add((double)Mathf.Round((float)(angle * 10)) / 10);
-            }
+            else
+                motionData.Add(-(double)Mathf.Round((float)(angle * 10)) / 10);
+        }
+
+        for (int i = 0; i < 3; i++) // 실물 모카 오른팔
+        {
+            double angle = jointSetter.joints[i].angle;
+            motionData.Add(-(double)Mathf.Round((float)(angle * 10)) / 10);
+        }
+
+        for (int i = 6; i < 8; i++) // 실물 모카 목
+        {
+            double angle = jointSetter.joints[i].angle;
+            if (i == 7)
+                motionData.Add((-(double)Mathf.Round((float)(angle * 10)) / 10) * 1.3);
+            else
+                motionData.Add((double)Mathf.Round((float)(angle * 10)) / 10);
         }
 
         //사이즈 설정 -클래스 안에 배열 값 크기로 size 변수 설정하는 함수 호출.
