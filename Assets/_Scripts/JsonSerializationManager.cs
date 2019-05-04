@@ -1,37 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using UnityEngine;
-using System.Net.Sockets;
-using System.Text;
+
 
 public class JsonSerializationManager : MonoBehaviour
 {
     public JointOrientationSetter jointSetter;
 
     private JsonDoubleArray motionData;
-    private double targetFrameTime = 0.2;
+    //private double targetFrameTime = 0.2;
 
     private readonly string filePath = "Assets/JsonData/";
 
-    public void UpdateMotionData()
+    public void UpdateMotionData()  
     {
         // 데이터 추가.
         motionData = new JsonDoubleArray();
 
-        motionData.Add(0.2);
-        //for (int ix = 0; ix < jointSetter.joints.Length; ++ix)
-        //{
-        //    double angle = jointSetter.joints[ix].angle;
-        //    if (ix == 3 || ix == 7)
-        //    {
-        //        motionData.Add(-(double)Mathf.Round((float)(angle * 10)) / 10);
-        //    }
-        //    else
-        //    {
-        //        motionData.Add((double)Mathf.Round((float)(angle * 10)) / 10);
-        //    }
-        //}
+        motionData.Add(0.2);        
 
         for (int i = 3; i < 6; i++) // 실물 모카 왼팔
         {
@@ -78,6 +63,7 @@ public class JsonSerializationManager : MonoBehaviour
     }
 }
 
+
 //private WaitForSeconds frameWait;
 
 //private void Awake()
@@ -92,5 +78,18 @@ public class JsonSerializationManager : MonoBehaviour
 //    {
 //        yield return frameWait;
 //        Debug.Log("Hello");
+//    }
+//}
+
+//for (int ix = 0; ix < jointSetter.joints.Length; ++ix)
+//{
+//    double angle = jointSetter.joints[ix].angle;
+//    if (ix == 3 || ix == 7)
+//    {
+//        motionData.Add(-(double)Mathf.Round((float)(angle * 10)) / 10);
+//    }
+//    else
+//    {
+//        motionData.Add((double)Mathf.Round((float)(angle * 10)) / 10);
 //    }
 //}
