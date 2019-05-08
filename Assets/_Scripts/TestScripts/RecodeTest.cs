@@ -12,21 +12,26 @@ public class RecodeTest : MonoBehaviour
     private float recodeTime = 1f;
 
     private int motionDataCount;
+    private int motionDataIndex; //인덱스 보다는 motionDataCount를 조절??
 
-    void Start()
+    private bool recodeSign = false;
+
+    private void Start()
     {
-        //CreateMotionData("Hello", "hi, hi, hi");
-        //ReadMotionData("Hello");
-        //Debug.Log(GetMotionDataCount());
-        motionDataCount = GetMotionDataCount();
+        MotionDataCountUpdate();
     }
 
     private void Update()
     {
-        TimerCounter(recodeTime);
+        if (recodeSign) TimerCounter(recodeTime);
     }
 
-    private int GetMotionDataCount()
+    private void MotionDataCountUpdate() //모션파일 개수 체크 후 motionDataCount 초기화
+    {
+        motionDataCount = GetMotionDataCount();
+    }
+
+    private int GetMotionDataCount() //모션데이터 개수 반환
     {
         DirectoryInfo di = new DirectoryInfo("Assets/JsonData/");
         FileInfo[] fi = di.GetFiles("*.json");
@@ -42,33 +47,23 @@ public class RecodeTest : MonoBehaviour
             //{
             //    Debug.Log(fi[i].Name);
             //}
-            Debug.Log(fi.Length);
+            //Debug.Log(fi.Length);
             return fi.Length;
         }
     }
 
-    //private void recodeStart() //녹화를 시작시키고 모션을 하나 먼저 만든다.
-    //{
-    //    CreateMotionData();
-    //}
-
-    //private void recodeEnd()
-    //{
-
-    //}
-
-    private void TimerCounter(float recodeTime) //recodeStart에서 만들어진 모션파일에 recodeTime 마다 내용추가, 녹화 시작 후 호출.
+    private void TimerCounter(float recodeTime) //모션파일 만들고 recodeTime 마다 내용추가. 레코드 사인 들어오면 녹화시작
     {
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= recodeTime)
         {
-            //CreateMotionData("hi, hi, hi"); //UpdateMotinoData() 호출
+            CreateMotionDataFile("hi, hi, hi");
             elapsedTime = 0f;
             //ReadMotionData("Hello");
         }
     }
 
-    private void CreateMotionData(string jsonString)
+    private void CreateMotionDataFile(string jsonString)
     {
         motionDataCount += 1;
 
@@ -81,9 +76,9 @@ public class RecodeTest : MonoBehaviour
         fs.Close();
     }
 
-    //private void UpdateMotinoData(string motionName, string jsonString)
+    //private void UpdateMotinoData(int motionDataIndex, string jsonString) //읽은 후 바꿔야 할 듯
     //{
-    //    FileStream fs = new FileStream(filePath + motionName + ".json", FileMode.Append);
+    //    FileStream fs = new FileStream(filePath + "motion_" + motionDataIndex + ".json", FileMode.Append);
     //    StreamWriter sw = new StreamWriter(fs);
 
     //    sw.WriteLine(jsonString);
@@ -92,12 +87,12 @@ public class RecodeTest : MonoBehaviour
     //    fs.Close();
     //}
 
-    //private void ReadMotionData(string motionName)
+    //private void ReadMotionData(int motionDataIndex)
     //{
-    //    FileStream fs = new FileStream(filePath + motionName + ".json", FileMode.Open);
+    //    FileStream fs = new FileStream(filePath + "motion_" + motionDataIndex + ".json", FileMode.Open);
     //    StreamReader sr = new StreamReader(fs);
 
-    //    Debug.Log("Read " + motionName + ".json");
+    //    Debug.Log("Read " + "motion_" + motionDataIndex + ".json");
     //    while ((readString = sr.ReadLine()) != null)
     //    {
     //        Debug.Log(readString);
