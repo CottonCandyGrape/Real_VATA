@@ -6,6 +6,7 @@ using System.Text;
 public class SSH : MonoBehaviour
 {
     public JsonSerializationManager jsonManager;
+    //public bool realTimeStreaming = false;
 
     private float fps = 5f;
     private float targetFrameTime = 0f;
@@ -22,6 +23,7 @@ public class SSH : MonoBehaviour
 
     void Update()
     {
+        //if (realTimeStreaming)
         TimeCounter(targetFrameTime);
     }
 
@@ -38,7 +40,7 @@ public class SSH : MonoBehaviour
     private void SendMotionDataWithSSH()
     {
         jsonManager.UpdateMotionData();
-        Send(jsonManager.UpdateJsonString());
+        Send(jsonManager.UpdateJsonString() + "\n"); //모션 파일 저장시 공백줄이 생겨서 로봇으로 보낼때만 줄바꿈 추가.
     }
 
     private void Send(string rawMotion)

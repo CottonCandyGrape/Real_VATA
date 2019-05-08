@@ -11,12 +11,12 @@ public class JsonSerializationManager : MonoBehaviour
 
     private readonly string filePath = "Assets/JsonData/";
 
-    public void UpdateMotionData()  
+    public void UpdateMotionData()
     {
         // 데이터 추가.
         motionData = new JsonDoubleArray();
 
-        motionData.Add(0.2);        
+        motionData.Add(0.2);
 
         for (int i = 3; i < 6; i++) // 실물 모카 왼팔
         {
@@ -54,10 +54,10 @@ public class JsonSerializationManager : MonoBehaviour
         jsonString = JsonUtility.ToJson(motionData);
 
         //필요한 형태로 문자열 조합.
-        jsonString = "mot:raw(" + jsonString + ")\n";
+        jsonString = "mot:raw(" + jsonString + ")";
 
         //파일로 저장.
-        File.WriteAllText(filePath + "TestData.json", jsonString);
+        //File.WriteAllText(filePath + "TestData.json", jsonString);
 
         return jsonString;
     }
