@@ -5517,7 +5517,9 @@ MonoBehaviour:
   angleMessenger: {fileID: 1113737627}
   jointSetter: {fileID: 286614083}
   motionFileData:
-    jsonDoubleArrays: []
+    jsonDoubleArrays:
+    - size: 0
+      array: []
 --- !u!4 &1154876261
 Transform:
   m_ObjectHideFlags: 0

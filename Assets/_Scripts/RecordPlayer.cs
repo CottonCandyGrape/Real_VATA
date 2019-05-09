@@ -9,7 +9,7 @@ public class RecordPlayer : MonoBehaviour
     public MotionDataFile motionFileData;
 
     private string filePath = "Assets/JsonData/";
-    private int motionDataCount = 0;
+    //private int motionDataCount = 0;
 
     private IEnumerator Start()
     {
@@ -40,31 +40,4 @@ public class RecordPlayer : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
         }
     }
-
-    //void SendAngleToRightArm()
-    //{
-    //    if (CollisionManager.rightArmMove)
-    //    {
-    //        for (int i = 0; i < 3; i++)
-    //            joints[i].angle = cdJoints[i].angle;
-    //    }
-    //}
-
-    //void SendAngleToLeftArm()
-    //{
-    //    if (CollisionManager.leftArmMove)
-    //    {
-    //        for (int i = 3; i < 6; i++)
-    //            joints[i].angle = cdJoints[i].angle;
-    //    }
-    //}
-
-    //void SendAngleToNeck()
-    //{
-    //    if (CollisionManager.neckMove)
-    //    {
-    //        for (int i = 6; i < 8; i++)
-    //            joints[i].angle = cdJoints[i].angle;
-    //    }
-    //}
 }
