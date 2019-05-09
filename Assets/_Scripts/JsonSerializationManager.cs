@@ -18,7 +18,7 @@ public class JsonSerializationManager : MonoBehaviour
 
         motionData.Add(0.2);
 
-        for (int i = 3; i < 6; i++) // 실물 모카 왼팔
+        for (int i = 3; i < 6; i++) // 실물 모카 왼팔 (시뮬레이터 오른팔)
         {
             double angle = jointSetter.joints[i].angle;
             if (i == 3)
@@ -27,7 +27,7 @@ public class JsonSerializationManager : MonoBehaviour
                 motionData.Add(-(double)Mathf.Round((float)(angle * 10)) / 10);
         }
 
-        for (int i = 0; i < 3; i++) // 실물 모카 오른팔
+        for (int i = 0; i < 3; i++) // 실물 모카 오른팔 (시뮬레이터 왼팔)
         {
             double angle = jointSetter.joints[i].angle;
             motionData.Add(-(double)Mathf.Round((float)(angle * 10)) / 10);
@@ -36,7 +36,7 @@ public class JsonSerializationManager : MonoBehaviour
         for (int i = 6; i < 8; i++) // 실물 모카 목
         {
             double angle = jointSetter.joints[i].angle;
-            if (i == 7)
+            if (i == 7) //tilt 회전 방향이 반대. 30프로 더 회전.
                 motionData.Add((-(double)Mathf.Round((float)(angle * 10)) / 10) * 1.3);
             else
                 motionData.Add((double)Mathf.Round((float)(angle * 10)) / 10);
