@@ -5,6 +5,7 @@ public class TestAll : MonoBehaviour
 {
     private string filePath = "Assets/JsonData/";
 
+    public MotionDataFile motionFile;
 
     private void Start()
     {
@@ -12,11 +13,13 @@ public class TestAll : MonoBehaviour
         {
             string jsonStr = File.ReadAllText(filePath + "motion_1.json");
             Debug.Log(jsonStr);
-            JsonDoubleArray jsonDoubleArray = JsonUtility.FromJson<JsonDoubleArray>(jsonStr);
+
+            motionFile = JsonUtility.FromJson<MotionDataFile>(jsonStr);
+
+            //JsonDoubleArray jsonDoubleArray = JsonUtility.FromJson<JsonDoubleArray>(jsonStr);
             //Debug.Log(jsonDoubleArray);
             //Debug.Log(jsonDoubleArray[1]);
-            jsonDoubleArray[1] += 1.1;
-            Debug.Log(jsonDoubleArray);
+            //Debug.Log(jsonDoubleArray);
         }
     }
 

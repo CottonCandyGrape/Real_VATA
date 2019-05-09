@@ -6,7 +6,8 @@ using System.IO;
 public class RecodeManager : MonoBehaviour
 {
     public JsonSerializationManager jsonManager;
-    public bool recodeSign = false;
+    public bool recordSign = false;
+    public bool signChecker;
 
     private string filePath = "Assets/JsonData/";
     private string readString;
@@ -17,17 +18,38 @@ public class RecodeManager : MonoBehaviour
 
     private int motionDataCount;
 
+    private MotionDataFile motionFile;
+
     private void Start()
     {
         recodeTime = 1 / fps;
         MotionDataCountUpdate();
-        ReadMotionData(1);
+        //ReadMotionData(1);
+
+        signChecker = recordSign;
     }
 
     private void Update()
     {
-        if (recodeSign) TimerCounter(recodeTime);
-        IncMotionDataCount();
+        if (recordSign) TimerCounter(recodeTime);
+
+        if (!recordSign && signChecker && motionFile != null)
+        {
+            CreateMotionJsonFile();
+        }
+
+        //IncMotionDataCount();
+
+        signChecker = recordSign;
+    }
+
+    private void CreateMotionJsonFile()
+    {
+        string fileName = filePath + "motion_" + (motionDataCount + 1) + ".json";
+        string jsonString = JsonUtility.ToJson(motionFile);
+        File.WriteAllText(fileName, jsonString);
+
+        motionFile = null;
     }
 
     private void MotionDataCountUpdate() //모션파일 개수 체크 후 motionDataCount 초기화
@@ -39,7 +61,7 @@ public class RecodeManager : MonoBehaviour
     {
         string fileName = filePath + "motion_" + (motionDataCount + 1) + ".json";
 
-        if (File.Exists(fileName) && recodeSign == false)
+        if (File.Exists(fileName) && recordSign == false)
             motionDataCount++;
     }
 
@@ -57,9 +79,21 @@ public class RecodeManager : MonoBehaviour
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= recodeTime)
         {
-            CreateMotionDataFile(jsonManager.UpdateJsonString());
+            //CreateMotionDataFile(jsonManager.UpdateJsonString());
+            //CreateOrAddMotionData(jsonManager.GetMotionDataForRobot);
+            CreateOrAddMotionData(jsonManager.GetMotionDataForSimulator);
             elapsedTime = 0f;
         }
+    }
+
+    private void CreateOrAddMotionData(JsonDoubleArray motionData)
+    {
+        if (motionFile == null)
+        {
+            motionFile = new MotionDataFile();
+        }
+
+        motionFile.Add(motionData);
     }
 
     private void CreateMotionDataFile(string jsonString)
@@ -79,18 +113,21 @@ public class RecodeManager : MonoBehaviour
     {
         string fileName = filePath + "motion_" + motionDataIndex + ".json";
 
-        FileStream fs = new FileStream(fileName, FileMode.Open);
-        StreamReader sr = new StreamReader(fs);
+        string jsonString = File.ReadAllText(fileName);
+        MotionDataFile dataFile = JsonUtility.FromJson<MotionDataFile>(jsonString);
 
-        Debug.Log("Read " + "motion_" + motionDataIndex + ".json");
-        while ((readString = sr.ReadLine()) != null)
-        {
-            Debug.Log(readString);
-        }
-        Debug.Log("END");
+        //FileStream fs = new FileStream(fileName, FileMode.Open);
+        //StreamReader sr = new StreamReader(fs);
 
-        sr.Close();
-        fs.Close();
+        //Debug.Log("Read " + "motion_" + motionDataIndex + ".json");
+        //while ((readString = sr.ReadLine()) != null)
+        //{
+        //    Debug.Log(readString);
+        //}
+        //Debug.Log("END");
+
+        //sr.Close();
+        //fs.Close();
     }
 
     //private void UpdateMotinoData(int motionDataIndex, string jsonString) //읽은 후 바꿔야 할 듯

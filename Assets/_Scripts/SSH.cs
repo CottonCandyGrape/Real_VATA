@@ -40,7 +40,7 @@ public class SSH : MonoBehaviour
     private void SendMotionDataWithSSH()
     {
         jsonManager.UpdateMotionData();
-        Send(jsonManager.UpdateJsonString() + "\n"); //모션 파일 저장시 공백줄이 생겨서 로봇으로 보낼때만 줄바꿈 추가.
+        Send("mot:raw(" + jsonManager.UpdateJsonString() + ")\n"); //모션 파일 저장시 공백줄이 생겨서 로봇으로 보낼때만 줄바꿈 추가.
     }
 
     private void Send(string rawMotion)

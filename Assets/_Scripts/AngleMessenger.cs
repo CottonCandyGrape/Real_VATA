@@ -11,6 +11,8 @@ public class AngleMessenger : MonoBehaviour
     private CDJoint[] cdJoints;
     private Joint[] joints;
 
+    public bool isRealtimePlayer = true;
+
     private void Awake()
     {
         cdJoints = cdJointOrientationSetter.joints;
@@ -19,7 +21,8 @@ public class AngleMessenger : MonoBehaviour
 
     private void Update()
     {
-        SendAngle();
+        if (isRealtimePlayer)
+            SendAngle();
     }
 
     void SendAngle()

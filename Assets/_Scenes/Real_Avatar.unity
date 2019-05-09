@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45140028, g: 0.5008927, b: 0.57231224, a: 1}
+  m_IndirectSpecularColor: {r: 0.45140022, g: 0.50089264, b: 0.57231236, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5238,6 +5238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cdJointOrientationSetter: {fileID: 1340860396}
   jointOrientationSetter: {fileID: 286614083}
+  isRealtimePlayer: 0
 --- !u!4 &1113737628
 Transform:
   m_ObjectHideFlags: 0
@@ -5484,6 +5485,53 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1151755053}
   m_Mesh: {fileID: 4300060, guid: 4ea7efc808e42574b83614a72ae9be34, type: 3}
+--- !u!1 &1154876259
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1154876261}
+  - component: {fileID: 1154876260}
+  m_Layer: 0
+  m_Name: RecordPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1154876260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154876259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e8e38b9e9010c47b9ef6f100548e72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angleMessenger: {fileID: 1113737627}
+  jointSetter: {fileID: 286614083}
+  motionFileData:
+    jsonDoubleArrays: []
+--- !u!4 &1154876261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154876259}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0000011920929, y: 1.417, z: -0.000000029802322}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 24
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1179467985
 GameObject:
   m_ObjectHideFlags: 0
@@ -6883,7 +6931,7 @@ GameObject:
   - component: {fileID: 1279437130}
   - component: {fileID: 1279437129}
   m_Layer: 0
-  m_Name: RecodeManager
+  m_Name: RecordManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6902,7 +6950,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jsonManager: {fileID: 807761359}
-  recodeSign: 0
+  recordSign: 0
+  signChecker: 0
 --- !u!4 &1279437130
 Transform:
   m_ObjectHideFlags: 0
@@ -11529,7 +11578,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jsonManager: {fileID: 807761359}
-  realTimeStreaming: 0
 --- !u!4 &2147137421
 Transform:
   m_ObjectHideFlags: 0
