@@ -48,7 +48,7 @@ public class RecordManager : MonoBehaviour
         motionDataCount += 1;
     }
 
-    private void CreateOrAddMotionData(JsonDoubleArray motionData)
+    private void CreateOrAddMotionData(DoubleArray motionData)
     {
         if (motionFile == null)
             motionFile = new MotionDataFile();

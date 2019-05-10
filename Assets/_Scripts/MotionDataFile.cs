@@ -4,61 +4,61 @@
 public class MotionDataFile
 {
     [SerializeField]
-    private JsonDoubleArray[] jsonDoubleArrays;
+    private DoubleArray[] DoubleArrays;
 
     public int Length
     {
-        get { return jsonDoubleArrays == null ? -1 : jsonDoubleArrays.Length; }
+        get { return DoubleArrays == null ? -1 : DoubleArrays.Length; }
     }
 
-    public JsonDoubleArray this[int index]
+    public DoubleArray this[int index]
     {
-        get { return jsonDoubleArrays == null ? null : jsonDoubleArrays[index]; }
-        set { jsonDoubleArrays[index] = value; }
+        get { return DoubleArrays == null ? null : DoubleArrays[index]; }
+        set { DoubleArrays[index] = value; }
     }
 
-    public void Add(JsonDoubleArray newJsonData)
+    public void Add(DoubleArray newData)
     {
-        if (jsonDoubleArrays == null)
+        if (DoubleArrays == null)
         {
-            jsonDoubleArrays = new JsonDoubleArray[1];
-            jsonDoubleArrays[0] = newJsonData;
+            DoubleArrays = new DoubleArray[1];
+            DoubleArrays[0] = newData;
 
             return;
         }
 
-        JsonDoubleArray[] tempjsonDoubleArrays = new JsonDoubleArray[jsonDoubleArrays.Length];
-        for (int ix = 0; ix < tempjsonDoubleArrays.Length; ++ix)
+        DoubleArray[] tempDoubleArrays = new DoubleArray[DoubleArrays.Length];
+        for (int ix = 0; ix < tempDoubleArrays.Length; ++ix)
         {
-            tempjsonDoubleArrays[ix] = jsonDoubleArrays[ix];
+            tempDoubleArrays[ix] = DoubleArrays[ix];
         }
 
-        jsonDoubleArrays = new JsonDoubleArray[jsonDoubleArrays.Length + 1];
-        for (int ix = 0; ix < tempjsonDoubleArrays.Length; ++ix)
+        DoubleArrays = new DoubleArray[DoubleArrays.Length + 1];
+        for (int ix = 0; ix < tempDoubleArrays.Length; ++ix)
         {
-            jsonDoubleArrays[ix] = tempjsonDoubleArrays[ix];
+            DoubleArrays[ix] = tempDoubleArrays[ix];
         }
 
-        jsonDoubleArrays[jsonDoubleArrays.Length - 1] = newJsonData;
+        DoubleArrays[DoubleArrays.Length - 1] = newData;
     }
 
     public void RemoveAt(int index)
     {
-        if (jsonDoubleArrays == null) return;
+        if (DoubleArrays == null) return;
 
-        JsonDoubleArray[] tempjsonDoubleArrays = new JsonDoubleArray[jsonDoubleArrays.Length - 1];
+        DoubleArray[] tempDoubleArrays = new DoubleArray[DoubleArrays.Length - 1];
         int idx = 0;
-        for (int ix = 0; ix < jsonDoubleArrays.Length; ++ix)
+        for (int ix = 0; ix < DoubleArrays.Length; ++ix)
         {
             if (ix == index) continue;
-            tempjsonDoubleArrays[idx] = jsonDoubleArrays[ix];
+            tempDoubleArrays[idx] = DoubleArrays[ix];
             ++idx;
         }
 
-        jsonDoubleArrays = new JsonDoubleArray[tempjsonDoubleArrays.Length];
-        for (int ix = 0; ix < jsonDoubleArrays.Length; ++ix)
+        DoubleArrays = new DoubleArray[tempDoubleArrays.Length];
+        for (int ix = 0; ix < DoubleArrays.Length; ++ix)
         {
-            jsonDoubleArrays[ix] = tempjsonDoubleArrays[ix];
+            DoubleArrays[ix] = tempDoubleArrays[ix];
         }
     }
 }

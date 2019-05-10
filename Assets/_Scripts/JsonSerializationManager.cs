@@ -6,35 +6,33 @@ public class JsonSerializationManager : MonoBehaviour
 {
     public JointOrientationSetter jointSetter;
 
-    public JsonDoubleArray GetMotionDataForSimulator
+    public DoubleArray GetMotionDataForSimulator
     {
         get { return motionDataForSimulator; }
     }
-    public JsonDoubleArray GetMotionDataForRobot
+    public DoubleArray GetMotionDataForRobot
     {
         get { return motionDataForRobot; }
     }
 
-    private JsonDoubleArray motionDataForSimulator;
-    private JsonDoubleArray motionDataForRobot;
+    private DoubleArray motionDataForSimulator;
+    private DoubleArray motionDataForRobot;
 
     private readonly string filePath = "Assets/JsonData/";
-    //private double targetFrameTime = 0.2;
 
-    public void UpdateMotionDataForSimulator()
+    public void UpdateMotionDataForSimulator()//파일 생성 전 현재 조인트 값을 DoubleArray에 저장. 시간은 recordTime과 같아야한다.
     {
-        motionDataForSimulator = new JsonDoubleArray();
+        motionDataForSimulator = new DoubleArray();
         motionDataForSimulator.Add(0.2);
         foreach (Joint joint in jointSetter.joints)
         {
-            //motionDataForSimulator.Add(joint.angle);
             motionDataForSimulator.Add((double)Mathf.Round((joint.angle * 10)) / 10);
         }
     }
 
-    public void UpdateMotionDataForRobot() //실시간으로 실물로봇에 각도값 보내기
+    public void UpdateMotionDataForRobot() //실시간으로 실물로봇에 각도값 보내기. 이때는 0.2
     {
-        motionDataForRobot = new JsonDoubleArray();
+        motionDataForRobot = new DoubleArray();
         motionDataForRobot.Add(0.2);
 
         for (int i = 3; i < 6; i++) // 실물 모카 왼팔 (시뮬레이터 오른팔)
@@ -77,6 +75,12 @@ public class JsonSerializationManager : MonoBehaviour
 
         return jsonString;
     }
+
+    //private void Start()
+    //{
+    //    UpdateMotionDataForRobot();
+    //    Debug.Log(GetJsonStringMotionDataForRobot());
+    //}
 
     //public void UpdateMotionData()
     //{

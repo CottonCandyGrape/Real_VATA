@@ -7,9 +7,10 @@ public class MotionCustomizer : MonoBehaviour
 {
     public MotionDataFile motionFileData;
 
+    public string motionFileName;
+    public float speed;
+
     private string filePath = "Assets/JsonData/";
-    private string motionFileName = "motion_5";
-    private float speed = 2f;
 
     void Start()
     {
