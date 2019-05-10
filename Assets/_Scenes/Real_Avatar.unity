@@ -5831,6 +5831,7 @@ MonoBehaviour:
     DoubleArrays: []
   motionFileName: motion_1
   speed: 0.5
+  angleRange: 10
 --- !u!4 &1198906451
 Transform:
   m_ObjectHideFlags: 0
