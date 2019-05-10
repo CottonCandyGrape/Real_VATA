@@ -6,29 +6,35 @@ public class JsonSerializationManager : MonoBehaviour
 {
     public JointOrientationSetter jointSetter;
 
+    public JsonDoubleArray GetMotionDataForSimulator
+    {
+        get { return motionDataForSimulator; }
+    }
+    public JsonDoubleArray GetMotionDataForRobot
+    {
+        get { return motionDataForRobot; }
+    }
+
     private JsonDoubleArray motionDataForSimulator;
     private JsonDoubleArray motionDataForRobot;
-    //private double targetFrameTime = 0.2;
 
     private readonly string filePath = "Assets/JsonData/";
+    //private double targetFrameTime = 0.2;
 
-    private void UpdateMotionDataForSimulator()
+    public void UpdateMotionDataForSimulator()
     {
         motionDataForSimulator = new JsonDoubleArray();
         motionDataForSimulator.Add(0.2);
         foreach (Joint joint in jointSetter.joints)
         {
-            motionDataForSimulator.Add(joint.angle);
+            //motionDataForSimulator.Add(joint.angle);
+            motionDataForSimulator.Add((double)Mathf.Round((joint.angle * 10)) / 10);
         }
     }
 
-    public void UpdateMotionData()
+    public void UpdateMotionDataForRobot() //실시간으로 실물로봇에 각도값 보내기
     {
-        UpdateMotionDataForSimulator();
-
-        // 데이터 추가.
         motionDataForRobot = new JsonDoubleArray();
-
         motionDataForRobot.Add(0.2);
 
         for (int i = 3; i < 6; i++) // 실물 모카 왼팔 (시뮬레이터 오른팔)
@@ -59,31 +65,24 @@ public class JsonSerializationManager : MonoBehaviour
         motionDataForRobot.SetSize();
     }
 
-    public JsonDoubleArray GetMotionDataForSimulator
-    {
-        get { return motionDataForSimulator; }
-    }
-
-    public JsonDoubleArray GetMotionDataForRobot
-    {
-        get { return motionDataForRobot; }  
-    }
-
-    public string UpdateJsonString()
+    public string GetJsonStringMotionDataForRobot()
     {
         string jsonString;
 
         //JSON 문자열 얻기.
         jsonString = JsonUtility.ToJson(motionDataForRobot);
 
-        //필요한 형태로 문자열 조합.
-        //jsonString = "mot:raw(" + jsonString + ")";
-
         //파일로 저장.
         //File.WriteAllText(filePath + "TestData.json", jsonString);
 
         return jsonString;
     }
+
+    //public void UpdateMotionData()
+    //{
+    //    UpdateMotionDataForSimulator();
+    //    UpdateMotionDataForRobot();
+    //}
 }
 
 

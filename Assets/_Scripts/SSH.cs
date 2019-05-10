@@ -37,8 +37,8 @@ public class SSH : MonoBehaviour
 
     private void SendMotionDataWithSSH()
     {
-        jsonManager.UpdateMotionData();
-        Send("mot:raw(" + jsonManager.UpdateJsonString() + ")\n"); //실물로 보낼때 포맷
+        jsonManager.UpdateMotionDataForRobot();
+        Send("mot:raw(" + jsonManager.GetJsonStringMotionDataForRobot() + ")\n"); //실시간으로 실물에 보낼때 포맷
     }
 
     private void Send(string rawMotion)
