@@ -41,7 +41,7 @@ public class RecordManager : MonoBehaviour
     private void CreateMotionJsonFile()
     {
         string fileName = filePath + "motion_" + (motionDataCount + 1) + ".json";
-        string jsonString = JsonUtility.ToJson(motionFile);
+        string jsonString = JsonUtility.ToJson(motionFile, true);
         File.WriteAllText(fileName, jsonString);
 
         motionFile = null;

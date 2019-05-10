@@ -595,13 +595,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1284273316}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4f92ee9e43b3dd48a6805e12f0cc90d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motionFile:
-    jsonDoubleArrays: []
 --- !u!4 &1284273318
 Transform:
   m_ObjectHideFlags: 0
@@ -623,10 +621,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1284273316}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6bd50c9a35ddec41af0f8c8a4054db2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   motionFileData:
-    jsonDoubleArrays: []
+    DoubleArrays: []
+  motionFileName: 
+  speed: 0
+  angleRange: 0

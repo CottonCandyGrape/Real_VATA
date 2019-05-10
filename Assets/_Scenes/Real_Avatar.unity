@@ -5829,9 +5829,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motionFileData:
     DoubleArrays: []
-  motionFileName: motion_1
+  motionFileName: motion_8
   speed: 0.5
-  angleRange: 10
+  angleRange: 1000
 --- !u!4 &1198906451
 Transform:
   m_ObjectHideFlags: 0

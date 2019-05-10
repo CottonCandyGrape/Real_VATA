@@ -26,7 +26,7 @@ public class JsonSerializationManager : MonoBehaviour
         motionDataForSimulator.Add(0.2);
         foreach (Joint joint in jointSetter.joints)
         {
-            motionDataForSimulator.Add((double)Mathf.Round((joint.angle * 10)) / 10);
+            motionDataForSimulator.Add(MathUtil.Roundoff(joint.angle));
         }
     }
 
@@ -37,26 +37,26 @@ public class JsonSerializationManager : MonoBehaviour
 
         for (int i = 3; i < 6; i++) // 실물 모카 왼팔 (시뮬레이터 오른팔)
         {
-            double angle = jointSetter.joints[i].angle;
+            float angle = jointSetter.joints[i].angle;
             if (i == 3)
-                motionDataForRobot.Add((double)Mathf.Round((float)(angle * 10)) / 10);
+                motionDataForRobot.Add(MathUtil.Roundoff(angle));
             else
-                motionDataForRobot.Add(-(double)Mathf.Round((float)(angle * 10)) / 10);
+                motionDataForRobot.Add(-MathUtil.Roundoff(angle));
         }
 
         for (int i = 0; i < 3; i++) // 실물 모카 오른팔 (시뮬레이터 왼팔)
         {
-            double angle = jointSetter.joints[i].angle;
-            motionDataForRobot.Add(-(double)Mathf.Round((float)(angle * 10)) / 10);
+            float angle = jointSetter.joints[i].angle;
+            motionDataForRobot.Add(-MathUtil.Roundoff(angle));
         }
 
         for (int i = 6; i < 8; i++) // 실물 모카 목
         {
-            double angle = jointSetter.joints[i].angle;
+            float angle = jointSetter.joints[i].angle;
             if (i == 7) //tilt 회전 방향이 반대. 30프로 더 회전.
-                motionDataForRobot.Add((-(double)Mathf.Round((float)(angle * 10)) / 10) * 1.3);
+                motionDataForRobot.Add(-MathUtil.Roundoff(angle) * 1.3);
             else
-                motionDataForRobot.Add((double)Mathf.Round((float)(angle * 10)) / 10);
+                motionDataForRobot.Add(MathUtil.Roundoff(angle));
         }
 
         //사이즈 설정 -클래스 안에 배열 값 크기로 size 변수 설정하는 함수 호출.
@@ -80,12 +80,6 @@ public class JsonSerializationManager : MonoBehaviour
     //{
     //    UpdateMotionDataForRobot();
     //    Debug.Log(GetJsonStringMotionDataForRobot());
-    //}
-
-    //public void UpdateMotionData()
-    //{
-    //    UpdateMotionDataForSimulator();
-    //    UpdateMotionDataForRobot();
     //}
 }
 

@@ -22,8 +22,11 @@ public class RecordPlayer : MonoBehaviour
             string jsonString = File.ReadAllText(fileName);
             motionFileData = JsonUtility.FromJson<MotionDataFile>(jsonString);
         }
+        if (motionFileName != null)
+        {
+            yield return StartCoroutine(SetAngles(motionFileData));
+        }
 
-        yield return StartCoroutine(SetAngles(motionFileData));
     }
 
     IEnumerator SetAngles(MotionDataFile motionData)

@@ -82,6 +82,12 @@ class MathUtil
 
         return angle;
     }
+
+    //소수점 둘째 자리에서 반올림
+    public static double Roundoff(float value)
+    {
+        return (double)Mathf.Round((value * 10)) / 10;
+    }
 }
 
 /*--------------------------------------not use------------------------------------
