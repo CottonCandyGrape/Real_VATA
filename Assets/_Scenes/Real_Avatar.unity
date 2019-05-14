@@ -5238,7 +5238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cdJointOrientationSetter: {fileID: 1340860396}
   jointOrientationSetter: {fileID: 286614083}
-  isRealtimePlayer: 0
+  isRealtimePlayer: 1
 --- !u!4 &1113737628
 Transform:
   m_ObjectHideFlags: 0
@@ -5516,7 +5516,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angleMessenger: {fileID: 1113737627}
   jointSetter: {fileID: 286614083}
-  cdJointSetter: {fileID: 1340860396}
   motionFileData:
     DoubleArrays: []
   motionFileName: motion_8(angle;1000)
@@ -5830,9 +5829,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motionFileData:
     DoubleArrays: []
-  motionFileName: motion_8
+  cdJointSetter: {fileID: 1340860396}
+  motionFileName: motion_8(angle;1200)
   speed: 0.5
-  angleRange: 1000
+  angleRange: 1200
 --- !u!4 &1198906451
 Transform:
   m_ObjectHideFlags: 0
@@ -7391,7 +7391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7000594da89f13498ccf04a35e1ce1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angleMessenger: {fileID: 0}
+  angleMessenger: {fileID: 1113737627}
   joints:
   - jointName: 3
     rotationAxis: 0

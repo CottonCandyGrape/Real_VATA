@@ -18,7 +18,7 @@ public class JsonSerializationManager : MonoBehaviour
     private DoubleArray motionDataForSimulator;
     private DoubleArray motionDataForRobot;
 
-    private readonly string filePath = "Assets/JsonData/";
+    //private readonly string filePath = "Assets/JsonData/";
 
     public void UpdateMotionDataForSimulator()//파일 생성 전 현재 조인트 값을 DoubleArray에 저장. 시간은 recordTime과 같아야한다.
     {

@@ -29,7 +29,8 @@ public class CDJointOrientationSetter : MonoBehaviour
     {
         foreach (CDJoint joint in joints)
         {
-            joint.UpdateFileRotation();
+            //joint.UpdateFileRotation();
+            joint.RotateJoint(joint.angle);
         }
     }
 

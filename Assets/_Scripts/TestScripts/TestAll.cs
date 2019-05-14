@@ -6,19 +6,24 @@ public class TestAll : MonoBehaviour
 {
     private IEnumerator Start()
     {
-        yield return StartCoroutine(RotateCube());
+        for (int i = 0; i < 5; i++)
+        {
+            yield return StartCoroutine(RotateCube());
+        }
+    }
+
+    private void Update()
+    {
+        Debug.Log(transform.localRotation);
     }
 
     IEnumerator RotateCube()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
-            transform.localEulerAngles = new Vector3(0, i * 90, 0);
+            transform.localRotation = Quaternion.Euler(new Vector3(0, i * 90, 0));
 
             yield return new WaitForSeconds(0.5f);
         }
-
-
-
     }
 }

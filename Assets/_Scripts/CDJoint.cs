@@ -67,13 +67,13 @@ public class CDJoint
         RotateJoint(angle);
     }
 
-    public void UpdateFileRotation()
-    {
-        angle = MathUtil.LimitJointAngle(jointName, angle);
-        RotateJoint(angle);
-    }
+    //public void UpdateFileRotation()
+    //{
+    //    angle = MathUtil.LimitJointAngle(jointName, angle);
+    //    RotateJoint(angle);
+    //}
 
-    private void RotateJoint(float angle) //angle만큼 Joint 회전
+    public void RotateJoint(float angle) //angle만큼 Joint 회전
     {
         Vector3 targetOrientation = Vector3.zero;
 

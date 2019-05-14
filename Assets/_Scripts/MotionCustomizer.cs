@@ -6,15 +6,19 @@ using System.IO;
 public class MotionCustomizer : MonoBehaviour
 {
     public MotionDataFile motionFileData;
+    public CDJointOrientationSetter cdJointSetter;
 
     public string motionFileName;
     public float speed;
     public float angleRange;
 
     private string filePath = "Assets/JsonData/";
+    private CDJoint[] cdJoints;
 
-    void Start()
+    private void Start()
     {
+        cdJoints = cdJointSetter.joints;
+
         LoadMotionDataFile(motionFileName);
 
         //CustomizeMotionSpeed(speed);
@@ -23,6 +27,58 @@ public class MotionCustomizer : MonoBehaviour
         //CustomizeMotionAllAngle(angleRange);
         //LimitCustomizedAngle();
         //CreateFileCustomizedAngle();
+
+        //PlayForCollisionDetect(); //AngleMessenger isRealTimePlayer 켜져있을때 작동 X.
+    }
+
+    //void SendAngleToNeck()
+    //{
+    //    if (CollisionManager.neckMove)
+    //    {
+    //        for (int i = 7; i < 9; i++)
+
+    //    }
+    //}
+
+    //void SendAngleToRightArm()
+    //{
+    //    if (CollisionManager.rightArmMove) //시뮬레이터 오른팔
+    //    {
+    //        for (int i = 4; i < 7; i++)
+
+    //    }
+    //}
+
+    //void SendAngleToLeftArm()
+    //{
+    //    if (CollisionManager.leftArmMove)//시뮬레이터 왼팔
+    //    {
+    //        for (int i = 1; i < 4; i++)
+
+    //    }
+    //}
+
+    //private IEnumerator PlayForCollisionDetect()
+    //{
+    //    yield return StartCoroutine(SetAnglesCDMOCCA(motionFileData));
+    //}
+
+    private void PlayForCollisionDetect()
+    {
+        StartCoroutine(SetAnglesCDMOCCA(motionFileData));
+    }
+
+    IEnumerator SetAnglesCDMOCCA(MotionDataFile motionData)
+    {
+        for (int i = 0; i < motionData.Length; i++)
+        {
+            for (int j = 0; j < cdJointSetter.joints.Length; j++)
+            {
+                cdJointSetter.joints[j].angle = (float)motionData[i][j + 1];
+            }
+
+            yield return new WaitForSeconds((float)motionData[i][0]);
+        }
     }
 
     private void LoadMotionDataFile(string motionFileName) //편집할 파일 내용 불러와서 motionFileData로 반환.
