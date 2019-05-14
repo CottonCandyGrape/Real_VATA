@@ -19,14 +19,10 @@ public class CDJointOrientationSetter : MonoBehaviour
 
     private void Update()
     {
-        if (angleMessenger)
-        {
+        if (angleMessenger.isRealtimePlayer)
             UpdateJointRotations();
-        }
         else
-        {
             UpdateFileJointRotations();
-        }
     }
 
     private void UpdateFileJointRotations()
