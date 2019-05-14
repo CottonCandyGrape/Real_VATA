@@ -30,7 +30,7 @@ public class JsonSerializationManager : MonoBehaviour
         }
     }
 
-    public void UpdateMotionDataForRobot() //실시간으로 실물로봇에 각도값 보내기. 이때는 0.2
+    public void UpdateMotionDataForRobot() //실시간으로 실물로봇에 각도값 보내기. 이때 시간은 0.2
     {
         motionDataForRobot = new DoubleArray();
         motionDataForRobot.Add(0.2);

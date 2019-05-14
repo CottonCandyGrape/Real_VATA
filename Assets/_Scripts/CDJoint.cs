@@ -33,7 +33,7 @@ public class CDJoint
 
     public float direction = 1f;
     public float offset = 0f;
-    public float angle { get; private set; }//Joint회전 각도.
+    public float angle { get; set; }//Joint회전 각도.
 
     public KinectManager kinectManager { get; set; } //CDJointOrientationSetter에서 쓰기 때문에 public
     private FacetrackingManager faceTrackingManager;
@@ -63,6 +63,12 @@ public class CDJoint
             angle = (MathUtil.Dot(parentVector, childVector) + offset) * direction; //얻은 두개의 벡터로 angle 계산
         }
 
+        angle = MathUtil.LimitJointAngle(jointName, angle);
+        RotateJoint(angle);
+    }
+
+    public void UpdateFileRotation()
+    {
         angle = MathUtil.LimitJointAngle(jointName, angle);
         RotateJoint(angle);
     }

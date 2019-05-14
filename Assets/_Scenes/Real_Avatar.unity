@@ -5516,9 +5516,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angleMessenger: {fileID: 1113737627}
   jointSetter: {fileID: 286614083}
+  cdJointSetter: {fileID: 1340860396}
   motionFileData:
     DoubleArrays: []
-  motionFileName: motion_1(speed;2)
+  motionFileName: motion_8(angle;1000)
 --- !u!4 &1154876261
 Transform:
   m_ObjectHideFlags: 0
@@ -5603,7 +5604,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Collsion Detection Model
+  m_Text: Collision Detection Model
 --- !u!222 &1179467988
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6634,7 +6635,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Collsion Free Model
+  m_Text: Collision Free Model
 --- !u!222 &1255021716
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7390,6 +7391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7000594da89f13498ccf04a35e1ce1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  angleMessenger: {fileID: 0}
   joints:
   - jointName: 3
     rotationAxis: 0
@@ -8805,6 +8807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7000594da89f13498ccf04a35e1ce1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  angleMessenger: {fileID: 0}
   joints:
   - jointName: 0
     rotationAxis: 0

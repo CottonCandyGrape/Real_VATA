@@ -2,6 +2,7 @@
 
 public class CDJointOrientationSetter : MonoBehaviour
 {
+    public AngleMessenger angleMessenger;
     public CDJoint[] joints;
 
     private KinectManager manager;
@@ -18,7 +19,22 @@ public class CDJointOrientationSetter : MonoBehaviour
 
     private void Update()
     {
-        UpdateJointRotations();
+        if (angleMessenger)
+        {
+            UpdateJointRotations();
+        }
+        else
+        {
+            UpdateFileJointRotations();
+        }
+    }
+
+    private void UpdateFileJointRotations()
+    {
+        foreach (CDJoint joint in joints)
+        {
+            joint.UpdateFileRotation();
+        }
     }
 
     private void UpdateJointRotations()
