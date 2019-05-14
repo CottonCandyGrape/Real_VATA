@@ -71,9 +71,6 @@ public class JsonSerializationManager : MonoBehaviour
         //JSON 문자열 얻기.
         jsonString = JsonUtility.ToJson(motionDataForRobot);
 
-        //파일로 저장.
-        //File.WriteAllText(filePath + "TestData.json", jsonString);
-
         return jsonString;
     }
 

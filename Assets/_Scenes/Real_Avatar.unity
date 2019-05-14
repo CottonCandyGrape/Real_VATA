@@ -11632,7 +11632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jsonManager: {fileID: 807761359}
-  angleMessenger: {fileID: 0}
+  angleMessenger: {fileID: 1113737627}
 --- !u!4 &2147137421
 Transform:
   m_ObjectHideFlags: 0
