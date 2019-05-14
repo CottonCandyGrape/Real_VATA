@@ -28,7 +28,7 @@ public class MotionCustomizer : MonoBehaviour
         //LimitCustomizedAngle();
         //CreateFileCustomizedAngle();
 
-        //PlayForCollisionDetect(); //AngleMessenger isRealTimePlayer 켜져있을때 작동 X.
+        //PlayForCollisionDetect(); //AngleMessenger isRealTimePlayer 켜져있을때 작동 하면 안됨.
     }
 
     //void SendAngleToNeck()

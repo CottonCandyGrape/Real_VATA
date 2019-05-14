@@ -6,6 +6,7 @@ using System.Text;
 public class SSH : MonoBehaviour
 {
     public JsonSerializationManager jsonManager;
+    public AngleMessenger angleMessenger;
 
     private float fps = 5f;
     private float targetFrameTime = 0f;
@@ -22,12 +23,11 @@ public class SSH : MonoBehaviour
 
     void Update()
     {
-        TimeCounter(targetFrameTime); //실시간으로 보낼때의 타이머 시간
-
-        //TimeCounter(targetFrameTime); //저장된 파일로 보낼때의 타이머 시간. 그땐 파일의 시간값 가져옴.
+        if (angleMessenger.isRealtimePlayer)
+            TimeCounter(targetFrameTime); //실시간으로 보낼때의 타이머 시간
     }
 
-    private void TimeCounter(float targetFrameTime) 
+    private void TimeCounter(float targetFrameTime)
     {
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= targetFrameTime)
@@ -45,7 +45,7 @@ public class SSH : MonoBehaviour
         //Debug.Log("mot:raw(" + jsonManager.GetJsonStringMotionDataForRobot() + ")\n");
     }
 
-    private void Send(string rawMotion)
+    public void Send(string rawMotion)
     {
         byte[] data = new byte[1024];
         data = Encoding.UTF8.GetBytes(rawMotion);

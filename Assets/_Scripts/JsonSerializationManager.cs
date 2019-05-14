@@ -17,6 +17,7 @@ public class JsonSerializationManager : MonoBehaviour
 
     private DoubleArray motionDataForSimulator;
     private DoubleArray motionDataForRobot;
+    private double realTimeFrameDuration = 0.2;
 
     //private readonly string filePath = "Assets/JsonData/";
 
@@ -33,7 +34,7 @@ public class JsonSerializationManager : MonoBehaviour
     public void UpdateMotionDataForRobot() //실시간으로 실물로봇에 각도값 보내기. 이때 시간은 0.2
     {
         motionDataForRobot = new DoubleArray();
-        motionDataForRobot.Add(0.2);
+        motionDataForRobot.Add(realTimeFrameDuration);
 
         for (int i = 3; i < 6; i++) // 실물 모카 왼팔 (시뮬레이터 오른팔)
         {

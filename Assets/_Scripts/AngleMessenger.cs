@@ -21,8 +21,7 @@ public class AngleMessenger : MonoBehaviour
 
     private void Update()
     {
-        if (isRealtimePlayer)
-            SendAngle();
+        if (isRealtimePlayer) SendAngle();
     }
 
     void SendAngle()
@@ -32,38 +31,20 @@ public class AngleMessenger : MonoBehaviour
         SendAngleToLeftArm();
     }
 
-    //void SendAngleToRightArm() //여기서 충돌 나는듯??? 
-    //{
-    //    if (CollisionManager.rightArmMove) //얘는 시뮬레이터 오른팔임. 사람의 왼팔 
-    //    {
-    //        for (int i = 0; i < 3; i++)
-    //            joints[i].angle = cdJoints[i].angle;
-    //    }
-    //}
-
-    //void SendAngleToLeftArm()
-    //{
-    //    if (CollisionManager.leftArmMove) //얘는 시뮬레이터 왼팔임. 사람의 오른팔 
-    //    {
-    //        for (int i = 3; i < 6; i++)
-    //            joints[i].angle = cdJoints[i].angle;
-    //    }
-    //}
-
-    void SendAngleToRightArm() 
-    {
-        if (CollisionManager.rightArmMove) //얘는 시뮬레이터 오른팔임. 사람의 왼팔 
-        {
-            for (int i = 3; i < 6; i++)
-                joints[i].angle = cdJoints[i].angle;
-        }
-    }
-
     void SendAngleToLeftArm()
     {
         if (CollisionManager.leftArmMove) //얘는 시뮬레이터 왼팔임. 사람의 오른팔 
         {
             for (int i = 0; i < 3; i++)
+                joints[i].angle = cdJoints[i].angle;
+        }
+    }
+
+    void SendAngleToRightArm()
+    {
+        if (CollisionManager.rightArmMove) //얘는 시뮬레이터 오른팔임. 사람의 왼팔 
+        {
+            for (int i = 3; i < 6; i++)
                 joints[i].angle = cdJoints[i].angle;
         }
     }
