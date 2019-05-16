@@ -25,12 +25,10 @@ public class MotionCustomizer : MonoBehaviour
         //CreateFileCustomizedSpeed();
 
         //CustomizeMotionAllAngle(angleRange);
-        //LimitCustomizedAngle();
+        LimitCustomizedAngle();
         //CreateFileCustomizedAngle();
 
-        //PlayForCollisionDetect(); //AngleMessenger isRealTimePlayer 켜져있을때 작동 하면 안됨.
-
-        StartCoroutine(SetAnglesCDMOCCA(motionFileData));
+        StartCoroutine(SetAnglesCDMOCCA(motionFileData)); //AngleMessenger isRealTimePlayer 켜져있을때 작동 하면 안됨.
     }
 
     IEnumerator SetAnglesCDMOCCA(MotionDataFile motionData)

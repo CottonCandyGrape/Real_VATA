@@ -8,7 +8,7 @@ public class SSH : MonoBehaviour
     public JsonSerializationManager jsonManager;
     public AngleMessenger angleMessenger;
 
-    private float fps = 5f;
+    private float fps = 10f;
     private float targetFrameTime = 0f;
     private float elapsedTime = 0f;
 
@@ -23,8 +23,8 @@ public class SSH : MonoBehaviour
 
     void Update()
     {
-        if (angleMessenger.isRealtimePlayer)
-            TimeCounter(targetFrameTime); //실시간으로 보낼때의 타이머 시간
+        //if (angleMessenger.isRealtimePlayer)
+        TimeCounter(targetFrameTime); //실시간으로 보낼때의 타이머 시간
     }
 
     private void TimeCounter(float targetFrameTime)

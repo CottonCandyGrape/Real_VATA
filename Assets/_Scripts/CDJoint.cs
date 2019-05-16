@@ -74,7 +74,6 @@ public class CDJoint
         Vector3 targetOrientation = Vector3.zero;
         SetTargetAngle(ref targetOrientation, angle);
         cdJoint.localRotation = Quaternion.Euler(targetOrientation);
-        //cdJoint.localEulerAngles = targetOrientation;
     }
 
     public IEnumerator SetQuatLerp(float angle, float duration)
@@ -82,8 +81,8 @@ public class CDJoint
         float elapsedTime = 0f;
 
         Quaternion startQuat = cdJoint.localRotation;
-        Vector3 targetEuler = cdJoint.localEulerAngles;        
-        SetTargetAngle(ref targetEuler, angle);      
+        Vector3 targetEuler = cdJoint.localEulerAngles;
+        SetTargetAngle(ref targetEuler, angle);
         Quaternion targetQuat = Quaternion.Euler(targetEuler);
 
         while (elapsedTime <= duration)

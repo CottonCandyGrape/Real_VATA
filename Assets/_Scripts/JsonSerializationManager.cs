@@ -19,8 +19,6 @@ public class JsonSerializationManager : MonoBehaviour
     private DoubleArray motionDataForRobot;
     private double realTimeFrameDuration = 0.2;
 
-    //private readonly string filePath = "Assets/JsonData/";
-
     public void UpdateMotionDataForSimulator()//파일 생성 전 현재 조인트 값을 DoubleArray에 저장. 시간은 recordTime과 같아야한다.
     {
         motionDataForSimulator = new DoubleArray();
@@ -31,6 +29,14 @@ public class JsonSerializationManager : MonoBehaviour
         }
     }
 
+    private float ConvertAngle(float WrongAngle)
+    {
+        if (WrongAngle > 180f)
+            return WrongAngle - 360f;
+        else
+            return WrongAngle;
+    }
+
     public void UpdateMotionDataForRobot() //실시간으로 실물로봇에 각도값 보내기. 이때 시간은 0.2
     {
         motionDataForRobot = new DoubleArray();
@@ -38,7 +44,7 @@ public class JsonSerializationManager : MonoBehaviour
 
         for (int i = 3; i < 6; i++) // 실물 모카 왼팔 (시뮬레이터 오른팔)
         {
-            float angle = jointSetter.joints[i].angle;
+            float angle = ConvertAngle(jointSetter.joints[i].angle);
             if (i == 3)
                 motionDataForRobot.Add(MathUtil.Roundoff(angle));
             else
@@ -47,13 +53,13 @@ public class JsonSerializationManager : MonoBehaviour
 
         for (int i = 0; i < 3; i++) // 실물 모카 오른팔 (시뮬레이터 왼팔)
         {
-            float angle = jointSetter.joints[i].angle;
+            float angle = ConvertAngle(jointSetter.joints[i].angle);
             motionDataForRobot.Add(-MathUtil.Roundoff(angle));
         }
 
         for (int i = 6; i < 8; i++) // 실물 모카 목
         {
-            float angle = jointSetter.joints[i].angle;
+            float angle = ConvertAngle(jointSetter.joints[i].angle);
             if (i == 7) //tilt 회전 방향이 반대. 30프로 더 회전.
                 motionDataForRobot.Add(-MathUtil.Roundoff(angle) * 1.3);
             else
@@ -73,12 +79,6 @@ public class JsonSerializationManager : MonoBehaviour
 
         return jsonString;
     }
-
-    //private void Start()
-    //{
-    //    UpdateMotionDataForRobot();
-    //    Debug.Log(GetJsonStringMotionDataForRobot());
-    //}
 }
 
 
@@ -96,18 +96,5 @@ public class JsonSerializationManager : MonoBehaviour
 //    {
 //        yield return frameWait;
 //        Debug.Log("Hello");
-//    }
-//}
-
-//for (int ix = 0; ix < jointSetter.joints.Length; ++ix)
-//{
-//    double angle = jointSetter.joints[ix].angle;
-//    if (ix == 3 || ix == 7)
-//    {
-//        motionData.Add(-(double)Mathf.Round((float)(angle * 10)) / 10);
-//    }
-//    else
-//    {
-//        motionData.Add((double)Mathf.Round((float)(angle * 10)) / 10);
 //    }
 //}

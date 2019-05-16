@@ -60,7 +60,7 @@ public class AngleMessenger : MonoBehaviour
             for (int i = 6; i < 8; i++)
             {
                 joints[i].angle = cdJoints[i].GetCurrentAngle;
-            }   
+            }
         }
     }
 }
