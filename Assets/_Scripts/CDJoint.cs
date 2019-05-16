@@ -34,7 +34,7 @@ public class CDJoint
 
     public float direction = 1f;
     public float offset = 0f;
-    public float angle { get; set; }//Joint회전 각도.
+    //public float angle { get; set; }//Joint회전 각도.
 
     public KinectManager kinectManager { get; set; } //CDJointOrientationSetter에서 쓰기 때문에 public
     private FacetrackingManager faceTrackingManager;
@@ -43,6 +43,7 @@ public class CDJoint
     {
         Vector3 parentVector;
         Vector3 childVector;
+        float angle = 0f;
 
         if (parentVectorMaterial.Start == JointIndex.HipCenter)
         {
@@ -68,62 +69,57 @@ public class CDJoint
         RotateJoint(angle);
     }
 
-    //public void UpdateFileRotation()
-    //{
-    //    angle = MathUtil.LimitJointAngle(jointName, angle);
-    //    RotateJoint(angle);
-    //}
-
     public void RotateJoint(float angle) //angle만큼 Joint 회전
     {
         Vector3 targetOrientation = Vector3.zero;
-
-        switch (rotationAxis)
-        {
-            case TargetAxis.X: targetOrientation.x = angle; break;
-            case TargetAxis.Y: targetOrientation.y = angle; break;
-            case TargetAxis.Z: targetOrientation.z = angle; break;
-            default: break;
-        }
-
+        SetTargetAngle(ref targetOrientation, angle);
         cdJoint.localRotation = Quaternion.Euler(targetOrientation);
+        //cdJoint.localEulerAngles = targetOrientation;
     }
 
-    public IEnumerator SetAngleLerp(float angle, float duration/*, bool isDebug = false*/)
+    public IEnumerator SetQuatLerp(float angle, float duration)
     {
         float elapsedTime = 0f;
-        this.angle = angle;
-        //Vector3 rot = isFixed ? GetFixedEulerAngle(angle) : GetEulerAngle(angle);
-        Vector3 rot = GetEulerAngle(angle);
-        Quaternion startRot = cdJoint.localRotation;
-        Quaternion targetRot = Quaternion.Euler(rot);
+
+        Quaternion startQuat = cdJoint.localRotation;
+        Vector3 targetEuler = cdJoint.localEulerAngles;        
+        SetTargetAngle(ref targetEuler, angle);      
+        Quaternion targetQuat = Quaternion.Euler(targetEuler);
 
         while (elapsedTime <= duration)
         {
             elapsedTime += Time.deltaTime;
             float normalTime = elapsedTime / duration;
             normalTime = float.IsInfinity(normalTime) ? 0f : normalTime;
-            cdJoint.localRotation = Quaternion.Lerp(startRot, targetRot, normalTime);
+            Quaternion currentQuat = Quaternion.Lerp(startQuat, targetQuat, elapsedTime / duration);
+            cdJoint.localRotation = currentQuat;
 
-            //if (isDebug) Debug.Log("elapsedTime: " + elapsedTime + " ,normalTime: " + normalTime);
-            //yield return new WaitForEndOfFrame();
-            yield return new WaitForSeconds(duration);
-            //yield return null;
+            yield return null;
         }
     }
 
-    Vector3 GetEulerAngle(float angle)
+    private void SetTargetAngle(ref Vector3 target, float angle)
     {
-        Vector3 rot = cdJoint.localEulerAngles;
-
         switch (rotationAxis)
         {
-            case TargetAxis.X: rot.x += angle; break;
-            case TargetAxis.Y: rot.y += angle; break;
-            case TargetAxis.Z: rot.z += angle; break;
+            case TargetAxis.X: target.x = angle; break;
+            case TargetAxis.Y: target.y = angle; break;
+            case TargetAxis.Z: target.z = angle; break;
             default: break;
         }
+    }
 
-        return rot;
+    public float GetCurrentAngle
+    {
+        get
+        {
+            switch (rotationAxis)
+            {
+                case TargetAxis.X: return cdJoint.localRotation.eulerAngles.x;
+                case TargetAxis.Y: return cdJoint.localRotation.eulerAngles.y;
+                case TargetAxis.Z: return cdJoint.localRotation.eulerAngles.z;
+                default: return 400f;
+            }
+        }
     }
 }

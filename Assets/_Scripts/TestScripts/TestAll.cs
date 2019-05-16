@@ -4,26 +4,34 @@ using System.IO;
 
 public class TestAll : MonoBehaviour
 {
-    private IEnumerator Start()
+    public Transform cube;
+
+    float elapsedTime = 0f;
+    float targetTime = 3f;
+
+    private void Start()
     {
-        for (int i = 0; i < 5; i++)
-        {
-            yield return StartCoroutine(RotateCube());
-        }
+        //StartCoroutine(MoveCube());
+        Debug.Log(cube.localEulerAngles);
+        Debug.Log(cube.localRotation);
+        Debug.Log(cube.localRotation.eulerAngles);
     }
 
-    private void Update()
-    {
-        Debug.Log(transform.localRotation);
-    }
+    //private void Update()
+    //{
+    //    cube.transform.localPosition = new Vector3(Mathf.Lerp(0f, 10f, elapsedTime / targetTime), 0f, 0f);
+    //    elapsedTime += Time.deltaTime;
+    //}
 
-    IEnumerator RotateCube()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            transform.localRotation = Quaternion.Euler(new Vector3(0, i * 90, 0));
+    //IEnumerator MoveCube()
+    //{
+    //    while (elapsedTime <= targetTime)
+    //    {
+    //        //cube.transform.localPosition = new Vector3(Mathf.Lerp(0f, 10f, elapsedTime / targetTime), 0f, 0f);
+    //        cube.transform.localEulerAngles = new Vector3(Mathf.Lerp(0f, 90f, elapsedTime / targetTime), 0f, 0f);
+    //        elapsedTime += Time.deltaTime;
 
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
+    //        yield return null;
+    //    }
+    //}
 }

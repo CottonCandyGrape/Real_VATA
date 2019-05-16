@@ -21,17 +21,6 @@ public class CDJointOrientationSetter : MonoBehaviour
     {
         if (angleMessenger.isRealtimePlayer)
             UpdateJointRotations();
-        else
-            UpdateFileJointRotations();
-    }
-
-    private void UpdateFileJointRotations()
-    {
-        foreach (CDJoint joint in joints)
-        {
-            //joint.UpdateFileRotation();
-            joint.RotateJoint(joint.angle);
-        }
     }
 
     private void UpdateJointRotations()

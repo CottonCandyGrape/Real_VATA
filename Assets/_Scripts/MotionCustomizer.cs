@@ -28,24 +28,8 @@ public class MotionCustomizer : MonoBehaviour
         //LimitCustomizedAngle();
         //CreateFileCustomizedAngle();
 
-        PlayForCollisionDetect(); //AngleMessenger isRealTimePlayer 켜져있을때 작동 하면 안됨.
-        //PlayMotionFileLerp(motionFileData);
-    }
+        //PlayForCollisionDetect(); //AngleMessenger isRealTimePlayer 켜져있을때 작동 하면 안됨.
 
-    private void PlayMotionFileLerp(MotionDataFile motionFileData)
-    {
-        for (int i = 0; i < motionFileData.Length; i++)
-        {
-            float rotDuration = (float)motionFileData[i][0];
-            for (int j = 0; j < motionFileData[i].Length - 1; j++)
-            {
-                StartCoroutine(cdJoints[j].SetAngleLerp((float)motionFileData[i][j + 1], rotDuration));
-            }
-        }
-    }
-
-    private void PlayForCollisionDetect()
-    {
         StartCoroutine(SetAnglesCDMOCCA(motionFileData));
     }
 
@@ -53,11 +37,10 @@ public class MotionCustomizer : MonoBehaviour
     {
         for (int i = 0; i < motionData.Length; i++)
         {
-            float rotDuration = (float)motionFileData[i][0];
-            for (int j = 0; j < cdJointSetter.joints.Length; j++)
+            float rotDuration = (float)motionData[i][0];
+            for (int j = 0; j < cdJoints.Length; j++)
             {
-                //cdJointSetter.joints[j].angle = (float)motionData[i][j + 1];
-                StartCoroutine(cdJoints[j].SetAngleLerp((float)motionFileData[i][j + 1], rotDuration));
+                StartCoroutine(cdJoints[j].SetQuatLerp((float)motionData[i][j + 1], rotDuration));
             }
 
             yield return new WaitForSeconds((float)motionData[i][0]);

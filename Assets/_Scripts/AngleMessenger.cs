@@ -21,7 +21,7 @@ public class AngleMessenger : MonoBehaviour
 
     private void Update()
     {
-        if (isRealtimePlayer) SendAngle();
+        SendAngle();
     }
 
     void SendAngle()
@@ -36,7 +36,9 @@ public class AngleMessenger : MonoBehaviour
         if (CollisionManager.leftArmMove) //얘는 시뮬레이터 왼팔임. 사람의 오른팔 
         {
             for (int i = 0; i < 3; i++)
-                joints[i].angle = cdJoints[i].angle;
+            {
+                joints[i].angle = cdJoints[i].GetCurrentAngle;
+            }
         }
     }
 
@@ -45,7 +47,9 @@ public class AngleMessenger : MonoBehaviour
         if (CollisionManager.rightArmMove) //얘는 시뮬레이터 오른팔임. 사람의 왼팔 
         {
             for (int i = 3; i < 6; i++)
-                joints[i].angle = cdJoints[i].angle;
+            {
+                joints[i].angle = cdJoints[i].GetCurrentAngle;
+            }
         }
     }
 
@@ -54,7 +58,9 @@ public class AngleMessenger : MonoBehaviour
         if (CollisionManager.neckMove)
         {
             for (int i = 6; i < 8; i++)
-                joints[i].angle = cdJoints[i].angle;
+            {
+                joints[i].angle = cdJoints[i].GetCurrentAngle;
+            }   
         }
     }
 }

@@ -14,7 +14,8 @@ public class RecordPlayer : MonoBehaviour
     private string filePath = "Assets/JsonData/";
     private float waitTime;
 
-    private IEnumerator Start()
+    //private IEnumerator Start()
+    void Start()
     {
         if (!angleMessenger.isRealtimePlayer)
         {
@@ -23,10 +24,10 @@ public class RecordPlayer : MonoBehaviour
             motionFileData = JsonUtility.FromJson<MotionDataFile>(jsonString);
         }
 
-        if (motionFileData != null)
-        {
-            yield return StartCoroutine(SetAnglesMOCCA(motionFileData));
-        }
+        //if (motionFileData != null)
+        //{
+        //    yield return StartCoroutine(SetAnglesMOCCA(motionFileData));
+        //}
 
         //ChangeAngleForRobot(motionFileData);
         //yield return StartCoroutine(SendMotionFileDataWithSSH());
@@ -49,7 +50,7 @@ public class RecordPlayer : MonoBehaviour
 
     //double[] tempArray = new double[3];
     double tempAngle;
-    private void ChangeAngleForRobot(MotionDataFile motionData)
+    private void ChangeAngleForRobot(MotionDataFile motionData) //모션파일 각도값 실물 로봇으로 전송전 로봇에 맞게 매핑
     {
         for (int i = 0; i < motionData.Length; i++)
         {
@@ -71,7 +72,7 @@ public class RecordPlayer : MonoBehaviour
         }
     }
 
-    private IEnumerator SendMotionFileDataWithSSH()
+    private IEnumerator SendMotionFileDataWithSSH() //모션파일 실물 로봇으로 전송
     {
         for (int i = 0; i < motionFileData.Length; i++)
         {
