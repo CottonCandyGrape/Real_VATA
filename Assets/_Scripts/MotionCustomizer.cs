@@ -28,40 +28,21 @@ public class MotionCustomizer : MonoBehaviour
         //LimitCustomizedAngle();
         //CreateFileCustomizedAngle();
 
-        //PlayForCollisionDetect(); //AngleMessenger isRealTimePlayer 켜져있을때 작동 하면 안됨.
+        PlayForCollisionDetect(); //AngleMessenger isRealTimePlayer 켜져있을때 작동 하면 안됨.
+        //PlayMotionFileLerp(motionFileData);
     }
 
-    //void SendAngleToNeck()
-    //{
-    //    if (CollisionManager.neckMove)
-    //    {
-    //        for (int i = 7; i < 9; i++)
-
-    //    }
-    //}
-
-    //void SendAngleToRightArm()
-    //{
-    //    if (CollisionManager.rightArmMove) //시뮬레이터 오른팔
-    //    {
-    //        for (int i = 4; i < 7; i++)
-
-    //    }
-    //}
-
-    //void SendAngleToLeftArm()
-    //{
-    //    if (CollisionManager.leftArmMove)//시뮬레이터 왼팔
-    //    {
-    //        for (int i = 1; i < 4; i++)
-
-    //    }
-    //}
-
-    //private IEnumerator PlayForCollisionDetect()
-    //{
-    //    yield return StartCoroutine(SetAnglesCDMOCCA(motionFileData));
-    //}
+    private void PlayMotionFileLerp(MotionDataFile motionFileData)
+    {
+        for (int i = 0; i < motionFileData.Length; i++)
+        {
+            float rotDuration = (float)motionFileData[i][0];
+            for (int j = 0; j < motionFileData[i].Length - 1; j++)
+            {
+                StartCoroutine(cdJoints[j].SetAngleLerp((float)motionFileData[i][j + 1], rotDuration));
+            }
+        }
+    }
 
     private void PlayForCollisionDetect()
     {
@@ -72,9 +53,11 @@ public class MotionCustomizer : MonoBehaviour
     {
         for (int i = 0; i < motionData.Length; i++)
         {
+            float rotDuration = (float)motionFileData[i][0];
             for (int j = 0; j < cdJointSetter.joints.Length; j++)
             {
-                cdJointSetter.joints[j].angle = (float)motionData[i][j + 1];
+                //cdJointSetter.joints[j].angle = (float)motionData[i][j + 1];
+                StartCoroutine(cdJoints[j].SetAngleLerp((float)motionFileData[i][j + 1], rotDuration));
             }
 
             yield return new WaitForSeconds((float)motionData[i][0]);

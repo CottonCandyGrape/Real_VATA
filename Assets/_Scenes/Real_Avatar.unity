@@ -5519,7 +5519,7 @@ MonoBehaviour:
   motionFileData:
     DoubleArrays: []
   ssh: {fileID: 2147137420}
-  motionFileName: motion_1(speed;0.5)
+  motionFileName: motion_8
 --- !u!4 &1154876261
 Transform:
   m_ObjectHideFlags: 0
@@ -5831,7 +5831,7 @@ MonoBehaviour:
   motionFileData:
     DoubleArrays: []
   cdJointSetter: {fileID: 1340860396}
-  motionFileName: motion_1
+  motionFileName: motion_8
   speed: 0.5
   angleRange: 1200
 --- !u!4 &1198906451
@@ -7396,7 +7396,7 @@ MonoBehaviour:
   joints:
   - jointName: 3
     rotationAxis: 0
-    targetTransform: {fileID: 388015301}
+    cdJoint: {fileID: 388015301}
     parentVectorMaterial:
       Start: 0
       End: 0
@@ -7409,7 +7409,7 @@ MonoBehaviour:
     offset: -90
   - jointName: 4
     rotationAxis: 1
-    targetTransform: {fileID: 1076066559}
+    cdJoint: {fileID: 1076066559}
     parentVectorMaterial:
       Start: 0
       End: 0
@@ -7422,7 +7422,7 @@ MonoBehaviour:
     offset: -180
   - jointName: 5
     rotationAxis: 1
-    targetTransform: {fileID: 1261848558}
+    cdJoint: {fileID: 1261848558}
     parentVectorMaterial:
       Start: 8
       End: 9
@@ -7435,7 +7435,7 @@ MonoBehaviour:
     offset: 0
   - jointName: 0
     rotationAxis: 0
-    targetTransform: {fileID: 277968137}
+    cdJoint: {fileID: 277968137}
     parentVectorMaterial:
       Start: 0
       End: 0
@@ -7448,7 +7448,7 @@ MonoBehaviour:
     offset: -90
   - jointName: 1
     rotationAxis: 1
-    targetTransform: {fileID: 212943571}
+    cdJoint: {fileID: 212943571}
     parentVectorMaterial:
       Start: 0
       End: 0
@@ -7461,7 +7461,7 @@ MonoBehaviour:
     offset: 0
   - jointName: 2
     rotationAxis: 1
-    targetTransform: {fileID: 1597917832}
+    cdJoint: {fileID: 1597917832}
     parentVectorMaterial:
       Start: 4
       End: 5
@@ -7474,7 +7474,7 @@ MonoBehaviour:
     offset: 0
   - jointName: 6
     rotationAxis: 1
-    targetTransform: {fileID: 358999564}
+    cdJoint: {fileID: 358999564}
     parentVectorMaterial:
       Start: 8
       End: 9
@@ -7487,7 +7487,7 @@ MonoBehaviour:
     offset: 0
   - jointName: 7
     rotationAxis: 0
-    targetTransform: {fileID: 1719856218}
+    cdJoint: {fileID: 1719856218}
     parentVectorMaterial:
       Start: 8
       End: 9
@@ -8812,7 +8812,7 @@ MonoBehaviour:
   joints:
   - jointName: 0
     rotationAxis: 0
-    targetTransform: {fileID: 1534637286}
+    cdJoint: {fileID: 0}
     parentVectorMaterial:
       Start: 0
       End: 0
@@ -8825,7 +8825,7 @@ MonoBehaviour:
     offset: -90
   - jointName: 1
     rotationAxis: 1
-    targetTransform: {fileID: 532422898}
+    cdJoint: {fileID: 0}
     parentVectorMaterial:
       Start: 0
       End: 0
@@ -8838,7 +8838,7 @@ MonoBehaviour:
     offset: 0
   - jointName: 2
     rotationAxis: 1
-    targetTransform: {fileID: 1021247903}
+    cdJoint: {fileID: 0}
     parentVectorMaterial:
       Start: 4
       End: 5
@@ -8851,7 +8851,7 @@ MonoBehaviour:
     offset: 0
   - jointName: 3
     rotationAxis: 0
-    targetTransform: {fileID: 1604851357}
+    cdJoint: {fileID: 0}
     parentVectorMaterial:
       Start: 0
       End: 0
@@ -8864,7 +8864,7 @@ MonoBehaviour:
     offset: -90
   - jointName: 4
     rotationAxis: 1
-    targetTransform: {fileID: 1485680870}
+    cdJoint: {fileID: 0}
     parentVectorMaterial:
       Start: 0
       End: 0
@@ -8877,7 +8877,7 @@ MonoBehaviour:
     offset: -180
   - jointName: 5
     rotationAxis: 1
-    targetTransform: {fileID: 1704792089}
+    cdJoint: {fileID: 0}
     parentVectorMaterial:
       Start: 8
       End: 9

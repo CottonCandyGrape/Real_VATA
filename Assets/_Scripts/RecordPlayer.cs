@@ -23,13 +23,13 @@ public class RecordPlayer : MonoBehaviour
             motionFileData = JsonUtility.FromJson<MotionDataFile>(jsonString);
         }
 
-        //if (motionFileData != null)
-        //{
-        //    yield return StartCoroutine(SetAnglesMOCCA(motionFileData));
-        //}
+        if (motionFileData != null)
+        {
+            yield return StartCoroutine(SetAnglesMOCCA(motionFileData));
+        }
 
-        ChangeAngleForRobot(motionFileData);
-        yield return StartCoroutine(SendMotionFileDataWithSSH());
+        //ChangeAngleForRobot(motionFileData);
+        //yield return StartCoroutine(SendMotionFileDataWithSSH());
 
     }
 

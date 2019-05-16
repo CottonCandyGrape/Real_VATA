@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 using JointIndex = KinectWrapper.NuiSkeletonPositionIndex;
@@ -26,7 +27,7 @@ public class CDJoint
 {
     public JointName jointName; //JointIndex는 shoulder1, 2 구분 못함 => JointName 사용.
     public TargetAxis rotationAxis;
-    public Transform targetTransform;
+    public Transform cdJoint;
 
     public VectorMaterial parentVectorMaterial; //기준이 되는 벡터.
     public VectorMaterial childVectorMaterial; //기준과 비교할 벡터.
@@ -85,6 +86,44 @@ public class CDJoint
             default: break;
         }
 
-        targetTransform.localRotation = Quaternion.Euler(targetOrientation);
+        cdJoint.localRotation = Quaternion.Euler(targetOrientation);
+    }
+
+    public IEnumerator SetAngleLerp(float angle, float duration/*, bool isDebug = false*/)
+    {
+        float elapsedTime = 0f;
+        this.angle = angle;
+        //Vector3 rot = isFixed ? GetFixedEulerAngle(angle) : GetEulerAngle(angle);
+        Vector3 rot = GetEulerAngle(angle);
+        Quaternion startRot = cdJoint.localRotation;
+        Quaternion targetRot = Quaternion.Euler(rot);
+
+        while (elapsedTime <= duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float normalTime = elapsedTime / duration;
+            normalTime = float.IsInfinity(normalTime) ? 0f : normalTime;
+            cdJoint.localRotation = Quaternion.Lerp(startRot, targetRot, normalTime);
+
+            //if (isDebug) Debug.Log("elapsedTime: " + elapsedTime + " ,normalTime: " + normalTime);
+            //yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(duration);
+            //yield return null;
+        }
+    }
+
+    Vector3 GetEulerAngle(float angle)
+    {
+        Vector3 rot = cdJoint.localEulerAngles;
+
+        switch (rotationAxis)
+        {
+            case TargetAxis.X: rot.x += angle; break;
+            case TargetAxis.Y: rot.y += angle; break;
+            case TargetAxis.Z: rot.z += angle; break;
+            default: break;
+        }
+
+        return rot;
     }
 }
