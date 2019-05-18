@@ -24,7 +24,7 @@ public class RecordManager : MonoBehaviour
     {
         recodeTime = 1 / fps;
         signChecker = recordSign;
-        MotionDataCountUpdate();
+        //MotionDataCountUpdate();
     }
 
     private void Update()
@@ -67,19 +67,19 @@ public class RecordManager : MonoBehaviour
         }
     }
 
-    private int GetMotionDataCount() //모션데이터 개수 반환
-    {
-        DirectoryInfo di = new DirectoryInfo("Assets/JsonData/");
-        FileInfo[] fi = di.GetFiles("*.json");
+    //private int GetMotionDataCount() //모션데이터 개수 반환
+    //{
+    //    DirectoryInfo di = new DirectoryInfo("Assets/JsonData/");
+    //    FileInfo[] fi = di.GetFiles("*.json");
 
-        if (fi.Length == 0) return fi.Length;
-        else return fi.Length;
-    }
+    //    if (fi.Length == 0) return fi.Length;
+    //    else return fi.Length;
+    //}
 
-    private void MotionDataCountUpdate() //모션파일 개수 체크 후 motionDataCount 초기화
-    {
-        motionDataCount = GetMotionDataCount();
-    }
+    //private void MotionDataCountUpdate() //모션파일 개수 체크 후 motionDataCount 초기화
+    //{
+    //    motionDataCount = GetMotionDataCount();
+    //}
 
 
     //private void IncMotionDataCount() //녹화 후 motionDataCount + 1
