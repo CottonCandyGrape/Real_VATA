@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,8 +6,10 @@ public class UITest : MonoBehaviour
 {
     public Button startButton;
     public Button stopButton;
-
     public Dropdown dropdown;
+    public InputField inputField;
+
+    private string filePath = "Assets/JsonData/";
 
     void Start()
     {
@@ -17,27 +17,31 @@ public class UITest : MonoBehaviour
         SetDropdownOptions();
     }
 
-    private int GetMotionDataCount() //모션데이터 개수 반환
-    {
-        DirectoryInfo di = new DirectoryInfo("Assets/JsonData/");
-        FileInfo[] fi = di.GetFiles("*.json");
+    //private void SortDropdownList() { }
 
-        if (fi.Length == 0) return fi.Length;
-        else return fi.Length;
+    public void ClickedAddButton()
+    {
+        string fileName = filePath + inputField.text + ".json";
+        Debug.Log(inputField.text);
+        File.WriteAllText(fileName, "testing");
+        SetDropdownOptions();
     }
 
-    public void SelectButton()
+    public void DeleteButton()
     {
-        //Debug.Log("Dropdown Value: " + dropdown.value + ", List Selected: " + dropdown.options.);
+
     }
 
     private void SetDropdownOptions()
     {
+        DirectoryInfo di = new DirectoryInfo("Assets/JsonData/");
+        FileInfo[] fi = di.GetFiles("*.json");
+
         dropdown.ClearOptions();
-        for (int i = 0; i < GetMotionDataCount(); i++)
+        for (int i = 0; i < fi.Length; i++)
         {
             Dropdown.OptionData option = new Dropdown.OptionData();
-            option.text = i.ToString() + "개수";
+            option.text = fi[i].Name.Substring(0, fi[i].Name.Length - 5);
             dropdown.options.Add(option);
         }
     }
@@ -54,7 +58,6 @@ public class UITest : MonoBehaviour
             startButton.gameObject.SetActive(true);
             stopButton.gameObject.SetActive(false);
         }
-
     }
 
     public void ClickedStartButton()
@@ -66,4 +69,13 @@ public class UITest : MonoBehaviour
     {
         Debug.Log("ClickedStopButton");
     }
+
+    //private int GetMotionDataCount() //모션데이터 개수 반환
+    //{
+    //    DirectoryInfo di = new DirectoryInfo("Assets/JsonData/");
+    //    FileInfo[] fi = di.GetFiles("*.json");
+
+    //    if (fi.Length == 0) return fi.Length;
+    //    else return fi.Length;
+    //}
 }
