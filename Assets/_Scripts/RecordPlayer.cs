@@ -6,53 +6,34 @@ using UnityEngine.UI;
 public class RecordPlayer : MonoBehaviour
 {
     public CDJointOrientationSetter cdJointSetter;
-    //public JointOrientationSetter jointSetter;
-    public MotionDataFile motionFileData;
     public SSH ssh;
     public Toggle realTimeModeToggle;
     public InputField inputField;
 
-    //public string motionFileName;
+    private MotionDataFile motionFileData;
+    private CDJoint[] cdJoints;
 
     private string filePath = "Assets/JsonData/";
-    //private float waitTime;
-    private CDJoint[] cdJoints;
 
     void Start()
     {
         cdJoints = cdJointSetter.joints;
-
-        //if (!StateUpdater.isRealTimeMode)
-        //{
-        //    string fileName = filePath + motionFileName + ".json";
-        //    string jsonString = File.ReadAllText(fileName);
-        //    motionFileData = JsonUtility.FromJson<MotionDataFile>(jsonString);
-        //}
-
-        //if (motionFileData != null)
-        //{
-        //    yield return StartCoroutine(SetAnglesMOCCA(motionFileData));
-        //}
-
-        //ChangeAngleForRobot(motionFileData);
-        //yield return StartCoroutine(SendMotionFileDataWithSSH());
-
     }
 
-    public void PlayMotionDataFile()
+    public void PlayMotionFileForSimulator()
     {
         if (!StateUpdater.isRealTimeMode)
         {
             string fileName = filePath + inputField.text + ".json";
             string jsonString = File.ReadAllText(fileName);
             motionFileData = JsonUtility.FromJson<MotionDataFile>(jsonString);
-            StartCoroutine(SetAnglesCDMOCCA(motionFileData));
+            StartCoroutine(PalyMotionFile(motionFileData));
         }
         else
             Debug.Log("실시간 모드가 진행 중 입니다.");
     }
 
-    IEnumerator SetAnglesCDMOCCA(MotionDataFile motionData)
+    IEnumerator PalyMotionFile(MotionDataFile motionData)
     {
         for (int i = 0; i < motionData.Length; i++)
         {

@@ -12,8 +12,9 @@ public class MotionCustomizer : MonoBehaviour
     public float speed;
     public float angleRange;
 
-    private string filePath = "Assets/JsonData/";
     private CDJoint[] cdJoints;
+
+    private string filePath = "Assets/JsonData/";
 
     private void Start()
     {

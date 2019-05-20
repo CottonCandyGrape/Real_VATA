@@ -13,18 +13,16 @@ public class RecordManager : MonoBehaviour
     public Image recordImage;
 
     public JsonSerializationManager jsonManager;
-    public AngleMessenger angleMessenger;
 
-    private string filePath = "Assets/JsonData/";
+    private MotionDataFile motionFile;
+    private DirectoryInfo directoryInfo;
+    private FileInfo[] fileInfo;
 
     private float fps = 5f;
     private float recordTime = 0f;
     private float elapsedTime = 0f;
 
-    private MotionDataFile motionFile;
-
-    private DirectoryInfo directoryInfo;
-    private FileInfo[] fileInfo;
+    private string filePath = "Assets/JsonData/";
 
     private void Start()
     {
@@ -89,7 +87,7 @@ public class RecordManager : MonoBehaviour
         inputField.text = string.Empty;
     }
 
-    public void ClickedStartButton()
+    public void ClickedStartButton() //녹화시작 버튼
     {
         Debug.Log("ClickedStartButton");
         if (StateUpdater.isConnectingKinect)
@@ -117,7 +115,7 @@ public class RecordManager : MonoBehaviour
             Debug.Log("Kinect가 연결되어 있지 않습니다.");
     }
 
-    public void ClickedStopButton()
+    public void ClickedStopButton() //녹화 끝 버튼
     {
         Debug.Log("ClickedStopButton");
         if (StateUpdater.isRecording)

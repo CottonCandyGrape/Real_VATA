@@ -5,15 +5,15 @@ using System.Text;
 
 public class SSH : MonoBehaviour
 {
+    const string IP = "52.78.62.151";
+    const int PORT = 5001;
+    UdpClient udpClient = new UdpClient(IP, PORT);
+
     public JsonSerializationManager jsonManager;
 
     private float fps = 5f;
     private float targetFrameTime = 0f;
     private float elapsedTime = 0f;
-
-    const string IP = "52.78.62.151";
-    const int PORT = 5001;
-    UdpClient udpClient = new UdpClient(IP, PORT);
 
     void Start()
     {

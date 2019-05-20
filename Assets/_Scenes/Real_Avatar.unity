@@ -1100,7 +1100,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &188009610
 Transform:
   m_ObjectHideFlags: 0
@@ -6062,7 +6062,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1154876260}
-        m_MethodName: PlayMotionDataFile
+        m_MethodName: PlayMotionFileForSimulator
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6632,8 +6632,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cdJointSetter: {fileID: 1340860396}
-  motionFileData:
-    DoubleArrays: []
   ssh: {fileID: 2147137420}
   realTimeModeToggle: {fileID: 974201297}
   inputField: {fileID: 1346111243}
@@ -8132,7 +8130,6 @@ MonoBehaviour:
   dropdown: {fileID: 1892393692}
   recordImage: {fileID: 1608069653}
   jsonManager: {fileID: 807761359}
-  angleMessenger: {fileID: 1113737627}
 --- !u!4 &1279437130
 Transform:
   m_ObjectHideFlags: 0
