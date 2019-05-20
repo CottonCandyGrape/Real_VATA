@@ -1,23 +1,23 @@
 ﻿using System.Collections;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RecordPlayer : MonoBehaviour
 {
-    public AngleMessenger angleMessenger;
     public JointOrientationSetter jointSetter;
     public MotionDataFile motionFileData;
     public SSH ssh;
+    public Toggle realTimeModeToggle;
 
     public string motionFileName;
 
     private string filePath = "Assets/JsonData/";
     private float waitTime;
 
-    //private IEnumerator Start()
     void Start()
     {
-        if (!angleMessenger.isRealtimePlayer)
+        if (!StateUpdater.isRealTimeMode)
         {
             string fileName = filePath + motionFileName + ".json";
             string jsonString = File.ReadAllText(fileName);
@@ -34,18 +34,12 @@ public class RecordPlayer : MonoBehaviour
 
     }
 
-    IEnumerator SetAnglesMOCCA(MotionDataFile motionData)
+    public void RealTimeModeToggle()
     {
-        for (int i = 0; i < motionData.Length; i++)
-        {
-            for (int j = 0; j < jointSetter.joints.Length; j++)
-            {
-                jointSetter.joints[j].angle = (float)motionData[i][j + 1];
-            }
-
-            waitTime = (float)motionData[i][0];
-            yield return new WaitForSeconds(waitTime);
-        }
+        if (realTimeModeToggle.isOn)
+            StateUpdater.isRealTimeMode = true;
+        else
+            StateUpdater.isRealTimeMode = false;
     }
 
     //double[] tempArray = new double[3];
@@ -83,3 +77,17 @@ public class RecordPlayer : MonoBehaviour
         }
     }
 }
+
+//IEnumerator SetAnglesMOCCA(MotionDataFile motionData)
+//{
+//    for (int i = 0; i < motionData.Length; i++)
+//    {
+//        for (int j = 0; j < jointSetter.joints.Length; j++)
+//        {
+//            jointSetter.joints[j].angle = (float)motionData[i][j + 1];
+//        }
+
+//        waitTime = (float)motionData[i][0];
+//        yield return new WaitForSeconds(waitTime);
+//    }
+//}

@@ -11,6 +11,7 @@ public class RecordManager : MonoBehaviour
     public InputField inputField;
     public Dropdown dropdown;
     public Image recordImage;
+    public Toggle realTimeModeToggle;
 
     public JsonSerializationManager jsonManager;
     public AngleMessenger angleMessenger;
@@ -35,11 +36,12 @@ public class RecordManager : MonoBehaviour
         recordImage.gameObject.SetActive(false);
 
         SetDropdownOptions();
+        Debug.Log(StateUpdater.isConnectingKinect);
     }
 
     private void Update()
     {
-        Debug.Log("StateUpdater.isRecording: " + StateUpdater.isRecording);
+
     }
 
     private void SetDropdownOptions() //드롭다운 목록 초기화
@@ -95,24 +97,30 @@ public class RecordManager : MonoBehaviour
 
     public void ClickedStartButton()
     {
-        //if (StateUpdater.isConnectingKinect || !StateUpdater.isMotionDataPlaying)
-        //{
-        //    Debug.Log("Kinect가 연결되어 있지 않거나, 저장된 모션을 실행중입니다.");
-        //}
         Debug.Log("ClickedStartButton");
-        if (inputField.text != string.Empty)
+        if (StateUpdater.isConnectingKinect)
         {
-            ToggleRecordButton();
-            StateUpdater.isRecording = true;
-            StartCoroutine("Recording");
+            if (StateUpdater.isRealTimeMode && !StateUpdater.isMotionDataPlaying)
+            {
+                if (inputField.text != string.Empty)
+                {
+                    ToggleRecordButton();
+                    StateUpdater.isRecording = true;
+                    StartCoroutine("Recording");
 
-            recordImage.gameObject.SetActive(true);
-            StartCoroutine("Flicker");
+                    recordImage.gameObject.SetActive(true);
+                    StartCoroutine("Flicker");
 
-            Debug.Log("녹화를 시작합니다.");
+                    Debug.Log("녹화를 시작합니다.");
+                }
+                else
+                    Debug.Log("모션의 이름을 정해주세요");
+            }
+            else
+                Debug.Log("실시간 모드가 아니거나 모션을 실행중입니다.");
         }
         else
-            Debug.Log("모션의 이름을 정해주세요");
+            Debug.Log("Kinect가 연결되어 있지 않습니다.");
     }
 
     public void ClickedStopButton()
@@ -175,7 +183,7 @@ public class RecordManager : MonoBehaviour
     {
         while (StateUpdater.isRecording)
         {
-            yield return recordTime;
+            yield return new WaitForSeconds(recordTime);
             jsonManager.UpdateMotionDataForSimulator(recordTime);
             CreateOrAddMotionData(jsonManager.GetMotionDataForSimulator);
         }

@@ -1010,6 +1010,7 @@ public class KinectManager : MonoBehaviour
         }
         catch (Exception e)
         {
+            StateUpdater.isConnectingKinect = false;
             string message = e.Message + " - " + KinectWrapper.GetNuiErrorString(hr);
             Debug.LogError(message);
             Debug.LogError(e.ToString());
@@ -1095,6 +1096,7 @@ public class KinectManager : MonoBehaviour
 
         Debug.Log("Waiting for users.");
 
+        StateUpdater.isConnectingKinect = true;
         KinectInitialized = true;
     }
 

@@ -2,7 +2,6 @@
 
 public class CDJointOrientationSetter : MonoBehaviour
 {
-    public AngleMessenger angleMessenger;
     public CDJoint[] joints;
 
     private KinectManager manager;
@@ -19,7 +18,7 @@ public class CDJointOrientationSetter : MonoBehaviour
 
     private void Update()
     {
-        if (angleMessenger.isRealtimePlayer)
+        if (StateUpdater.isRealTimeMode)
             UpdateJointRotations();
     }
 

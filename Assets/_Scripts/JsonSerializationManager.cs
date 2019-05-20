@@ -29,7 +29,7 @@ public class JsonSerializationManager : MonoBehaviour
         }
     }
 
-    private float ConvertAngle(float WrongAngle)
+    private float ConvertAngle(float WrongAngle) //큰각을 음각으로 반환
     {
         if (WrongAngle > 180f)
             return WrongAngle - 360f;
@@ -80,7 +80,6 @@ public class JsonSerializationManager : MonoBehaviour
         return jsonString;
     }
 }
-
 
 //private WaitForSeconds frameWait;
 
