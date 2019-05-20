@@ -19,16 +19,16 @@ public class MotionCustomizer : MonoBehaviour
     {
         cdJoints = cdJointSetter.joints;
 
-        LoadMotionDataFile(motionFileName);
+        //LoadMotionDataFile(motionFileName);
 
         //CustomizeMotionSpeed(speed);
         //CreateFileCustomizedSpeed();
 
         //CustomizeMotionAllAngle(angleRange);
-        LimitCustomizedAngle();
+        //LimitCustomizedAngle();
         //CreateFileCustomizedAngle();
 
-        StartCoroutine(SetAnglesCDMOCCA(motionFileData)); //AngleMessenger isRealTimePlayer 켜져있을때 작동 하면 안됨.
+        //StartCoroutine(SetAnglesCDMOCCA(motionFileData)); //AngleMessenger isRealTimePlayer 켜져있을때 작동 하면 안됨.
     }
 
     IEnumerator SetAnglesCDMOCCA(MotionDataFile motionData)

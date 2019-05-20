@@ -2,50 +2,154 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.UI;
 
 public class RecordManager : MonoBehaviour
 {
+    public Button recStartButton;
+    public Button recStopButton;
+    public InputField inputField;
+    public Dropdown dropdown;
+    public Image recordImage;
+
     public JsonSerializationManager jsonManager;
     public AngleMessenger angleMessenger;
-    public bool recordSign = false;
-    public bool signChecker;
 
     private string filePath = "Assets/JsonData/";
 
     private float fps = 5f;
-    private float recodeTime = 0f;
+    private float recordTime = 0f;
     private float elapsedTime = 0f;
-
-    private int motionDataCount;
 
     private MotionDataFile motionFile;
 
+    private DirectoryInfo directoryInfo;
+    private FileInfo[] fileInfo;
+
     private void Start()
     {
-        recodeTime = 1 / fps;
-        signChecker = recordSign;
-        //MotionDataCountUpdate();
+        recordTime = 1 / fps;
+        directoryInfo = new DirectoryInfo("Assets/JsonData/");
+
+        recStopButton.gameObject.SetActive(false);
+        recordImage.gameObject.SetActive(false);
+
+        SetDropdownOptions();
     }
 
     private void Update()
     {
-        if (recordSign && angleMessenger.isRealtimePlayer) //실시간 모드 켜져있고 녹화 사인 들어오면 녹화 시작
-            TimerCounter(recodeTime);
-
-        if (!recordSign && signChecker && motionFile != null) //녹화 끝나면 파일 생성
-            CreateMotionJsonFile();
-
-        signChecker = recordSign;
+        Debug.Log("StateUpdater.isRecording: " + StateUpdater.isRecording);
     }
 
-    private void CreateMotionJsonFile()
+    private void SetDropdownOptions() //드롭다운 목록 초기화
     {
-        string fileName = filePath + "motion_" + (motionDataCount + 1) + ".json";
+        dropdown.ClearOptions();
+        fileInfo = directoryInfo.GetFiles("*.json");
+        for (int i = 0; i < fileInfo.Length; i++)
+        {
+            Dropdown.OptionData option = new Dropdown.OptionData();
+            option.text = fileInfo[i].Name.Substring(0, fileInfo[i].Name.Length - 5);
+            dropdown.options.Add(option);
+        }
+        //dropdown.captionText.text = "Select Motion data File";
+    }
+
+    public void ChangedDropdownOption() //드롭다운 옵션 바뀌었을 때 
+    {
+        inputField.text = dropdown.options[dropdown.value].text;
+        //dropdown.captionText.text = "Select Motion data File";
+    }
+
+    public void ClickedAddButton() //파일이름 중복 체크하여 모션 데이터 추가
+    {
+        string fileName = filePath + inputField.text + ".json";
+        if (!File.Exists(fileName) && motionFile != null)
+        {
+            Debug.Log("사용가능한 이름입니다.");
+            CreateMotionJsonFile(fileName);
+        }
+        else
+        {
+            Debug.Log("이미 존재하는 이름이거나 녹화된 파일이 없습니다.");
+        }
+        SetDropdownOptions();
+        inputField.text = string.Empty;
+    }
+
+    public void ClickedDeleteButton() //존재하는 파일인지 체크 후 모션 데이터 삭제
+    {
+        string fileName = filePath + inputField.text + ".json";
+        if (File.Exists(fileName))
+        {
+            File.Delete(fileName);
+            Debug.Log("파일을 삭제합니다.");
+        }
+        else
+        {
+            Debug.Log("존재하지 않는 파일입니다.");
+        }
+        SetDropdownOptions();
+        inputField.text = string.Empty;
+    }
+
+    public void ClickedStartButton()
+    {
+        //if (StateUpdater.isConnectingKinect || !StateUpdater.isMotionDataPlaying)
+        //{
+        //    Debug.Log("Kinect가 연결되어 있지 않거나, 저장된 모션을 실행중입니다.");
+        //}
+        Debug.Log("ClickedStartButton");
+        if (inputField.text != string.Empty)
+        {
+            ToggleRecordButton();
+            StateUpdater.isRecording = true;
+            StartCoroutine("Recording");
+
+            recordImage.gameObject.SetActive(true);
+            StartCoroutine("Flicker");
+
+            Debug.Log("녹화를 시작합니다.");
+        }
+        else
+            Debug.Log("모션의 이름을 정해주세요");
+    }
+
+    public void ClickedStopButton()
+    {
+        Debug.Log("ClickedStopButton");
+        if (StateUpdater.isRecording)
+        {
+            ToggleRecordButton();
+            StateUpdater.isRecording = false;
+            StopCoroutine("Recording");
+
+            recordImage.gameObject.SetActive(false);
+            StopCoroutine("Flicker");
+
+            Debug.Log("녹화를 종료합니다.");
+        }
+    }
+
+    public void ToggleRecordButton()
+    {
+        if (!recStopButton.gameObject.activeSelf) //RecStartButton 누를때
+        {
+            recStopButton.gameObject.SetActive(true);
+            recStartButton.gameObject.SetActive(false);
+        }
+        else // RecEndButton 누를때
+        {
+            recStartButton.gameObject.SetActive(true);
+            recStopButton.gameObject.SetActive(false);
+        }
+    }
+
+    private void CreateMotionJsonFile(string fileName)
+    {
         string jsonString = JsonUtility.ToJson(motionFile, true);
         File.WriteAllText(fileName, jsonString);
-
         motionFile = null;
-        motionDataCount += 1;
     }
 
     private void CreateOrAddMotionData(DoubleArray motionData)
@@ -56,68 +160,49 @@ public class RecordManager : MonoBehaviour
         motionFile.Add(motionData);
     }
 
-    private void TimerCounter(float recodeTime)
+    IEnumerator Flicker()
     {
-        elapsedTime += Time.deltaTime;
-        if (elapsedTime >= recodeTime)
+        while (StateUpdater.isRecording)
         {
-            jsonManager.UpdateMotionDataForSimulator();
-            CreateOrAddMotionData(jsonManager.GetMotionDataForSimulator);
-            elapsedTime = 0f;
+            recordImage.CrossFadeAlpha(0, 1.5f, true);
+            yield return new WaitForSeconds(1.5f);
+            recordImage.CrossFadeAlpha(1f, 1.5f, true);
+            yield return new WaitForSeconds(1.5f);
         }
     }
 
-    //private int GetMotionDataCount() //모션데이터 개수 반환
+    IEnumerator Recording()
+    {
+        while (StateUpdater.isRecording)
+        {
+            yield return recordTime;
+            jsonManager.UpdateMotionDataForSimulator(recordTime);
+            CreateOrAddMotionData(jsonManager.GetMotionDataForSimulator);
+        }
+    }
+
+    //private void TimerCounter(float recodeTime)
     //{
-    //    DirectoryInfo di = new DirectoryInfo("Assets/JsonData/");
-    //    FileInfo[] fi = di.GetFiles("*.json");
-
-    //    if (fi.Length == 0) return fi.Length;
-    //    else return fi.Length;
-    //}
-
-    //private void MotionDataCountUpdate() //모션파일 개수 체크 후 motionDataCount 초기화
-    //{
-    //    motionDataCount = GetMotionDataCount();
-    //}
-
-
-    //private void IncMotionDataCount() //녹화 후 motionDataCount + 1
-    //{
-    //    string fileName = filePath + "motion_" + (motionDataCount + 1) + ".json";
-
-    //    if (File.Exists(fileName) && recordSign == false)
-    //        motionDataCount++;
-    //}
-
-    //private void CreateMotionDataFile(string jsonString)
-    //{
-    //    string fileName = filePath + "motion_" + (motionDataCount + 1) + ".json";
-
-    //    FileStream fs = new FileStream(fileName, FileMode.Append);
-    //    StreamWriter sw = new StreamWriter(fs);
-
-    //    sw.WriteLine(jsonString);
-
-    //    sw.Close();
-    //    fs.Close();
-    //}
-
-    //private void ReadMotionData(int motionDataIndex)
-    //{
-    //    string fileName = filePath + "motion_" + motionDataIndex + ".json";
-
-    //    FileStream fs = new FileStream(fileName, FileMode.Open);
-    //    StreamReader sr = new StreamReader(fs);
-
-    //    Debug.Log("Read " + "motion_" + motionDataIndex + ".json");
-    //    while ((readString = sr.ReadLine()) != null)
+    //    elapsedTime += Time.deltaTime;
+    //    if (elapsedTime >= recodeTime)
     //    {
-    //        Debug.Log(readString);
+    //        jsonManager.UpdateMotionDataForSimulator();
+    //        CreateOrAddMotionData(jsonManager.GetMotionDataForSimulator);
+    //        elapsedTime = 0f;
     //    }
-    //    Debug.Log("END");
+    //}
 
-    //    sr.Close();
-    //    fs.Close();
+    //private bool RedundancyCheck(string fileName) //파일이름 중복체크
+    //{
+    //    for (int i = 0; i < fileInfo.Length; i++)
+    //    {
+    //        if (fileInfo[i].Name.Equals(fileName))
+    //        {
+    //            Debug.Log("이미 존재하는 이름입니다.");
+    //            return false;
+    //        }
+    //    }
+    //    Debug.Log("사용가능한 이름입니다.");
+    //    return true;
     //}
 }

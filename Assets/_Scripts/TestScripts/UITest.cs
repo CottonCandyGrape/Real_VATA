@@ -17,19 +17,23 @@ public class UITest : MonoBehaviour
         SetDropdownOptions();
     }
 
-    //private void SortDropdownList() { }
-
     public void ClickedAddButton()
     {
         string fileName = filePath + inputField.text + ".json";
-        Debug.Log(inputField.text);
         File.WriteAllText(fileName, "testing");
         SetDropdownOptions();
     }
 
-    public void DeleteButton()
+    public void ClickedDeleteButton()
     {
+        string fileName = filePath + dropdown.options[dropdown.value].text + ".json";
+        File.Delete(fileName);
+        SetDropdownOptions();
+    }
 
+    public void selectOption()
+    {
+        Debug.Log(dropdown.options[dropdown.value].text);
     }
 
     private void SetDropdownOptions()
