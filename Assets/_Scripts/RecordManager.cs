@@ -11,7 +11,6 @@ public class RecordManager : MonoBehaviour
     public InputField inputField;
     public Dropdown dropdown;
     public Image recordImage;
-    public Toggle realTimeModeToggle;
 
     public JsonSerializationManager jsonManager;
     public AngleMessenger angleMessenger;
@@ -37,11 +36,6 @@ public class RecordManager : MonoBehaviour
 
         SetDropdownOptions();
         Debug.Log(StateUpdater.isConnectingKinect);
-    }
-
-    private void Update()
-    {
-
     }
 
     private void SetDropdownOptions() //드롭다운 목록 초기화

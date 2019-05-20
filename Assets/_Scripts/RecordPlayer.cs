@@ -5,24 +5,29 @@ using UnityEngine.UI;
 
 public class RecordPlayer : MonoBehaviour
 {
-    public JointOrientationSetter jointSetter;
+    public CDJointOrientationSetter cdJointSetter;
+    //public JointOrientationSetter jointSetter;
     public MotionDataFile motionFileData;
     public SSH ssh;
     public Toggle realTimeModeToggle;
+    public InputField inputField;
 
-    public string motionFileName;
+    //public string motionFileName;
 
     private string filePath = "Assets/JsonData/";
-    private float waitTime;
+    //private float waitTime;
+    private CDJoint[] cdJoints;
 
     void Start()
     {
-        if (!StateUpdater.isRealTimeMode)
-        {
-            string fileName = filePath + motionFileName + ".json";
-            string jsonString = File.ReadAllText(fileName);
-            motionFileData = JsonUtility.FromJson<MotionDataFile>(jsonString);
-        }
+        cdJoints = cdJointSetter.joints;
+
+        //if (!StateUpdater.isRealTimeMode)
+        //{
+        //    string fileName = filePath + motionFileName + ".json";
+        //    string jsonString = File.ReadAllText(fileName);
+        //    motionFileData = JsonUtility.FromJson<MotionDataFile>(jsonString);
+        //}
 
         //if (motionFileData != null)
         //{
@@ -32,6 +37,33 @@ public class RecordPlayer : MonoBehaviour
         //ChangeAngleForRobot(motionFileData);
         //yield return StartCoroutine(SendMotionFileDataWithSSH());
 
+    }
+
+    public void PlayMotionDataFile()
+    {
+        if (!StateUpdater.isRealTimeMode)
+        {
+            string fileName = filePath + inputField.text + ".json";
+            string jsonString = File.ReadAllText(fileName);
+            motionFileData = JsonUtility.FromJson<MotionDataFile>(jsonString);
+            StartCoroutine(SetAnglesCDMOCCA(motionFileData));
+        }
+        else
+            Debug.Log("실시간 모드가 진행 중 입니다.");
+    }
+
+    IEnumerator SetAnglesCDMOCCA(MotionDataFile motionData)
+    {
+        for (int i = 0; i < motionData.Length; i++)
+        {
+            float rotDuration = (float)motionData[i][0];
+            for (int j = 0; j < cdJoints.Length; j++)
+            {
+                StartCoroutine(cdJoints[j].SetQuatLerp((float)motionData[i][j + 1], rotDuration));
+            }
+
+            yield return new WaitForSeconds((float)motionData[i][0]);
+        }
     }
 
     public void RealTimeModeToggle()

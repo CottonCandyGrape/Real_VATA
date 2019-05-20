@@ -31,19 +31,19 @@ public class MotionCustomizer : MonoBehaviour
         //StartCoroutine(SetAnglesCDMOCCA(motionFileData)); //AngleMessenger isRealTimePlayer 켜져있을때 작동 하면 안됨.
     }
 
-    IEnumerator SetAnglesCDMOCCA(MotionDataFile motionData)
-    {
-        for (int i = 0; i < motionData.Length; i++)
-        {
-            float rotDuration = (float)motionData[i][0];
-            for (int j = 0; j < cdJoints.Length; j++)
-            {
-                StartCoroutine(cdJoints[j].SetQuatLerp((float)motionData[i][j + 1], rotDuration));
-            }
+    //IEnumerator SetAnglesCDMOCCA(MotionDataFile motionData)
+    //{
+    //    for (int i = 0; i < motionData.Length; i++)
+    //    {
+    //        float rotDuration = (float)motionData[i][0];
+    //        for (int j = 0; j < cdJoints.Length; j++)
+    //        {
+    //            StartCoroutine(cdJoints[j].SetQuatLerp((float)motionData[i][j + 1], rotDuration));
+    //        }
 
-            yield return new WaitForSeconds((float)motionData[i][0]);
-        }
-    }
+    //        yield return new WaitForSeconds((float)motionData[i][0]);
+    //    }
+    //}
 
     private void LoadMotionDataFile(string motionFileName) //편집할 파일 내용 불러와서 motionFileData로 반환.
     {
@@ -52,7 +52,7 @@ public class MotionCustomizer : MonoBehaviour
         motionFileData = JsonUtility.FromJson<MotionDataFile>(jsonString);
     }
 
-    private void LimitCustomizedAngle() //각도 제한하기
+    private void LimitCustomizedAngle() //각도 제한하여 파일로 저장.
     {
         for (int i = 0; i < motionFileData.Length; i++)
         {
