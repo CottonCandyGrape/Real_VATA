@@ -25,7 +25,7 @@ public class JsonSerializationManager : MonoBehaviour
         motionDataForSimulator.Add(MathUtil.Roundoff(recordTime));
         foreach (Joint joint in jointSetter.joints)
         {
-            motionDataForSimulator.Add(MathUtil.Roundoff(joint.angle));
+            motionDataForSimulator.Add(MathUtil.Roundoff(ConvertAngle(joint.angle))); //컨버팅 후 저장
             motionDataForSimulator.SetSize();
         }
     }
