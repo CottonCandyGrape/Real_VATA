@@ -6713,6 +6713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cdJointSetter: {fileID: 1340860396}
+  jsonManager: {fileID: 807761359}
   ssh: {fileID: 2147137420}
   realTimeModeToggle: {fileID: 974201297}
   inputField: {fileID: 1346111243}
@@ -14826,7 +14827,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9652a27e570c449843f8cb1a4b8695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonManager: {fileID: 807761359}
 --- !u!4 &2147137421
 Transform:
   m_ObjectHideFlags: 0

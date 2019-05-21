@@ -5,14 +5,10 @@ using System.IO;
 
 public class MotionCustomizer : MonoBehaviour
 {
-    public MotionDataFile motionFileData;
     public CDJointOrientationSetter cdJointSetter;
 
-    public string motionFileName;
-    public float speed;
-    public float angleRange;
-
     private CDJoint[] cdJoints;
+    private MotionDataFile motionFileData;
 
     private string filePath = "Assets/JsonData/";
 
@@ -34,7 +30,7 @@ public class MotionCustomizer : MonoBehaviour
         motionFileData = JsonUtility.FromJson<MotionDataFile>(jsonString);
     }
 
-    private void LimitCustomizedAngle() //각도 제한하여 파일로 저장.
+    private void LimitCustomizedAngle() //각도 제한하여 motionFileData에 저장.
     {
         for (int i = 0; i < motionFileData.Length; i++)
         {
@@ -74,17 +70,17 @@ public class MotionCustomizer : MonoBehaviour
             motionFileData[i][0] *= (1f / speed);
     }
 
-    private void CreateFileCustomizedAngle() //편집 후 파일 만들기(각도)
-    {
-        string customizedFileName = filePath + motionFileName + "(angle;" + angleRange + ").json";
-        string customizedJsonString = JsonUtility.ToJson(motionFileData, true);
-        File.WriteAllText(customizedFileName, customizedJsonString);
-    }
+    //private void CreateFileCustomizedAngle() //편집 후 파일 만들기(각도)
+    //{
+    //    string customizedFileName = filePath + motionFileName + "(angle;" + angleRange + ").json";
+    //    string customizedJsonString = JsonUtility.ToJson(motionFileData, true);
+    //    File.WriteAllText(customizedFileName, customizedJsonString);
+    //}
 
-    private void CreateFileCustomizedSpeed() //편집 후 파일 만들기(속도)
-    {
-        string customizedFileName = filePath + motionFileName + "(speed;" + speed + ").json";
-        string customizedJsonString = JsonUtility.ToJson(motionFileData, true);
-        File.WriteAllText(customizedFileName, customizedJsonString);
-    }
+    //private void CreateFileCustomizedSpeed() //편집 후 파일 만들기(속도)
+    //{
+    //    string customizedFileName = filePath + motionFileName + "(speed;" + speed + ").json";
+    //    string customizedJsonString = JsonUtility.ToJson(motionFileData, true);
+    //    File.WriteAllText(customizedFileName, customizedJsonString);
+    //}
 }
