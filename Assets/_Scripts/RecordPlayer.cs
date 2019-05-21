@@ -35,6 +35,7 @@ public class RecordPlayer : MonoBehaviour
 
     IEnumerator PalyMotionFile(MotionDataFile motionData)
     {
+        StateUpdater.isMotionDataPlaying = true;
         for (int i = 0; i < motionData.Length; i++)
         {
             float rotDuration = (float)motionData[i][0];
@@ -45,6 +46,7 @@ public class RecordPlayer : MonoBehaviour
 
             yield return new WaitForSeconds((float)motionData[i][0]);
         }
+        StateUpdater.isMotionDataPlaying = false;
     }
 
     public void PlayMotionFileForRobot()

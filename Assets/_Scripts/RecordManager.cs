@@ -61,6 +61,7 @@ public class RecordManager : MonoBehaviour
         {
             Debug.Log("사용가능한 이름입니다.");
             CreateMotionJsonFile(fileName);
+            Debug.Log("모션이 저장되었습니다.");
         }
         else
         {
@@ -88,10 +89,10 @@ public class RecordManager : MonoBehaviour
 
     public void ClickedStartButton() //녹화시작 버튼
     {
-        Debug.Log("ClickedStartButton");
-        if (StateUpdater.isConnectingKinect)
+        //Debug.Log("ClickedStartButton");
+        //if (StateUpdater.isConnectingKinect)
         {
-            if (StateUpdater.isRealTimeMode && !StateUpdater.isMotionDataPlaying)
+            if (StateUpdater.isRealTimeMode)
             {
                 if (inputField.text != string.Empty)
                 {
@@ -108,15 +109,15 @@ public class RecordManager : MonoBehaviour
                     Debug.Log("모션의 이름을 정해주세요");
             }
             else
-                Debug.Log("실시간 모드가 아니거나 모션을 실행중입니다.");
+                Debug.Log("실시간 모드를 실행 해주세요.");
         }
-        else
-            Debug.Log("Kinect가 연결되어 있지 않습니다.");
+        //else
+        //    Debug.Log("Kinect가 연결되어 있지 않습니다.");
     }
 
     public void ClickedStopButton() //녹화 끝 버튼
     {
-        Debug.Log("ClickedStopButton");
+        //Debug.Log("ClickedStopButton");
         if (StateUpdater.isRecording)
         {
             ToggleRecordButton();
@@ -172,6 +173,9 @@ public class RecordManager : MonoBehaviour
 
     IEnumerator Recording()
     {
+        if (motionFile != null)
+            motionFile = null;
+
         while (StateUpdater.isRecording)
         {
             yield return new WaitForSeconds(recordTime);
