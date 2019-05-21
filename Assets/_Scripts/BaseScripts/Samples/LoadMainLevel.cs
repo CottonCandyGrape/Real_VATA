@@ -13,7 +13,7 @@ public class LoadMainLevel : MonoBehaviour
 		if(!levelLoaded && manager && KinectManager.IsKinectInitialized())
 		{
 			levelLoaded = true;
-			Application.LoadLevel(1);
+			//Application.LoadLevel(1);
 		}
 	}
 	

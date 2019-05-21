@@ -131,64 +131,64 @@ public class BotControlScript : MonoBehaviour
 		{
 			layer2CurrentState = anim.GetCurrentAnimatorStateInfo(1);	// set our layer2CurrentState variable to the current state of the second Layer (1) of animation
 		}
-		
-		// if we are currently in a state called Locomotion (see line 25), then allow Jump input (Space) to set the Jump bool parameter in the Animator to true
-		if (currentBaseState.nameHash == locoState)
-		{
-			if(jumpNow)
-			{
-				jumpNow = false;
-				anim.SetBool("Jump", true);
-			}
-		}
-		
-		// if we are in the jumping state... 
-		else if(currentBaseState.nameHash == jumpState)
-		{
-			//  ..and not still in transition..
-			if(!anim.IsInTransition(0))
-			{
-				if(useCurves)
-					// ..set the collider height to a float curve in the clip called ColliderHeight
-					col.height = anim.GetFloat("ColliderHeight");
+
+        // if we are currently in a state called Locomotion (see line 25), then allow Jump input (Space) to set the Jump bool parameter in the Animator to true
+        //if (currentBaseState.nameHash == locoState)
+        //{
+        //	if(jumpNow)
+        //	{
+        //		jumpNow = false;
+        //		anim.SetBool("Jump", true);
+        //	}
+        //}
+
+        // if we are in the jumping state... 
+  //      else if (currentBaseState.nameHash == jumpState)
+  //      {
+		//	//  ..and not still in transition..
+		//	if(!anim.IsInTransition(0))
+		//	{
+		//		if(useCurves)
+		//			// ..set the collider height to a float curve in the clip called ColliderHeight
+		//			col.height = anim.GetFloat("ColliderHeight");
 				
-				// reset the Jump bool so we can jump again, and so that the state does not loop 
-				anim.SetBool("Jump", false);
-			}
+		//		// reset the Jump bool so we can jump again, and so that the state does not loop 
+		//		anim.SetBool("Jump", false);
+		//	}
 			
-			// Raycast down from the center of the character.. 
-			Ray ray = new Ray(transform.position + Vector3.up, -Vector3.up);
-			RaycastHit hitInfo = new RaycastHit();
+		//	// Raycast down from the center of the character.. 
+		//	Ray ray = new Ray(transform.position + Vector3.up, -Vector3.up);
+		//	RaycastHit hitInfo = new RaycastHit();
 			
-			if (Physics.Raycast(ray, out hitInfo))
-			{
-				// ..if distance to the ground is more than 1.75, use Match Target
-				if (hitInfo.distance > 1.75f)
-				{
+		//	if (Physics.Raycast(ray, out hitInfo))
+		//	{
+		//		// ..if distance to the ground is more than 1.75, use Match Target
+		//		if (hitInfo.distance > 1.75f)
+		//		{
 					
-					// MatchTarget allows us to take over animation and smoothly transition our character towards a location - the hit point from the ray.
-					// Here we're telling the Root of the character to only be influenced on the Y axis (MatchTargetWeightMask) and only occur between 0.35 and 0.5
-					// of the timeline of our animation clip
-					anim.MatchTarget(hitInfo.point, Quaternion.identity, AvatarTarget.Root, new MatchTargetWeightMask(new Vector3(0, 1, 0), 0), 0.35f, 0.5f);
-				}
-			}
-		}
+		//			// MatchTarget allows us to take over animation and smoothly transition our character towards a location - the hit point from the ray.
+		//			// Here we're telling the Root of the character to only be influenced on the Y axis (MatchTargetWeightMask) and only occur between 0.35 and 0.5
+		//			// of the timeline of our animation clip
+		//			anim.MatchTarget(hitInfo.point, Quaternion.identity, AvatarTarget.Root, new MatchTargetWeightMask(new Vector3(0, 1, 0), 0), 0.35f, 0.5f);
+		//		}
+		//	}
+		//}
 		
 		// check if we are at idle, if so, let us Wave!
-		else if (currentBaseState.nameHash == idleState)
-		{
-			if(waveNow)
-			{
-				waveNow = false;
-				anim.SetBool("Wave", true);
-			}
-		}
+		//else if (currentBaseState.nameHash == idleState)
+		//{
+		//	if(waveNow)
+		//	{
+		//		waveNow = false;
+		//		anim.SetBool("Wave", true);
+		//	}
+		//}
 		
 		// if we enter the waving state, reset the bool to let us wave again in future
-		if(layer2CurrentState.nameHash == waveState)
-		{
-			anim.SetBool("Wave", false);
-		}
+		//if(layer2CurrentState.nameHash == waveState)
+		//{
+		//	anim.SetBool("Wave", false);
+		//}
 	}
 
 }

@@ -133,7 +133,7 @@ public class WrapperTools
 		GC.Collect();
 		
 		// reload the same level
-		Application.LoadLevel(Application.loadedLevel);
+		//Application.LoadLevel(Application.loadedLevel);
 	}
 	
 }

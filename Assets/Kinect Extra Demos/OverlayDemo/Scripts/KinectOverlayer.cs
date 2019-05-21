@@ -8,12 +8,12 @@ public class KinectOverlayer : MonoBehaviour
 //	public Vector3 BottomRight;
 //	public Vector3 BottomLeft;
 
-	public GUITexture backgroundImage;
+	//public GUITexture backgroundImage;
 	public KinectWrapper.NuiSkeletonPositionIndex TrackedJoint = KinectWrapper.NuiSkeletonPositionIndex.HandRight;
 	public GameObject OverlayObject;
 	public float smoothFactor = 5f;
 	
-	public GUIText debugText;
+	//public GUIText debugText;
 
 	private float distanceToCamera = 10f;
 
@@ -33,10 +33,10 @@ public class KinectOverlayer : MonoBehaviour
 		if(manager && manager.IsInitialized())
 		{
 			//backgroundImage.renderer.material.mainTexture = manager.GetUsersClrTex();
-			if(backgroundImage && (backgroundImage.texture == null))
-			{
-				backgroundImage.texture = manager.GetUsersClrTex();
-			}
+			//if(backgroundImage && (backgroundImage.texture == null))
+			//{
+			//	backgroundImage.texture = manager.GetUsersClrTex();
+			//}
 			
 //			Vector3 vRight = BottomRight - BottomLeft;
 //			Vector3 vUp = TopLeft - BottomLeft;
@@ -66,10 +66,10 @@ public class KinectOverlayer : MonoBehaviour
 //						Vector3 vPosOverlay = backgroundImage.transform.TransformPoint(localPos);
 						//Vector3 vPosOverlay = BottomLeft + ((vRight * scaleX) + (vUp * scaleY));
 
-						if(debugText)
-						{
-							debugText.GetComponent<GUIText>().text = "Tracked user ID: " + userId;  // new Vector2(scaleX, scaleY).ToString();
-						}
+						//if(debugText)
+						//{
+						//	debugText.GetComponent<GUIText>().text = "Tracked user ID: " + userId;  // new Vector2(scaleX, scaleY).ToString();
+						//}
 						
 						if(OverlayObject)
 						{

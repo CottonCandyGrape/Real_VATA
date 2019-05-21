@@ -27,7 +27,7 @@ public class InteractionManager : MonoBehaviour
 	public bool controlMouseDrag = false;
 	
 	// GUI-Text object to be used for displaying debug information
-	public GUIText debugText;
+	//public GUIText debugText;
 	
 	private uint skeletonTrackingID = 0;
 	
@@ -542,7 +542,7 @@ public class InteractionManager : MonoBehaviour
 
 					if(controlMouseCursor)
 					{
-						MouseControl.MouseMove(cursorScreenPos, debugText);
+						//MouseControl.MouseMove(cursorScreenPos, debugText);
 					}
 				}
 				else
@@ -710,7 +710,7 @@ public class InteractionManager : MonoBehaviour
 
 					if(controlMouseCursor)
 					{
-						MouseControl.MouseMove(cursorScreenPos, debugText);
+						//MouseControl.MouseMove(cursorScreenPos, debugText);
 					}
 				}
 				else
@@ -830,88 +830,88 @@ public class InteractionManager : MonoBehaviour
 			return;
 		
 		// display debug information
-		if(debugText)
-		{
-			string sGuiText = "Cursor: " + cursorScreenPos.ToString();
+//		if(debugText)
+//		{
+//			string sGuiText = "Cursor: " + cursorScreenPos.ToString();
 			
-			if(IsRightHandPrimary())
-			{
-				if(lastRightHandEvent == InteractionWrapper.InteractionHandEventType.Grip)
-				{
-					sGuiText += "  RightGrip";
-				}
-				else if(lastRightHandEvent == InteractionWrapper.InteractionHandEventType.Release)
-				{
-					sGuiText += "  RightRelease";
-					//bPullRightHandFinished = false;
-				}
-				
-				if(bPullRightHandFinished)
-				{
-					sGuiText += "  RightPull";
-				}
-
-				if(bPushRightHandFinished)
-				{
-					sGuiText += "  RightPush";
-				}
-
-				if(isRightHandClick)
-				{
-					sGuiText += "  RightClick";
-				}
-//				else if(rightHandClickProgress > 0.5f)
+//			if(IsRightHandPrimary())
+//			{
+//				if(lastRightHandEvent == InteractionWrapper.InteractionHandEventType.Grip)
 //				{
-//					sGuiText += String.Format("  {0:F0}%", rightHandClickProgress * 100);
+//					sGuiText += "  RightGrip";
+//				}
+//				else if(lastRightHandEvent == InteractionWrapper.InteractionHandEventType.Release)
+//				{
+//					sGuiText += "  RightRelease";
+//					//bPullRightHandFinished = false;
 //				}
 				
-				if(isRightHandPress)
-				{
-					sGuiText += "  RightPress";
-				}
-			}
-			
-			if(IsLeftHandPrimary())
-			{
-				if(lastLeftHandEvent == InteractionWrapper.InteractionHandEventType.Grip)
-				{
-					sGuiText += "  LeftGrip";
-				}
-				else if(lastLeftHandEvent == InteractionWrapper.InteractionHandEventType.Release)
-				{
-					sGuiText += "  LeftRelease";
-					//bPullLeftHandFinished = false;
-				}
-				
-				if(bPullLeftHandFinished)
-				{
-					sGuiText += "  LeftPull";
-				}
-				
-				if(bPushLeftHandFinished)
-				{
-					sGuiText += "  LeftPush";
-				}
-
-				if(isLeftHandClick)
-				{
-					sGuiText += "  LeftClick";
-				}
-//				else if(leftHandClickProgress > 0.5f)
+//				if(bPullRightHandFinished)
 //				{
-//					sGuiText += String.Format("  {0:F0}%", leftHandClickProgress * 100);
+//					sGuiText += "  RightPull";
 //				}
 
-				if(isLeftHandPress)
-				{
-					sGuiText += "  LeftPress";
-				}
+//				if(bPushRightHandFinished)
+//				{
+//					sGuiText += "  RightPush";
+//				}
 
-
-			}
+//				if(isRightHandClick)
+//				{
+//					sGuiText += "  RightClick";
+//				}
+////				else if(rightHandClickProgress > 0.5f)
+////				{
+////					sGuiText += String.Format("  {0:F0}%", rightHandClickProgress * 100);
+////				}
+				
+//				if(isRightHandPress)
+//				{
+//					sGuiText += "  RightPress";
+//				}
+//			}
 			
-			//debugText.guiText.text = sGuiText;
-		}
+//			if(IsLeftHandPrimary())
+//			{
+//				if(lastLeftHandEvent == InteractionWrapper.InteractionHandEventType.Grip)
+//				{
+//					sGuiText += "  LeftGrip";
+//				}
+//				else if(lastLeftHandEvent == InteractionWrapper.InteractionHandEventType.Release)
+//				{
+//					sGuiText += "  LeftRelease";
+//					//bPullLeftHandFinished = false;
+//				}
+				
+//				if(bPullLeftHandFinished)
+//				{
+//					sGuiText += "  LeftPull";
+//				}
+				
+//				if(bPushLeftHandFinished)
+//				{
+//					sGuiText += "  LeftPush";
+//				}
+
+//				if(isLeftHandClick)
+//				{
+//					sGuiText += "  LeftClick";
+//				}
+////				else if(leftHandClickProgress > 0.5f)
+////				{
+////					sGuiText += String.Format("  {0:F0}%", leftHandClickProgress * 100);
+////				}
+
+//				if(isLeftHandPress)
+//				{
+//					sGuiText += "  LeftPress";
+//				}
+
+
+//			}
+			
+//			//debugText.guiText.text = sGuiText;
+//		}
 		
 		// display the cursor status and position
 		if(handCursor != null)
