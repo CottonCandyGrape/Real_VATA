@@ -22,11 +22,11 @@ public class SSH : MonoBehaviour
 
     void Update()
     {
-        if (StateUpdater.isRealTimeMode)
-            TimeCounter(targetFrameTime); //실시간으로 보낼때의 타이머 시간
+        if (StateUpdater.isRealTimeMode || StateUpdater.isMotionDataPlaying) // 수정필요
+            TimerForSimulator(targetFrameTime); //시뮬레이터 모카를 실물 로봇이 따라함
     }
 
-    private void TimeCounter(float targetFrameTime)
+    private void TimerForSimulator(float targetFrameTime)
     {
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= targetFrameTime)
@@ -38,10 +38,10 @@ public class SSH : MonoBehaviour
 
     private void SendMotionDataWithSSH()
     {
-        jsonManager.UpdateMotionDataForRobot();
-        Send("mot:raw(" + jsonManager.GetJsonStringMotionDataForRobot() + ")\n"); //실시간으로 실물에 보낼때 포맷
-        //Debug.Log("보내고있음");
-        //Debug.Log("mot:raw(" + jsonManager.GetJsonStringMotionDataForRobot() + ")\n");
+            jsonManager.UpdateMotionDataForRobot();
+            Send("mot:raw(" + jsonManager.GetJsonStringMotionDataForRobot() + ")\n"); //실시간으로 실물에 보낼때 포맷
+            //Debug.Log("보내고있음");
+            //Debug.Log("mot:raw(" + jsonManager.GetJsonStringMotionDataForRobot() + ")\n");
     }
 
     public void Send(string rawMotion)

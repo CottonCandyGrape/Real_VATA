@@ -67,7 +67,7 @@ public class JsonSerializationManager : MonoBehaviour
         }
 
         //사이즈 설정 -클래스 안에 배열 값 크기로 size 변수 설정하는 함수 호출.
-        motionDataForRobot.SetSize();
+        //motionDataForRobot.SetSize();
     }
 
     public string GetJsonStringMotionDataForRobot()

@@ -27,13 +27,13 @@ public class RecordManager : MonoBehaviour
     private void Start()
     {
         recordTime = 1 / fps;
-        directoryInfo = new DirectoryInfo("Assets/JsonData/");
+        directoryInfo = new DirectoryInfo(filePath);
 
         recStopButton.gameObject.SetActive(false);
         recordImage.gameObject.SetActive(false);
 
         SetDropdownOptions();
-        Debug.Log(StateUpdater.isConnectingKinect);
+        //Debug.Log(StateUpdater.isConnectingKinect);
     }
 
     private void SetDropdownOptions() //드롭다운 목록 초기화
