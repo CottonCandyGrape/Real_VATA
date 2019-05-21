@@ -34,7 +34,6 @@ public class CDJoint
 
     public float direction = 1f;
     public float offset = 0f;
-    //public float angle { get; set; }//Joint회전 각도.
 
     public KinectManager kinectManager { get; set; } //CDJointOrientationSetter에서 쓰기 때문에 public
     private FacetrackingManager faceTrackingManager;

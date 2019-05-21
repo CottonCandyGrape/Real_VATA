@@ -90,7 +90,7 @@ public class RecordManager : MonoBehaviour
     public void ClickedStartButton() //녹화시작 버튼
     {
         //Debug.Log("ClickedStartButton");
-        //if (StateUpdater.isConnectingKinect)
+        if (StateUpdater.isConnectingKinect)
         {
             if (StateUpdater.isRealTimeMode)
             {
@@ -111,8 +111,8 @@ public class RecordManager : MonoBehaviour
             else
                 Debug.Log("실시간 모드를 실행 해주세요.");
         }
-        //else
-        //    Debug.Log("Kinect가 연결되어 있지 않습니다.");
+        else
+            Debug.Log("Kinect가 연결되어 있지 않습니다.");
     }
 
     public void ClickedStopButton() //녹화 끝 버튼
@@ -131,28 +131,28 @@ public class RecordManager : MonoBehaviour
         }
     }
 
-    public void ToggleRecordButton()
+    public void ToggleRecordButton() //녹화버튼 토글
     {
-        if (!recStopButton.gameObject.activeSelf) //RecStartButton 누를때
+        if (!recStopButton.gameObject.activeSelf)
         {
             recStopButton.gameObject.SetActive(true);
             recStartButton.gameObject.SetActive(false);
         }
-        else // RecEndButton 누를때
+        else
         {
             recStartButton.gameObject.SetActive(true);
             recStopButton.gameObject.SetActive(false);
         }
     }
 
-    private void CreateMotionJsonFile(string fileName)
+    private void CreateMotionJsonFile(string fileName) //모션 파일 생성
     {
         string jsonString = JsonUtility.ToJson(motionFile, true);
         File.WriteAllText(fileName, jsonString);
         motionFile = null;
     }
 
-    private void CreateOrAddMotionData(DoubleArray motionData)
+    private void CreateOrAddMotionData(DoubleArray motionData) //모션 파일에 들어갈 데이터 생성
     {
         if (motionFile == null)
             motionFile = new MotionDataFile();
@@ -160,7 +160,7 @@ public class RecordManager : MonoBehaviour
         motionFile.Add(motionData);
     }
 
-    IEnumerator Flicker()
+    IEnumerator Flicker() //rec이미지 깜박이기
     {
         while (StateUpdater.isRecording)
         {
@@ -171,7 +171,7 @@ public class RecordManager : MonoBehaviour
         }
     }
 
-    IEnumerator Recording()
+    IEnumerator Recording() //녹화하기
     {
         if (motionFile != null)
             motionFile = null;

@@ -88,6 +88,14 @@ class MathUtil
     {
         return (double)Mathf.Round((value * 10)) / 10;
     }
+
+    public static float ConvertAngle(float WrongAngle) //큰각을 음각으로 반환
+    {
+        if (WrongAngle > 180f)
+            return WrongAngle - 360f;
+        else
+            return WrongAngle;
+    }
 }
 
 /*--------------------------------------not use------------------------------------

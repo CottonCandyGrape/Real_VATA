@@ -2,10 +2,12 @@
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Text;
 
-public class RecordPlayer : MonoBehaviour
+public class MoccaPlayer : MonoBehaviour
 {
     public CDJointOrientationSetter cdJointSetter;
+    public JsonSerializationManager jsonManager;
     public SSH ssh;
     public Toggle realTimeModeToggle;
     public InputField inputField;
@@ -15,12 +17,46 @@ public class RecordPlayer : MonoBehaviour
 
     private string filePath = "Assets/JsonData/";
 
+    private float fps = 5f;
+    private float targetFrameTime = 0f;
+    private float elapsedTime = 0f;
+
     void Start()
     {
+        targetFrameTime = 1f / fps;
         cdJoints = cdJointSetter.joints;
     }
 
-    public void PlayMotionFileForSimulator()
+    void Update()
+    {
+        if (StateUpdater.isRealTimeMode)
+            SendAngleRealTimeToRobot(); //실시간으로 실물로봇으로 보낼때 
+    }
+
+    private void SendAngleRealTimeToRobot()
+    {
+        elapsedTime += Time.deltaTime;
+        if (elapsedTime >= targetFrameTime)
+        {
+            SendMotionDataWithSSH();
+            elapsedTime = 0f;
+        }
+    }
+
+    private void SendMotionDataWithSSH()
+    {
+        jsonManager.UpdateMotionDataForRobot();
+        Send("mot:raw(" + jsonManager.GetJsonStringMotionDataForRobot() + ")\n"); //실시간으로 실물에 보낼때 포맷
+    }
+
+    private void Send(string rawMotion)
+    {
+        byte[] data = new byte[1024];
+        data = Encoding.UTF8.GetBytes(rawMotion);
+        ssh.udpClient.Send(data, data.Length);
+    }
+
+    public void PlayMotionFileForSimulator() //시뮬레이터에서 저장된 모션 실행하기 
     {
         if (!StateUpdater.isRealTimeMode)
         {
@@ -33,7 +69,7 @@ public class RecordPlayer : MonoBehaviour
             Debug.Log("실시간 모드가 진행 중 입니다.");
     }
 
-    IEnumerator PalyMotionFile(MotionDataFile motionData)
+    IEnumerator PalyMotionFile(MotionDataFile motionData) //저장된 모션 보간하기.
     {
         StateUpdater.isMotionDataPlaying = true;
         for (int i = 0; i < motionData.Length; i++)
@@ -49,7 +85,7 @@ public class RecordPlayer : MonoBehaviour
         StateUpdater.isMotionDataPlaying = false;
     }
 
-    public void PlayMotionFileForRobot()
+    public void PlayMotionFileForRobot() //로봇에서 저장된 모션 실행하기 
     {
         if (!StateUpdater.isRealTimeMode)
         {
@@ -68,17 +104,9 @@ public class RecordPlayer : MonoBehaviour
             Debug.Log("실시간 모드가 진행 중 입니다.");
     }
 
-    public void RealTimeModeToggle()
-    {
-        if (realTimeModeToggle.isOn)
-            StateUpdater.isRealTimeMode = true;
-        else
-            StateUpdater.isRealTimeMode = false;
-    }
-
-    double tempAngle;
     private void ChangeAngleForRobot(MotionDataFile motionData) //모션파일 각도값 실물 로봇으로 전송전 로봇에 맞게 매핑
     {
+        double tempAngle;
         for (int i = 0; i < motionData.Length; i++)
         {
             for (int j = 0; j < 3; j++)
@@ -101,9 +129,17 @@ public class RecordPlayer : MonoBehaviour
     {
         for (int i = 0; i < motionFileData.Length; i++)
         {
-            ssh.Send("mot:raw(" + JsonUtility.ToJson(motionFileData[i]) + ")\n");
+            Send("mot:raw(" + JsonUtility.ToJson(motionFileData[i]) + ")\n");
 
             yield return new WaitForSeconds((float)motionFileData[i][0]);
         }
+    }
+
+    public void RealTimeModeToggle() //실시간 모드 토글
+    {
+        if (realTimeModeToggle.isOn)
+            StateUpdater.isRealTimeMode = true;
+        else
+            StateUpdater.isRealTimeMode = false;
     }
 }

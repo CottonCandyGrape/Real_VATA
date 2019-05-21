@@ -19,32 +19,13 @@ public class MotionCustomizer : MonoBehaviour
     private void Start()
     {
         cdJoints = cdJointSetter.joints;
-
         //LoadMotionDataFile(motionFileName);
-
         //CustomizeMotionSpeed(speed);
         //CreateFileCustomizedSpeed();
-
         //CustomizeMotionAllAngle(angleRange);
         //LimitCustomizedAngle();
         //CreateFileCustomizedAngle();
-
-        //StartCoroutine(SetAnglesCDMOCCA(motionFileData)); //AngleMessenger isRealTimePlayer 켜져있을때 작동 하면 안됨.
     }
-
-    //IEnumerator SetAnglesCDMOCCA(MotionDataFile motionData)
-    //{
-    //    for (int i = 0; i < motionData.Length; i++)
-    //    {
-    //        float rotDuration = (float)motionData[i][0];
-    //        for (int j = 0; j < cdJoints.Length; j++)
-    //        {
-    //            StartCoroutine(cdJoints[j].SetQuatLerp((float)motionData[i][j + 1], rotDuration));
-    //        }
-
-    //        yield return new WaitForSeconds((float)motionData[i][0]);
-    //    }
-    //}
 
     private void LoadMotionDataFile(string motionFileName) //편집할 파일 내용 불러와서 motionFileData로 반환.
     {
