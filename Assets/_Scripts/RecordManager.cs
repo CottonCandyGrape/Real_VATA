@@ -20,7 +20,6 @@ public class RecordManager : MonoBehaviour
 
     private float fps = 5f;
     private float recordTime = 0f;
-    private float elapsedTime = 0f;
 
     private string filePath = "Assets/JsonData/";
 
@@ -190,19 +189,5 @@ public class RecordManager : MonoBehaviour
     //        CreateOrAddMotionData(jsonManager.GetMotionDataForSimulator);
     //        elapsedTime = 0f;
     //    }
-    //}
-
-    //private bool RedundancyCheck(string fileName) //파일이름 중복체크
-    //{
-    //    for (int i = 0; i < fileInfo.Length; i++)
-    //    {
-    //        if (fileInfo[i].Name.Equals(fileName))
-    //        {
-    //            Debug.Log("이미 존재하는 이름입니다.");
-    //            return false;
-    //        }
-    //    }
-    //    Debug.Log("사용가능한 이름입니다.");
-    //    return true;
     //}
 }

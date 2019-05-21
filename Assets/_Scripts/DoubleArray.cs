@@ -48,8 +48,6 @@ public class DoubleArray
         }
 
         array[array.Length - 1] = angle;
-
-        SetSize();
     }
 
     public void RemoveAt(int index)
