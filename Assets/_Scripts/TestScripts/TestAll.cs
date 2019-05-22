@@ -12,15 +12,18 @@ public class TestAll : MonoBehaviour
 
     private void Start()
     {
-        speedText.text = MathUtil.Roundoff(angleSlider.value / 5f).ToString();
-        angleText.text = MathUtil.Roundoff(angleSlider.value / 16f).ToString();
+        angleText.text = "0%";
+        speedText.text = "x1";
     }
 
     public void AngleSliderChange()
     {
-        angleText.text = MathUtil.Roundoff(angleSlider.value / 5f).ToString();
-        //angleText.text = angleSlider.value.ToString();
+        angleText.text = angleSlider.value * 10 + "%";
+    }
 
+    public void SpeedSliderChange()
+    {
+        speedText.text = "x" + speedSlider.value * 0.1;
     }
 }
 

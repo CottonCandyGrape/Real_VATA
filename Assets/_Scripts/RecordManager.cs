@@ -50,7 +50,7 @@ public class RecordManager : MonoBehaviour
             option.text = fileInfo[i].Name.Substring(0, fileInfo[i].Name.Length - 5);
             dropdown.options.Add(option);
         }
-        //dropdown.captionText.text = "Select Motion data File";
+        dropdown.captionText.text = "Select Motion data File";
     }
 
     //public void OnDropdownChanged(int value)
