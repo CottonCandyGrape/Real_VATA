@@ -7,11 +7,21 @@ public class TestAll : MonoBehaviour
 {
     public Slider speedSlider;
     public Slider angleSlider;
+    public Text speedText;
+    public Text angleText;
 
-    private void Update()
+    private void Start()
     {
-        Debug.Log("<color=red>speedSlider.value: " + MathUtil.Roundoff(speedSlider.value) + "</color>");
-        Debug.Log("angleSlider.value: " + MathUtil.Roundoff(angleSlider.value));
+        speedText.text = MathUtil.Roundoff(angleSlider.value / 5f).ToString();
+        angleText.text = MathUtil.Roundoff(angleSlider.value / 16f).ToString();
+    }
+
+    public void AngleSliderChange()
+    {
+        angleText.text = MathUtil.Roundoff(angleSlider.value / 5f).ToString();
+        //angleText.text = angleSlider.value.ToString();
+
     }
 }
+
 

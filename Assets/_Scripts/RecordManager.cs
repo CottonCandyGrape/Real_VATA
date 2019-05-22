@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
+//using static UnityEngine.UI.Dropdown;
 
 public class RecordManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class RecordManager : MonoBehaviour
     private MotionDataFile motionFile;
     private DirectoryInfo directoryInfo;
     private FileInfo[] fileInfo;
+    private WaitForSeconds delayRecordTime;
 
     private float fps = 5f;
     private float recordTime = 0f;
@@ -27,12 +29,15 @@ public class RecordManager : MonoBehaviour
     {
         recordTime = 1 / fps;
         directoryInfo = new DirectoryInfo(filePath);
+        delayRecordTime = new WaitForSeconds(recordTime);
 
         recStopButton.gameObject.SetActive(false);
         recordImage.gameObject.SetActive(false);
 
         SetDropdownOptions();
-        //Debug.Log(StateUpdater.isConnectingKinect);
+
+        //dropdown.onValueChanged.AddListener(OnDropdownChanged);
+        //yield return null;
     }
 
     private void SetDropdownOptions() //드롭다운 목록 초기화
@@ -48,7 +53,19 @@ public class RecordManager : MonoBehaviour
         //dropdown.captionText.text = "Select Motion data File";
     }
 
-    public void ChangedDropdownOption() //드롭다운 옵션 바뀌었을 때 
+    //public void OnDropdownChanged(int value)
+    //{
+    //    Debug.Log("OnDropdownChanged: " + value);
+    //    //dropdown.value = -1;
+    //}
+
+    //IEnumerator SetValueToMinusOne()
+    //{
+    //    yield return null;
+    //    //dropdown.value = -1;
+    //}
+
+    public void ChangedDropdownOption() //드롭다운 선택 옵션 바뀌었을 때 
     {
         inputField.text = dropdown.options[dropdown.value].text;
         //dropdown.captionText.text = "Select Motion data File";
@@ -170,7 +187,7 @@ public class RecordManager : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
         }
     }
-
+    
     IEnumerator Recording() //녹화하기
     {
         if (motionFile != null)
@@ -178,7 +195,7 @@ public class RecordManager : MonoBehaviour
 
         while (StateUpdater.isRecording)
         {
-            yield return new WaitForSeconds(recordTime);
+            yield return delayRecordTime;
             jsonManager.UpdateMotionDataForSimulator(recordTime);
             CreateOrAddMotionData(jsonManager.GetMotionDataForSimulator);
         }
