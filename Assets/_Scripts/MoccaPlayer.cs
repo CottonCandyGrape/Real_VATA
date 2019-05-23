@@ -15,6 +15,7 @@ public class MoccaPlayer : MonoBehaviour
     public Toggle realTimeModeToggle;
     public InputField inputField;
 
+    public MotionDataFile GetMotionFileData { get { return motionFileData; } }
     private MotionDataFile motionFileData;
     private CDJoint[] cdJoints;
 

@@ -6,17 +6,12 @@ public class JsonSerializationManager : MonoBehaviour
 {
     public JointOrientationSetter jointSetter;
 
-    public DoubleArray GetMotionDataForSimulator
-    {
-        get { return motionDataForSimulator; }
-    }
-    public DoubleArray GetMotionDataForRobot
-    {
-        get { return motionDataForRobot; }
-    }
+    public DoubleArray GetMotionDataForSimulator { get { return motionDataForSimulator; } }
+    public DoubleArray GetMotionDataForRobot { get { return motionDataForRobot; } }
 
     private DoubleArray motionDataForSimulator;
     private DoubleArray motionDataForRobot;
+
     private double realTimeFrameDuration = 0.2;
 
     public void UpdateMotionDataForSimulator(float recordTime)//파일 생성 전 현재 조인트 값을 DoubleArray에 저장. 시간은 recordTime과 같아야한다.
