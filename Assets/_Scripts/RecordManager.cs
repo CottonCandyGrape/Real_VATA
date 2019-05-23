@@ -15,7 +15,7 @@ public class RecordManager : MonoBehaviour
 
     public JsonSerializationManager jsonManager;
 
-    private MotionDataFile motionFile;
+    private MotionDataFile motionFileData;
     private DirectoryInfo directoryInfo;
     private FileInfo[] fileInfo;
     private WaitForSeconds delayRecordTime;
@@ -74,7 +74,7 @@ public class RecordManager : MonoBehaviour
     public void ClickedAddButton() //파일이름 중복 체크하여 모션 데이터 추가
     {
         string fileName = filePath + inputField.text + ".json";
-        if (!File.Exists(fileName) && motionFile != null)
+        if (!File.Exists(fileName) && motionFileData != null)
         {
             Debug.Log("사용가능한 이름입니다.");
             CreateMotionJsonFile(fileName);
@@ -164,17 +164,17 @@ public class RecordManager : MonoBehaviour
 
     private void CreateMotionJsonFile(string fileName) //모션 파일 생성
     {
-        string jsonString = JsonUtility.ToJson(motionFile, true);
+        string jsonString = JsonUtility.ToJson(motionFileData, true);
         File.WriteAllText(fileName, jsonString);
-        motionFile = null;
+        motionFileData = null;
     }
 
     private void CreateOrAddMotionData(DoubleArray motionData) //모션 파일에 들어갈 데이터 생성
     {
-        if (motionFile == null)
-            motionFile = new MotionDataFile();
+        if (motionFileData == null)
+            motionFileData = new MotionDataFile();
 
-        motionFile.Add(motionData);
+        motionFileData.Add(motionData);
     }
 
     IEnumerator Flicker() //rec이미지 깜박이기
@@ -190,8 +190,8 @@ public class RecordManager : MonoBehaviour
     
     IEnumerator Recording() //녹화하기
     {
-        if (motionFile != null)
-            motionFile = null;
+        if (motionFileData != null)
+            motionFileData = null;
 
         while (StateUpdater.isRecording)
         {

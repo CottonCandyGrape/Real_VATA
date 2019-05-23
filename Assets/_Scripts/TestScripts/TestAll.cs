@@ -12,13 +12,16 @@ public class TestAll : MonoBehaviour
 
     private void Start()
     {
-        angleText.text = "0%";
+        //angleText.text = "0%";
+        angleText.text = "x1";
         speedText.text = "x1";
+        //Debug.Log("speedSlider.value: " + speedSlider.value + " angleSlider.value: " + angleSlider.value);
     }
 
     public void AngleSliderChange()
     {
-        angleText.text = angleSlider.value * 10 + "%";
+        //angleText.text = angleSlider.value * 10 + "%";
+        angleText.text = "x" + angleSlider.value * 0.1;
     }
 
     public void SpeedSliderChange()

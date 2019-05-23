@@ -8,6 +8,7 @@ public class MoccaPlayer : MonoBehaviour
 {
     public CDJointOrientationSetter cdJointSetter;
     public JsonSerializationManager jsonManager;
+    public MotionCustomizer motionCustomizer;
     public SSH ssh;
     public Toggle realTimeModeToggle;
     public InputField inputField;
@@ -60,9 +61,8 @@ public class MoccaPlayer : MonoBehaviour
     {
         if (!StateUpdater.isRealTimeMode)
         {
-            string fileName = filePath + inputField.text + ".json";
-            string jsonString = File.ReadAllText(fileName);
-            motionFileData = JsonUtility.FromJson<MotionDataFile>(jsonString);
+            LoadMotionFileData();
+            motionCustomizer.CustomizeMotionData(motionCustomizer.speedSlider.value, motionCustomizer.angleSlider.value, motionFileData);
             StartCoroutine(PalyMotionFile(motionFileData));
         }
         else
@@ -93,9 +93,7 @@ public class MoccaPlayer : MonoBehaviour
                 Debug.Log("모션파일을 선택해 주세요");
             else
             {
-                string fileName = filePath + inputField.text + ".json";
-                string jsonString = File.ReadAllText(fileName);
-                motionFileData = JsonUtility.FromJson<MotionDataFile>(jsonString);
+                LoadMotionFileData();
                 ChangeAngleForRobot(motionFileData);
                 StartCoroutine(SendMotionFileDataWithSSH());
             }
@@ -133,6 +131,13 @@ public class MoccaPlayer : MonoBehaviour
 
             yield return new WaitForSeconds((float)motionFileData[i][0]);
         }
+    }
+
+    private void LoadMotionFileData()
+    {
+        string fileName = filePath + inputField.text + ".json";
+        string jsonString = File.ReadAllText(fileName);
+        motionFileData = JsonUtility.FromJson<MotionDataFile>(jsonString);
     }
 
     public void RealTimeModeToggle() //실시간 모드 토글

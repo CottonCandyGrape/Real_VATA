@@ -2,35 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.UI;
 
 public class MotionCustomizer : MonoBehaviour
 {
     public CDJointOrientationSetter cdJointSetter;
+    public InputField inputField;
+    public Slider speedSlider;
+    public Slider angleSlider;
+    public Text speedText;
+    public Text angleText;
 
     private CDJoint[] cdJoints;
-    private MotionDataFile motionFileData;
 
     private string filePath = "Assets/JsonData/";
 
     private void Start()
     {
         cdJoints = cdJointSetter.joints;
-        //LoadMotionDataFile(motionFileName);
-        //CustomizeMotionSpeed(speed);
-        //CreateFileCustomizedSpeed();
-        //CustomizeMotionAllAngle(angleRange);
-        //LimitCustomizedAngle();
-        //CreateFileCustomizedAngle();
+        speedText.text = "Speed X" + speedSlider.value * 0.1;
+        angleText.text = "Angle X" + angleSlider.value * 0.1;
     }
 
-    private void LoadMotionDataFile(string motionFileName) //편집할 파일 내용 불러와서 motionFileData로 반환.
+    public void SpeedSliderChange()
     {
-        string fileName = filePath + motionFileName + ".json";
-        string jsonString = File.ReadAllText(fileName);
-        motionFileData = JsonUtility.FromJson<MotionDataFile>(jsonString);
+        speedText.text = "Speed X" + speedSlider.value * 0.1;
     }
 
-    private void LimitCustomizedAngle() //각도 제한하여 motionFileData에 저장.
+    public void AngleSliderChange()
+    {
+        angleText.text = "Angle X" + angleSlider.value * 0.1;
+    }
+
+    private void CustomizedMotionFileAdd(MotionDataFile motionFileData)
+    {
+
+    }
+
+    public void CustomizeMotionData(float speed, float range, MotionDataFile motionFileData)
+    {
+        CustomizeMotionSpeed(speed, motionFileData);
+        CustomizeMotionAllAngle(range, motionFileData);
+        LimitCustomizedAngle(motionFileData);
+    }
+
+    private void LimitCustomizedAngle(MotionDataFile motionFileData) //각도 제한하여 motionFileData에 저장.
     {
         for (int i = 0; i < motionFileData.Length; i++)
         {
@@ -53,34 +69,20 @@ public class MotionCustomizer : MonoBehaviour
         }
     }
 
-    private void CustomizeMotionAllAngle(float range) //각도 편집하기.
+    private void CustomizeMotionAllAngle(float range, MotionDataFile motionFileData) //각도 편집하기.
     {
         for (int i = 0; i < motionFileData.Length; i++)
         {
             for (int j = 1; j < motionFileData[i].Length; j++)
             {
-                motionFileData[i][j] = MathUtil.Roundoff(((float)motionFileData[i][j] * (float)((100 + range) * 0.01)));
+                motionFileData[i][j] = MathUtil.Roundoff(((float)motionFileData[i][j] * (range * 0.1f)));
             }
         }
     }
 
-    private void CustomizeMotionSpeed(float speed) //속도 편집하기.
+    private void CustomizeMotionSpeed(float speed, MotionDataFile motionFileData) //속도 편집하기.
     {
         for (int i = 0; i < motionFileData.Length; i++)
-            motionFileData[i][0] *= (1f / speed);
+            motionFileData[i][0] *= MathUtil.Roundoff((1f / (speed * 0.1f)));
     }
-
-    //private void CreateFileCustomizedAngle() //편집 후 파일 만들기(각도)
-    //{
-    //    string customizedFileName = filePath + motionFileName + "(angle;" + angleRange + ").json";
-    //    string customizedJsonString = JsonUtility.ToJson(motionFileData, true);
-    //    File.WriteAllText(customizedFileName, customizedJsonString);
-    //}
-
-    //private void CreateFileCustomizedSpeed() //편집 후 파일 만들기(속도)
-    //{
-    //    string customizedFileName = filePath + motionFileName + "(speed;" + speed + ").json";
-    //    string customizedJsonString = JsonUtility.ToJson(motionFileData, true);
-    //    File.WriteAllText(customizedFileName, customizedJsonString);
-    //}
 }
