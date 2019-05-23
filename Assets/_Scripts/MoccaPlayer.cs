@@ -82,7 +82,33 @@ public class MoccaPlayer : MonoBehaviour
 
             yield return new WaitForSeconds((float)motionData[i][0]);
         }
+
+        StartCoroutine(SetZeroPos());
+        
         StateUpdater.isMotionDataPlaying = false;
+    }
+
+    IEnumerator SetZeroPos()
+    {
+        float maxDegree = GetDurationToFirstAngle();
+        float rotDuration = maxDegree / (360f * 0.8f);
+
+        for (int i = 0; i < cdJoints.Length; i++)
+        {
+            StartCoroutine(cdJoints[i].SetQuatLerp(0f, rotDuration));
+        }
+        yield return new WaitForSeconds(rotDuration);
+    }
+
+    private float GetDurationToFirstAngle()
+    {
+        float maxDegree = 0f;
+        for (int ix = 0; ix < cdJoints.Length; ++ix)
+        {
+            float degree = MathUtil.ConvertAngle(cdJoints[ix].GetCurrentAngle);
+            maxDegree = Mathf.Max(maxDegree, degree);
+        }
+        return maxDegree;
     }
 
     public void PlayMotionFileForRobot() //로봇에서 저장된 모션 실행하기 
@@ -93,7 +119,7 @@ public class MoccaPlayer : MonoBehaviour
                 Debug.Log("모션파일을 선택해 주세요");
             else
             {
-                LoadMotionFileData();
+                LoadMotionFileData(); //이거 때문에 시뮬레이터에서 play 한것도 원래 데이터로 돌아간다.
                 ChangeAngleForRobot(motionFileData);
                 StartCoroutine(SendMotionFileDataWithSSH());
             }
