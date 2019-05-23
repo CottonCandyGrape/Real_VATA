@@ -52,6 +52,7 @@ public class RecordManager : MonoBehaviour
             option.text = fileInfo[i].Name.Substring(0, fileInfo[i].Name.Length - 5);
             dropdown.options.Add(option);
         }
+        dropdown.RefreshShownValue();
         dropdown.captionText.text = "Select Motion data File";
     }
 
@@ -109,7 +110,7 @@ public class RecordManager : MonoBehaviour
     public void ClickedStartButton() //녹화시작 버튼
     {
         //Debug.Log("ClickedStartButton");
-        if (StateUpdater.isConnectingKinect)
+        //if (StateUpdater.isConnectingKinect)
         {
             if (StateUpdater.isRealTimeMode)
             {
@@ -130,8 +131,8 @@ public class RecordManager : MonoBehaviour
             else
                 Debug.Log("실시간 모드를 실행 해주세요.");
         }
-        else
-            Debug.Log("Kinect가 연결되어 있지 않습니다.");
+        //else
+        //    Debug.Log("Kinect가 연결되어 있지 않습니다.");
     }
 
     public void ClickedStopButton() //녹화 끝 버튼
@@ -166,9 +167,14 @@ public class RecordManager : MonoBehaviour
 
     private void CreateMotionJsonFile(string fileName) //모션 파일 생성
     {
-        string jsonString = JsonUtility.ToJson(motionFileData, true);
-        File.WriteAllText(fileName, jsonString);
-        motionFileData = null;
+        if (fileName != string.Empty)
+        {
+            string jsonString = JsonUtility.ToJson(motionFileData, true);
+            File.WriteAllText(fileName, jsonString);
+            motionFileData = null;
+        }
+        else
+            Debug.Log("파일의 이름을 정해주세요");
     }
 
     private void CreateOrAddMotionData(DoubleArray motionData) //모션 파일에 들어갈 데이터 생성
