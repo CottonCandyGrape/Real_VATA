@@ -70,19 +70,15 @@ public class RecordManager : MonoBehaviour
             {
                 if (!File.Exists(fileName))
                 {
-                    //Debug.Log("사용가능한 이름입니다");
-                    //popUpManager.MessegePopUp("사용가능한 이름입니다");
                     CreateMotionJsonFile(fileName);
                 }
                 else
                 {
-                    Debug.Log("이미 저장된 이름입니다");
                     popUpManager.MessegePopUp("이미 저장된 이름입니다");
                 }
             }
             else
             {
-                Debug.Log("녹화된 파일이 없습니다");
                 popUpManager.MessegePopUp("녹화된 파일이 없습니다");
             }
             SetDropdownOptions();
@@ -90,7 +86,6 @@ public class RecordManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("녹화중 입니다");
             popUpManager.MessegePopUp("녹화중 입니다");
         }
     }
@@ -101,12 +96,10 @@ public class RecordManager : MonoBehaviour
         if (File.Exists(fileName))
         {
             File.Delete(fileName);
-            Debug.Log("파일을 삭제합니다");
             popUpManager.MessegePopUp("파일을 삭제합니다");
         }
         else
         {
-            Debug.Log("존재하지 않는 파일입니다");
             popUpManager.MessegePopUp("존재하지 않는 파일입니다");
         }
         SetDropdownOptions();
@@ -128,24 +121,20 @@ public class RecordManager : MonoBehaviour
                     recordImage.gameObject.SetActive(true);
                     StartCoroutine("Flicker");
 
-                    Debug.Log("녹화를 시작합니다");
                     popUpManager.MessegePopUp("녹화를 시작합니다");
                 }
                 else
                 {
-                    Debug.Log("모션의 이름을 정해주세요");
                     popUpManager.MessegePopUp("모션파일의 이름을 정해주세요");
                 }
             }
             else
             {
-                Debug.Log("실시간 모드를 실행 해주세요");
                 popUpManager.MessegePopUp("실시간 모드를 실행 해주세요");
             }
         }
         //else
         //{
-        //    //Debug.Log("Kinect가 연결되어 있지 않습니다.");
         //    popUpManager.MessegePopUp("Kinect가 연결되어 있지 않습니다.");
         //}
     }
@@ -161,7 +150,6 @@ public class RecordManager : MonoBehaviour
             recordImage.gameObject.SetActive(false);
             StopCoroutine("Flicker");
 
-            Debug.Log("녹화를 종료합니다");
             popUpManager.MessegePopUp("녹화를 종료합니다");
         }
     }
@@ -187,12 +175,10 @@ public class RecordManager : MonoBehaviour
             string jsonString = JsonUtility.ToJson(motionFileData, true);
             File.WriteAllText(fileName, jsonString);
             motionFileData = null;
-            Debug.Log("모션이 저장되었습니다");
             popUpManager.MessegePopUp("모션이 저장되었습니다");
         }
         else
         {
-            Debug.Log("파일의 이름을 정해주세요");
             popUpManager.MessegePopUp("모션파일의 이름을 정해주세요");
         }
     }

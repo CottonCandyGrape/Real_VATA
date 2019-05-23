@@ -34,17 +34,7 @@ public class MoccaPlayer : MonoBehaviour
     {
         if (StateUpdater.isRealTimeMode)
             SendAngleRealTimeToRobot(); //실시간으로 실물로봇으로 보낼때 
-
-        //RealTimeModeManaging();
     }
-
-    //private void RealTimeModeManaging()
-    //{
-    //    if (StateUpdater.isRecording)
-    //        realTimeModeToggle.interactable = false;
-    //    else
-    //        realTimeModeToggle.interactable = true;
-    //}
 
     private void SendAngleRealTimeToRobot()
     {
@@ -83,19 +73,16 @@ public class MoccaPlayer : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("실행할 모션파일을 선택해 주세요");
                     popUpManager.MessegePopUp("실행할 모션파일을 선택해 주세요");
                 }
             }
             else
             {
-                Debug.Log("현재 모션이 실행 중 입니다");
                 popUpManager.MessegePopUp("현재 모션이 실행 중 입니다");
             }
         }
         else
         {
-            Debug.Log("실시간 모드가 진행 중 입니다");
             popUpManager.MessegePopUp("실시간 모드가 진행 중 입니다");
         }
     }
@@ -159,19 +146,16 @@ public class MoccaPlayer : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("실행할 모션파일을 선택해 주세요");
                     popUpManager.MessegePopUp("실행할 모션파일을 선택해 주세요");
                 }
             }
             else
             {
-                Debug.Log("현재 로봇이 모션을 실행 중 입니다");
                 popUpManager.MessegePopUp("현재 로봇이 모션을 실행 중 입니다");
             }
         }
         else if (StateUpdater.isRealTimeMode)
         {
-            Debug.Log("실시간 모드가 진행 중 입니다.");
             popUpManager.MessegePopUp("실시간 모드가 진행 중 입니다");
         }
     }
@@ -225,8 +209,6 @@ public class MoccaPlayer : MonoBehaviour
                 StateUpdater.isRealTimeMode = true;
             else
                 StateUpdater.isRealTimeMode = false;
-
-            Debug.Log(StateUpdater.isRealTimeMode);
         }
     }
 }
