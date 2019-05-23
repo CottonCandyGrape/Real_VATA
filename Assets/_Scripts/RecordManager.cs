@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
-//using static UnityEngine.UI.Dropdown;
 
 public class RecordManager : MonoBehaviour
 {
+    public JsonSerializationManager jsonManager;
+    public PopUpMessege popUpManager;
+
     public Button recStartButton;
     public Button recStopButton;
     public InputField inputField;
     public Dropdown dropdown;
     public Image recordImage;
 
-    public JsonSerializationManager jsonManager;
-
     private MotionDataFile motionFileData;
     private DirectoryInfo directoryInfo;
     private FileInfo[] fileInfo;
+
     private WaitForSeconds delayRecordTime;
     private WaitForSeconds flickTime;
 
@@ -30,6 +31,7 @@ public class RecordManager : MonoBehaviour
     {
         recordTime = 1 / fps;
         directoryInfo = new DirectoryInfo(filePath);
+
         delayRecordTime = new WaitForSeconds(recordTime);
         flickTime = new WaitForSeconds(1.5f);
 
@@ -37,9 +39,6 @@ public class RecordManager : MonoBehaviour
         recordImage.gameObject.SetActive(false);
 
         SetDropdownOptions();
-
-        //dropdown.onValueChanged.AddListener(OnDropdownChanged);
-        //yield return null;
     }
 
     private void SetDropdownOptions() //드롭다운 목록 초기화
@@ -56,39 +55,44 @@ public class RecordManager : MonoBehaviour
         dropdown.captionText.text = "Select Motion data File";
     }
 
-    //public void OnDropdownChanged(int value)
-    //{
-    //    Debug.Log("OnDropdownChanged: " + value);
-    //    //dropdown.value = -1;
-    //}
-
-    //IEnumerator SetValueToMinusOne()
-    //{
-    //    yield return null;
-    //    //dropdown.value = -1;
-    //}
-
     public void ChangedDropdownOption() //드롭다운 선택 옵션 바뀌었을 때 
     {
         inputField.text = dropdown.options[dropdown.value].text;
-        //dropdown.captionText.text = "Select Motion data File";
+        dropdown.captionText.text = "Select Motion data File";
     }
 
     public void ClickedAddButton() //파일이름 중복 체크하여 모션 데이터 추가
     {
         string fileName = filePath + inputField.text + ".json";
-        if (!File.Exists(fileName) && motionFileData != null)
+        if (!StateUpdater.isRecording)
         {
-            Debug.Log("사용가능한 이름입니다.");
-            CreateMotionJsonFile(fileName);
-            Debug.Log("모션이 저장되었습니다.");
+            if (motionFileData != null)
+            {
+                if (!File.Exists(fileName))
+                {
+                    //Debug.Log("사용가능한 이름입니다");
+                    //popUpManager.MessegePopUp("사용가능한 이름입니다");
+                    CreateMotionJsonFile(fileName);
+                }
+                else
+                {
+                    Debug.Log("이미 저장된 이름입니다");
+                    popUpManager.MessegePopUp("이미 저장된 이름입니다");
+                }
+            }
+            else
+            {
+                Debug.Log("녹화된 파일이 없습니다");
+                popUpManager.MessegePopUp("녹화된 파일이 없습니다");
+            }
+            SetDropdownOptions();
+            inputField.text = string.Empty;
         }
         else
         {
-            Debug.Log("이미 존재하는 이름이거나 녹화된 파일이 없습니다.");
+            Debug.Log("녹화중 입니다");
+            popUpManager.MessegePopUp("녹화중 입니다");
         }
-        SetDropdownOptions();
-        inputField.text = string.Empty;
     }
 
     public void ClickedDeleteButton() //존재하는 파일인지 체크 후 모션 데이터 삭제
@@ -97,11 +101,13 @@ public class RecordManager : MonoBehaviour
         if (File.Exists(fileName))
         {
             File.Delete(fileName);
-            Debug.Log("파일을 삭제합니다.");
+            Debug.Log("파일을 삭제합니다");
+            popUpManager.MessegePopUp("파일을 삭제합니다");
         }
         else
         {
-            Debug.Log("존재하지 않는 파일입니다.");
+            Debug.Log("존재하지 않는 파일입니다");
+            popUpManager.MessegePopUp("존재하지 않는 파일입니다");
         }
         SetDropdownOptions();
         inputField.text = string.Empty;
@@ -109,7 +115,6 @@ public class RecordManager : MonoBehaviour
 
     public void ClickedStartButton() //녹화시작 버튼
     {
-        //Debug.Log("ClickedStartButton");
         //if (StateUpdater.isConnectingKinect)
         {
             if (StateUpdater.isRealTimeMode)
@@ -123,21 +128,30 @@ public class RecordManager : MonoBehaviour
                     recordImage.gameObject.SetActive(true);
                     StartCoroutine("Flicker");
 
-                    Debug.Log("녹화를 시작합니다.");
+                    Debug.Log("녹화를 시작합니다");
+                    popUpManager.MessegePopUp("녹화를 시작합니다");
                 }
                 else
+                {
                     Debug.Log("모션의 이름을 정해주세요");
+                    popUpManager.MessegePopUp("모션파일의 이름을 정해주세요");
+                }
             }
             else
-                Debug.Log("실시간 모드를 실행 해주세요.");
+            {
+                Debug.Log("실시간 모드를 실행 해주세요");
+                popUpManager.MessegePopUp("실시간 모드를 실행 해주세요");
+            }
         }
         //else
-        //    Debug.Log("Kinect가 연결되어 있지 않습니다.");
+        //{
+        //    //Debug.Log("Kinect가 연결되어 있지 않습니다.");
+        //    popUpManager.MessegePopUp("Kinect가 연결되어 있지 않습니다.");
+        //}
     }
 
     public void ClickedStopButton() //녹화 끝 버튼
     {
-        //Debug.Log("ClickedStopButton");
         if (StateUpdater.isRecording)
         {
             ToggleRecordButton();
@@ -147,7 +161,8 @@ public class RecordManager : MonoBehaviour
             recordImage.gameObject.SetActive(false);
             StopCoroutine("Flicker");
 
-            Debug.Log("녹화를 종료합니다.");
+            Debug.Log("녹화를 종료합니다");
+            popUpManager.MessegePopUp("녹화를 종료합니다");
         }
     }
 
@@ -167,14 +182,19 @@ public class RecordManager : MonoBehaviour
 
     private void CreateMotionJsonFile(string fileName) //모션 파일 생성
     {
-        if (fileName != string.Empty)
+        if (inputField.text != string.Empty)
         {
             string jsonString = JsonUtility.ToJson(motionFileData, true);
             File.WriteAllText(fileName, jsonString);
             motionFileData = null;
+            Debug.Log("모션이 저장되었습니다");
+            popUpManager.MessegePopUp("모션이 저장되었습니다");
         }
         else
+        {
             Debug.Log("파일의 이름을 정해주세요");
+            popUpManager.MessegePopUp("모션파일의 이름을 정해주세요");
+        }
     }
 
     private void CreateOrAddMotionData(DoubleArray motionData) //모션 파일에 들어갈 데이터 생성

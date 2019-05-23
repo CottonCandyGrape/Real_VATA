@@ -9,6 +9,8 @@ public class MoccaPlayer : MonoBehaviour
     public CDJointOrientationSetter cdJointSetter;
     public JsonSerializationManager jsonManager;
     public MotionCustomizer motionCustomizer;
+    public PopUpMessege popUpManager;
+
     public SSH ssh;
     public Toggle realTimeModeToggle;
     public InputField inputField;
@@ -32,7 +34,17 @@ public class MoccaPlayer : MonoBehaviour
     {
         if (StateUpdater.isRealTimeMode)
             SendAngleRealTimeToRobot(); //실시간으로 실물로봇으로 보낼때 
+
+        //RealTimeModeManaging();
     }
+
+    //private void RealTimeModeManaging()
+    //{
+    //    if (StateUpdater.isRecording)
+    //        realTimeModeToggle.interactable = false;
+    //    else
+    //        realTimeModeToggle.interactable = true;
+    //}
 
     private void SendAngleRealTimeToRobot()
     {
@@ -61,17 +73,36 @@ public class MoccaPlayer : MonoBehaviour
     {
         if (!StateUpdater.isRealTimeMode)
         {
-            LoadMotionFileData();
-            motionCustomizer.CustomizeMotionData(motionCustomizer.speedSlider.value, motionCustomizer.angleSlider.value, motionFileData);
-            StartCoroutine(PalyMotionFile(motionFileData));
+            if (!StateUpdater.isMotionPlayingSimulator)
+            {
+                if (inputField.text != string.Empty)
+                {
+                    LoadMotionFileData();
+                    motionCustomizer.CustomizeMotionData(motionCustomizer.speedSlider.value, motionCustomizer.angleSlider.value, motionFileData);
+                    StartCoroutine(PalyMotionFile(motionFileData));
+                }
+                else
+                {
+                    Debug.Log("실행할 모션파일을 선택해 주세요");
+                    popUpManager.MessegePopUp("실행할 모션파일을 선택해 주세요");
+                }
+            }
+            else
+            {
+                Debug.Log("현재 모션이 실행 중 입니다");
+                popUpManager.MessegePopUp("현재 모션이 실행 중 입니다");
+            }
         }
         else
-            Debug.Log("실시간 모드가 진행 중 입니다.");
+        {
+            Debug.Log("실시간 모드가 진행 중 입니다");
+            popUpManager.MessegePopUp("실시간 모드가 진행 중 입니다");
+        }
     }
 
     IEnumerator PalyMotionFile(MotionDataFile motionFileData) //저장된 모션 보간하기.
     {
-        StateUpdater.isMotionDataPlaying = true;
+        StateUpdater.isMotionPlayingSimulator = true;
         WaitForSeconds lerfTime = new WaitForSeconds((float)motionFileData[0][0]);
 
         for (int i = 0; i < motionFileData.Length; i++)
@@ -86,8 +117,7 @@ public class MoccaPlayer : MonoBehaviour
         }
 
         StartCoroutine(SetZeroPos());
-
-        StateUpdater.isMotionDataPlaying = false;
+        StateUpdater.isMotionPlayingSimulator = false;
     }
 
     IEnumerator SetZeroPos() //보간하며 기본자세 취함.
@@ -119,17 +149,31 @@ public class MoccaPlayer : MonoBehaviour
     {
         if (!StateUpdater.isRealTimeMode)
         {
-            if (inputField.text == string.Empty)
-                Debug.Log("모션파일을 선택해 주세요");
+            if (!StateUpdater.isMotionPlayingRobot)
+            {
+                if (inputField.text != string.Empty)
+                {
+                    LoadMotionFileData(); //이거 때문에 시뮬레이터에서 play 한것도 원래 데이터로 돌아간다.
+                    ChangeAngleForRobot(motionFileData);
+                    StartCoroutine(SendMotionFileDataWithSSH());
+                }
+                else
+                {
+                    Debug.Log("실행할 모션파일을 선택해 주세요");
+                    popUpManager.MessegePopUp("실행할 모션파일을 선택해 주세요");
+                }
+            }
             else
             {
-                LoadMotionFileData(); //이거 때문에 시뮬레이터에서 play 한것도 원래 데이터로 돌아간다.
-                ChangeAngleForRobot(motionFileData);
-                StartCoroutine(SendMotionFileDataWithSSH());
+                Debug.Log("현재 로봇이 모션을 실행 중 입니다");
+                popUpManager.MessegePopUp("현재 로봇이 모션을 실행 중 입니다");
             }
         }
         else if (StateUpdater.isRealTimeMode)
+        {
             Debug.Log("실시간 모드가 진행 중 입니다.");
+            popUpManager.MessegePopUp("실시간 모드가 진행 중 입니다");
+        }
     }
 
     private void ChangeAngleForRobot(MotionDataFile motionData) //모션파일 각도값 실물 로봇으로 전송전 로봇에 맞게 매핑
@@ -155,14 +199,15 @@ public class MoccaPlayer : MonoBehaviour
 
     private IEnumerator SendMotionFileDataWithSSH() //모션파일 실물 로봇으로 전송
     {
+        StateUpdater.isMotionPlayingRobot = true;
         WaitForSeconds SSHTime = new WaitForSeconds((float)motionFileData[0][0]);
 
         for (int i = 0; i < motionFileData.Length; i++)
         {
             Send("mot:raw(" + JsonUtility.ToJson(motionFileData[i]) + ")\n");
-
             yield return SSHTime;
         }
+        StateUpdater.isMotionPlayingRobot = false;
     }
 
     private void LoadMotionFileData()
@@ -174,9 +219,14 @@ public class MoccaPlayer : MonoBehaviour
 
     public void RealTimeModeToggle() //실시간 모드 토글
     {
-        if (realTimeModeToggle.isOn)
-            StateUpdater.isRealTimeMode = true;
-        else
-            StateUpdater.isRealTimeMode = false;
+        if (!StateUpdater.isRecording)
+        {
+            if (realTimeModeToggle.isOn)
+                StateUpdater.isRealTimeMode = true;
+            else
+                StateUpdater.isRealTimeMode = false;
+
+            Debug.Log(StateUpdater.isRealTimeMode);
+        }
     }
 }

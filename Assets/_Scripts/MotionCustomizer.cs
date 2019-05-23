@@ -36,7 +36,7 @@ public class MotionCustomizer : MonoBehaviour
 
     //private void CustomizedMotionFileAdd(MotionDataFile motionFileData)
     //{
-
+    // 프로퍼티??
     //}
 
     public void CustomizeMotionData(float speed, float range, MotionDataFile motionFileData)

@@ -5,28 +5,25 @@ using UnityEngine.UI;
 
 public class TestAll : MonoBehaviour
 {
-    public Slider speedSlider;
-    public Slider angleSlider;
-    public Text speedText;
-    public Text angleText;
+    public Text alertMessage;
 
-    private void Start()
+    private IEnumerator Start()
     {
-        //angleText.text = "0%";
-        angleText.text = "x1";
-        speedText.text = "x1";
-        //Debug.Log("speedSlider.value: " + speedSlider.value + " angleSlider.value: " + angleSlider.value);
+        alertMessage.gameObject.SetActive(false);
+        StartCoroutine(alert("안녕하세요"));
+        yield return new WaitForSeconds(3.5f);
+        StartCoroutine(alert("저는 정호입니다."));
     }
 
-    public void AngleSliderChange()
+    IEnumerator alert(string message)
     {
-        //angleText.text = angleSlider.value * 10 + "%";
-        angleText.text = "x" + angleSlider.value * 0.1;
-    }
-
-    public void SpeedSliderChange()
-    {
-        speedText.text = "x" + speedSlider.value * 0.1;
+        yield return new WaitForSeconds(0.5f);
+        alertMessage.gameObject.SetActive(true);
+        alertMessage.text = message;
+        yield return new WaitForSeconds(1.5f);
+        alertMessage.CrossFadeAlpha(0, 1.5f, true);
+        yield return new WaitForSeconds(1.5f);
+        alertMessage.gameObject.SetActive(false);
     }
 }
 
