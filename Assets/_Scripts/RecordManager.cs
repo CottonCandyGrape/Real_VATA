@@ -19,6 +19,7 @@ public class RecordManager : MonoBehaviour
     private DirectoryInfo directoryInfo;
     private FileInfo[] fileInfo;
     private WaitForSeconds delayRecordTime;
+    private WaitForSeconds flickTime;
 
     private float fps = 5f;
     private float recordTime = 0f;
@@ -30,6 +31,7 @@ public class RecordManager : MonoBehaviour
         recordTime = 1 / fps;
         directoryInfo = new DirectoryInfo(filePath);
         delayRecordTime = new WaitForSeconds(recordTime);
+        flickTime = new WaitForSeconds(1.5f);
 
         recStopButton.gameObject.SetActive(false);
         recordImage.gameObject.SetActive(false);
@@ -182,12 +184,12 @@ public class RecordManager : MonoBehaviour
         while (StateUpdater.isRecording)
         {
             recordImage.CrossFadeAlpha(0, 1.5f, true);
-            yield return new WaitForSeconds(1.5f);
+            yield return flickTime;
             recordImage.CrossFadeAlpha(1f, 1.5f, true);
-            yield return new WaitForSeconds(1.5f);
+            yield return flickTime;
         }
     }
-    
+
     IEnumerator Recording() //녹화하기
     {
         if (motionFileData != null)

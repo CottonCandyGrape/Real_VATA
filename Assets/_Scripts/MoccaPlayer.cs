@@ -69,43 +69,47 @@ public class MoccaPlayer : MonoBehaviour
             Debug.Log("실시간 모드가 진행 중 입니다.");
     }
 
-    IEnumerator PalyMotionFile(MotionDataFile motionData) //저장된 모션 보간하기.
+    IEnumerator PalyMotionFile(MotionDataFile motionFileData) //저장된 모션 보간하기.
     {
         StateUpdater.isMotionDataPlaying = true;
-        for (int i = 0; i < motionData.Length; i++)
+        WaitForSeconds lerfTime = new WaitForSeconds((float)motionFileData[0][0]);
+
+        for (int i = 0; i < motionFileData.Length; i++)
         {
-            float rotDuration = (float)motionData[i][0];
+            float rotDuration = (float)motionFileData[i][0];
             for (int j = 0; j < cdJoints.Length; j++)
             {
-                StartCoroutine(cdJoints[j].SetQuatLerp((float)motionData[i][j + 1], rotDuration));
+                StartCoroutine(cdJoints[j].SetQuatLerp((float)motionFileData[i][j + 1], rotDuration));
             }
 
-            yield return new WaitForSeconds((float)motionData[i][0]);
+            yield return lerfTime;
         }
 
         StartCoroutine(SetZeroPos());
-        
+
         StateUpdater.isMotionDataPlaying = false;
     }
 
-    IEnumerator SetZeroPos()
+    IEnumerator SetZeroPos() //보간하며 기본자세 취함.
     {
-        float maxDegree = GetDurationToFirstAngle();
+        float maxDegree = GetMaxDegreeToZeroPos();
         float rotDuration = maxDegree / (360f * 0.8f);
+        WaitForSeconds rotDurationSec = new WaitForSeconds(rotDuration);
 
         for (int i = 0; i < cdJoints.Length; i++)
         {
             StartCoroutine(cdJoints[i].SetQuatLerp(0f, rotDuration));
         }
-        yield return new WaitForSeconds(rotDuration);
+
+        yield return rotDurationSec;
     }
 
-    private float GetDurationToFirstAngle()
+    private float GetMaxDegreeToZeroPos() //현재 자세에서 zeropos까지 가장 큰 각을 구함.
     {
         float maxDegree = 0f;
-        for (int ix = 0; ix < cdJoints.Length; ++ix)
+        for (int i = 0; i < cdJoints.Length; i++)
         {
-            float degree = MathUtil.ConvertAngle(cdJoints[ix].GetCurrentAngle);
+            float degree = MathUtil.ConvertAngle(cdJoints[i].GetCurrentAngle);
             maxDegree = Mathf.Max(maxDegree, degree);
         }
         return maxDegree;
@@ -151,11 +155,13 @@ public class MoccaPlayer : MonoBehaviour
 
     private IEnumerator SendMotionFileDataWithSSH() //모션파일 실물 로봇으로 전송
     {
+        WaitForSeconds SSHTime = new WaitForSeconds((float)motionFileData[0][0]);
+
         for (int i = 0; i < motionFileData.Length; i++)
         {
             Send("mot:raw(" + JsonUtility.ToJson(motionFileData[i]) + ")\n");
 
-            yield return new WaitForSeconds((float)motionFileData[i][0]);
+            yield return SSHTime;
         }
     }
 

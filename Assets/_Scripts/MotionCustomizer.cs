@@ -34,10 +34,10 @@ public class MotionCustomizer : MonoBehaviour
         angleText.text = "Angle X" + angleSlider.value * 0.1;
     }
 
-    private void CustomizedMotionFileAdd(MotionDataFile motionFileData)
-    {
+    //private void CustomizedMotionFileAdd(MotionDataFile motionFileData)
+    //{
 
-    }
+    //}
 
     public void CustomizeMotionData(float speed, float range, MotionDataFile motionFileData)
     {
