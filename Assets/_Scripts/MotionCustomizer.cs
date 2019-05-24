@@ -7,9 +7,6 @@ using UnityEngine.UI;
 public class MotionCustomizer : MonoBehaviour
 {
     public CDJointOrientationSetter cdJointSetter;
-    //public MoccaPlayer moccaPlayer;
-    //public RecordManager recordManager;
-    //public PopUpMessege popUpManager;
 
     public InputField inputField;
     public Slider speedSlider;
@@ -45,35 +42,6 @@ public class MotionCustomizer : MonoBehaviour
         SpeedSliderChange();
         AngleSliderChange();
     }
-
-    //private void CustomizedMotionFileAdd() //저장된 모션 데이터(O), 방금 녹화된 모션 데이터(X)
-    //{
-    //    string fileName = filePath + inputField.text + ".json";
-    //    if (!StateUpdater.isRealTimeMode)
-    //    {
-    //        if (motionFileData != null)
-    //        {
-    //            if (!File.Exists(fileName))
-    //            {
-    //                CreateMotionJsonFile(fileName);
-    //            }
-    //            else
-    //            {
-    //                popUpManager.MessegePopUp("이미 저장된 이름입니다");
-    //            }
-    //        }
-    //        else
-    //        {
-    //            popUpManager.MessegePopUp("녹화된 파일이 없습니다");
-    //        }
-    //        SetDropdownOptions();
-    //        inputField.text = string.Empty;
-    //    }
-    //    else
-    //    {
-    //        popUpManager.MessegePopUp("실시간 모드가 진행 중 입니다");
-    //    }
-    //}
 
     public void CustomizeMotionData(float speed, float range, MotionDataFile motionFileData)
     {
