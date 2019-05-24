@@ -41,7 +41,7 @@ public class RecordManager : MonoBehaviour
         SetDropdownOptions();
     }
 
-    private void SetDropdownOptions() //드롭다운 목록 초기화
+    public void SetDropdownOptions() //드롭다운 목록 초기화
     {
         dropdown.ClearOptions();
         fileInfo = directoryInfo.GetFiles("*.json");
@@ -70,7 +70,7 @@ public class RecordManager : MonoBehaviour
             {
                 if (!File.Exists(fileName))
                 {
-                    CreateMotionJsonFile(fileName);
+                    CreateMotionJsonFile(fileName, motionFileData);
                 }
                 else
                 {
@@ -168,7 +168,7 @@ public class RecordManager : MonoBehaviour
         }
     }
 
-    private void CreateMotionJsonFile(string fileName) //모션 파일 생성
+    public void CreateMotionJsonFile(string fileName, MotionDataFile motionFileData) //모션 파일 생성
     {
         if (inputField.text != string.Empty)
         {

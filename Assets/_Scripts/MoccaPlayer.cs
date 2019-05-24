@@ -9,14 +9,15 @@ public class MoccaPlayer : MonoBehaviour
     public CDJointOrientationSetter cdJointSetter;
     public JsonSerializationManager jsonManager;
     public MotionCustomizer motionCustomizer;
+    public RecordManager recordManager;
     public PopUpMessege popUpManager;
 
     public SSH ssh;
     public Toggle realTimeModeToggle;
     public InputField inputField;
 
-    public MotionDataFile GetMotionFileData { get { return motionFileData; } }
-    private MotionDataFile motionFileData;
+    private MotionDataFile motionFileForSimulator;
+    private MotionDataFile motionFileForRobot;
     private CDJoint[] cdJoints;
 
     private string filePath = "Assets/JsonData/";
@@ -35,6 +36,35 @@ public class MoccaPlayer : MonoBehaviour
     {
         if (StateUpdater.isRealTimeMode)
             SendAngleRealTimeToRobot(); //실시간으로 실물로봇으로 보낼때 
+    }
+
+    public void CustomizedMotionFileAdd() //저장된 모션 데이터(O), 방금 녹화된 모션 데이터(X)
+    {
+        string fileName = filePath + inputField.text + ".json";
+        if (!StateUpdater.isRealTimeMode)
+        {
+            if (motionFileForSimulator != null)
+            {
+                if (!File.Exists(fileName))
+                {
+                    recordManager.CreateMotionJsonFile(fileName, motionFileForSimulator);
+                }
+                else
+                {
+                    popUpManager.MessegePopUp("이미 저장된 이름입니다");
+                }
+            }
+            else
+            {
+                popUpManager.MessegePopUp("먼저 저장된 모션파일을 실행해 주세요");
+            }
+            recordManager.SetDropdownOptions();
+            inputField.text = string.Empty;
+        }
+        else
+        {
+            popUpManager.MessegePopUp("실시간 모드가 진행 중 입니다");
+        }
     }
 
     private void SendAngleRealTimeToRobot()
@@ -68,9 +98,9 @@ public class MoccaPlayer : MonoBehaviour
             {
                 if (inputField.text != string.Empty)
                 {
-                    LoadMotionFileData();
-                    motionCustomizer.CustomizeMotionData(motionCustomizer.speedSlider.value, motionCustomizer.angleSlider.value, motionFileData);
-                    StartCoroutine(PalyMotionFile(motionFileData));
+                    LoadMotionFileForSimulator();
+                    motionCustomizer.CustomizeMotionData(motionCustomizer.speedSlider.value, motionCustomizer.angleSlider.value, motionFileForSimulator);
+                    StartCoroutine(PalyMotionFile(motionFileForSimulator));
                 }
                 else
                 {
@@ -141,9 +171,10 @@ public class MoccaPlayer : MonoBehaviour
             {
                 if (inputField.text != string.Empty)
                 {
-                    LoadMotionFileData(); //이거 때문에 시뮬레이터에서 play 한것도 원래 데이터로 돌아간다.
-                    ChangeAngleForRobot(motionFileData);
-                    StartCoroutine(SendMotionFileDataWithSSH());
+                    LoadMotionFileForRobot();
+                    ChangeAngleForRobot(motionFileForRobot);
+                    StartCoroutine(SendMotionFileDataWithSSH(motionFileForRobot));
+                    Debug.Log("로봇한테 보냄쓰");
                 }
                 else
                 {
@@ -161,28 +192,28 @@ public class MoccaPlayer : MonoBehaviour
         }
     }
 
-    private void ChangeAngleForRobot(MotionDataFile motionData) //모션파일 각도값 실물 로봇으로 전송전 로봇에 맞게 매핑
+    private void ChangeAngleForRobot(MotionDataFile motionFileData) //모션파일 각도값 실물 로봇으로 전송전 로봇에 맞게 매핑
     {
         double tempAngle;
-        for (int i = 0; i < motionData.Length; i++)
+        for (int i = 0; i < motionFileData.Length; i++)
         {
             for (int j = 0; j < 3; j++)
             {
-                tempAngle = motionData[i][j + 1]; //시뮬레이터 왼팔 각도들을 변수에 저장.
+                tempAngle = motionFileData[i][j + 1]; //시뮬레이터 왼팔 각도들을 변수에 저장.
 
                 if (j == 0)
-                    motionData[i][j + 1] = motionData[i][j + 4]; //시뮬레이터 오른팔 각도들을 왼팔에 저장.
+                    motionFileData[i][j + 1] = motionFileData[i][j + 4]; //시뮬레이터 오른팔 각도들을 왼팔에 저장.
                 else
-                    motionData[i][j + 1] = -motionData[i][j + 4];
+                    motionFileData[i][j + 1] = -motionFileData[i][j + 4];
 
-                motionData[i][j + 4] = -tempAngle; //변수에 있는 왼팔 각도들을 오른팔에 저장.
+                motionFileData[i][j + 4] = -tempAngle; //변수에 있는 왼팔 각도들을 오른팔에 저장.
             }
 
-            motionData[i][8] = MathUtil.Roundoff((float)(-motionData[i][8] * 1.3)); //tilt 회전 방향이 반대. 30프로 더 회전. //소수점 길게 늘어져서 잘라줌.
+            motionFileData[i][8] = MathUtil.Roundoff((float)(-motionFileData[i][8] * 1.3)); //tilt 회전 방향이 반대. 30프로 더 회전. //소수점 길게 늘어져서 잘라줌.
         }
     }
 
-    private IEnumerator SendMotionFileDataWithSSH() //모션파일 실물 로봇으로 전송
+    private IEnumerator SendMotionFileDataWithSSH(MotionDataFile motionFileData) //모션파일 실물 로봇으로 전송
     {
         StateUpdater.isMotionPlayingRobot = true;
         WaitForSeconds SSHTime = new WaitForSeconds((float)motionFileData[0][0]);
@@ -195,11 +226,18 @@ public class MoccaPlayer : MonoBehaviour
         StateUpdater.isMotionPlayingRobot = false;
     }
 
-    private void LoadMotionFileData()
+    private void LoadMotionFileForSimulator()
     {
         string fileName = filePath + inputField.text + ".json";
         string jsonString = File.ReadAllText(fileName);
-        motionFileData = JsonUtility.FromJson<MotionDataFile>(jsonString);
+        motionFileForSimulator = JsonUtility.FromJson<MotionDataFile>(jsonString);
+    }
+
+    private void LoadMotionFileForRobot()
+    {
+        string fileName = filePath + inputField.text + ".json";
+        string jsonString = File.ReadAllText(fileName);
+        motionFileForRobot = JsonUtility.FromJson<MotionDataFile>(jsonString);
     }
 
     public void RealTimeModeToggle() //실시간 모드 토글

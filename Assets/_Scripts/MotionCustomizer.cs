@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class MotionCustomizer : MonoBehaviour
 {
     public CDJointOrientationSetter cdJointSetter;
-    public MoccaPlayer moccaPlayer;
-    public RecordManager recordManager;
-    public PopUpMessege popUpManager;
+    //public MoccaPlayer moccaPlayer;
+    //public RecordManager recordManager;
+    //public PopUpMessege popUpManager;
 
     public InputField inputField;
     public Slider speedSlider;
@@ -36,6 +36,14 @@ public class MotionCustomizer : MonoBehaviour
     public void AngleSliderChange()
     {
         angleText.text = "Angle X" + angleSlider.value * 0.1;
+    }
+
+    public void InitSlider()
+    {
+        speedSlider.value = 10;
+        angleSlider.value = 10;
+        SpeedSliderChange();
+        AngleSliderChange();
     }
 
     //private void CustomizedMotionFileAdd() //저장된 모션 데이터(O), 방금 녹화된 모션 데이터(X)
