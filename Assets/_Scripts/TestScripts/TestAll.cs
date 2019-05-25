@@ -1,30 +1,46 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class TestAll : MonoBehaviour
 {
-    public Text alertMessage;
+    public GraphicRaycaster raycaster;
 
-    private IEnumerator Start()
+    EventSystem eventSystem;
+    PointerEventData data;
+    List<RaycastResult> results;
+
+    private void Awake()
     {
-        alertMessage.gameObject.SetActive(false);
-        StartCoroutine(alert("안녕하세요"));
-        yield return new WaitForSeconds(3.5f);
-        StartCoroutine(alert("저는 정호입니다."));
+        eventSystem = EventSystem.current;
+        data = new PointerEventData(eventSystem);
     }
 
-    IEnumerator alert(string message)
+    private void Update()
     {
-        yield return new WaitForSeconds(0.5f);
-        alertMessage.gameObject.SetActive(true);
-        alertMessage.text = message;
-        yield return new WaitForSeconds(1.5f);
-        alertMessage.CrossFadeAlpha(0, 1.5f, true);
-        yield return new WaitForSeconds(1.5f);
-        alertMessage.gameObject.SetActive(false);
+        GetOptionText();
     }
+
+    private void GetOptionText()
+    {
+        data = new PointerEventData(eventSystem);
+        data.position = Input.mousePosition;
+
+        results = new List<RaycastResult>();
+        raycaster.Raycast(data, results);
+
+        //if (results.Count > 0)
+        //{
+        //    GameObject result = results[0].gameObject;
+        //    string optionText = result.GetComponent<Text>().text;
+        //    Debug.Log(optionText);
+        //}
+        Debug.Log(results[0].gameObject.name);
+
+    }
+
 }
 
 
