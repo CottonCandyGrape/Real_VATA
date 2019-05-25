@@ -53,13 +53,11 @@ public class RecordManager : MonoBehaviour
             dropdown.options.Add(option);
         }
         dropdown.RefreshShownValue();
-        dropdown.captionText.text = "Select Motion data File";
     }
 
     public void ChangedDropdownOption() //드롭다운 선택 옵션 바뀌었을 때 
     {
         inputField.text = dropdown.options[dropdown.value].text;
-        dropdown.captionText.text = "Select Motion data File";
     }
 
     public void ClickedAddButton() //파일이름 중복 체크하여 모션 데이터 추가
