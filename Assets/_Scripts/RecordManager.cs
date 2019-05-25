@@ -35,7 +35,8 @@ public class RecordManager : MonoBehaviour
         delayRecordTime = new WaitForSeconds(recordTime);
         flickTime = new WaitForSeconds(1.5f);
 
-        recStopButton.gameObject.SetActive(false);
+        //recStopButton.gameObject.SetActive(false);
+        recStopButton.interactable = false;
         recordImage.gameObject.SetActive(false);
 
         SetDropdownOptions();
@@ -156,15 +157,15 @@ public class RecordManager : MonoBehaviour
 
     public void ToggleRecordButton() //녹화버튼 토글
     {
-        if (!recStopButton.gameObject.activeSelf)
+        if (StateUpdater.isRecording)
         {
-            recStopButton.gameObject.SetActive(true);
-            recStartButton.gameObject.SetActive(false);
+            recStopButton.interactable = false;
+            recStartButton.interactable = true;
         }
         else
         {
-            recStartButton.gameObject.SetActive(true);
-            recStopButton.gameObject.SetActive(false);
+            recStopButton.interactable = true;
+            recStartButton.interactable = false;
         }
     }
 
