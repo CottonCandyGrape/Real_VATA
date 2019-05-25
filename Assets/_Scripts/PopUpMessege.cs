@@ -11,7 +11,8 @@ public class PopUpMessege : MonoBehaviour
 
     void Start()
     {
-        popUpMessege.CrossFadeAlpha(0, 0, true);
+        //popUpMessege.CrossFadeAlpha(0, 0, true);
+        MessegePopUp("안녕하세요");
     }
 
     public void MessegePopUp(string message)

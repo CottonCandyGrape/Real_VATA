@@ -19,18 +19,48 @@ public class MotionCustomizer : MonoBehaviour
     private void Start()
     {
         cdJoints = cdJointSetter.joints;
-        speedText.text = "Speed X" + speedSlider.value * 0.1;
-        angleText.text = "Angle X" + angleSlider.value * 0.1;
+        speedText.text = "Speed X1.0";
+        angleText.text = "Angle X1.0";
     }
 
     public void SpeedSliderChange()
     {
-        speedText.text = "Speed X" + speedSlider.value * 0.1;
+        if (speedSlider.value == 0)
+        {
+            speedText.text = "Speed X0.0";
+        }
+        else if (speedSlider.value == 10)
+        {
+            speedText.text = "Speed X1.0";
+        }
+        else if (speedSlider.value == 20)
+        {
+            speedText.text = "Speed X2.0";
+        }
+        else
+            speedText.text = "Speed X" + speedSlider.value * 0.1;
     }
 
     public void AngleSliderChange()
     {
-        angleText.text = "Angle X" + angleSlider.value * 0.1;
+        if (angleSlider.value == 0)
+        {
+            angleText.text = "Angle X0.0";
+        }
+        else if (angleSlider.value == 10)
+        {
+            angleText.text = "Angle X1.0";
+        }
+        else if (angleSlider.value == 20)
+        {
+            angleText.text = "Angle X2.0";
+        }
+        else if (angleSlider.value == 30)
+        {
+            angleText.text = "Angle X3.0";
+        }
+        else
+            angleText.text = "Angle X" + angleSlider.value * 0.1;
     }
 
     public void InitSlider()
