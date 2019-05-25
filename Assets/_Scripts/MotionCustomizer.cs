@@ -16,8 +16,6 @@ public class MotionCustomizer : MonoBehaviour
 
     private CDJoint[] cdJoints;
 
-    private string filePath = "Assets/JsonData/";
-
     private void Start()
     {
         cdJoints = cdJointSetter.joints;
