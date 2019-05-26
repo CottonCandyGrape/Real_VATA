@@ -91,25 +91,23 @@ public class RecordManager : MonoBehaviour
 
     public void ClickedDeleteButton() //존재하는 파일인지 체크 후 모션 데이터 삭제
     {
-        //string fileName = filePath + inputField.text + ".json";
-        //if (File.Exists(fileName))
-        //{
-        //    File.Delete(fileName);
-        //    popUpManager.MessegePopUp("파일을 삭제합니다");
-        //}
-        //else
-        //{
-        //    popUpManager.MessegePopUp("존재하지 않는 파일입니다");
-        //}
-        //SetDropdownOptions();
-        //inputField.text = string.Empty;
-        string text = recStopButton.GetComponentInParent<Text>().text;
-        Debug.Log(text);
+        string fileName = filePath + inputField.text + ".json";
+        if (File.Exists(fileName))
+        {
+            File.Delete(fileName);
+            popUpManager.MessegePopUp("파일을 삭제합니다");
+        }
+        else
+        {
+            popUpManager.MessegePopUp("존재하지 않는 파일입니다");
+        }
+        SetDropdownOptions();
+        inputField.text = string.Empty;
     }
 
     public void ClickedStartButton() //녹화시작 버튼
     {
-        //if (StateUpdater.isConnectingKinect)
+        if (StateUpdater.isConnectingKinect)
         {
             if (StateUpdater.isRealTimeMode)
             {
@@ -134,10 +132,10 @@ public class RecordManager : MonoBehaviour
                 popUpManager.MessegePopUp("실시간 모드를 실행 해주세요");
             }
         }
-        //else
-        //{
-        //    popUpManager.MessegePopUp("Kinect가 연결되어 있지 않습니다.");
-        //}
+        else
+        {
+            popUpManager.MessegePopUp("Kinect가 연결되어 있지 않습니다.");
+        }
     }
 
     public void ClickedStopButton() //녹화 끝 버튼

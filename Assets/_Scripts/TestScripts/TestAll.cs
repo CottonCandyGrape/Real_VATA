@@ -6,41 +6,20 @@ using UnityEngine.UI;
 
 public class TestAll : MonoBehaviour
 {
-    public GraphicRaycaster raycaster;
-
-    EventSystem eventSystem;
-    PointerEventData data;
-    List<RaycastResult> results;
-
-    private void Awake()
+    //public Button btn;
+    //GameObject parent;
+    private void Start()
     {
-        eventSystem = EventSystem.current;
-        data = new PointerEventData(eventSystem);
+        Transform transform = gameObject.GetComponent<Transform>();
     }
 
-    private void Update()
+
+    public void GetParentObject()
     {
-        GetOptionText();
+        string text = transform.parent.gameObject.GetComponent<Text>().text;
+
+        Debug.Log(text);
     }
-
-    private void GetOptionText()
-    {
-        data = new PointerEventData(eventSystem);
-        data.position = Input.mousePosition;
-
-        results = new List<RaycastResult>();
-        raycaster.Raycast(data, results);
-
-        //if (results.Count > 0)
-        //{
-        //    GameObject result = results[0].gameObject;
-        //    string optionText = result.GetComponent<Text>().text;
-        //    Debug.Log(optionText);
-        //}
-        Debug.Log(results[0].gameObject.name);
-
-    }
-
 }
 
 

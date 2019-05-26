@@ -31,7 +31,7 @@ public class PopUpMessege : MonoBehaviour
         popUpMessege.text = message;
         popUpMessege.CrossFadeAlpha(1f, 0, true);
         yield return messegeTime;
-        popUpMessege.CrossFadeAlpha(0, 2f, true);
+        popUpMessege.CrossFadeAlpha(0, 1.5f, true);
         yield return messegeTime;
         StateUpdater.isPopUpMessege = false;
     }

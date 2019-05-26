@@ -18,6 +18,7 @@ public class MoccaPlayer : MonoBehaviour
 
     private MotionDataFile motionFileForSimulator;
     private MotionDataFile motionFileForRobot;
+    private MotionDataFile zeroPos;
     private CDJoint[] cdJoints;
 
     private string filePath = "Assets/JsonData/";
@@ -30,12 +31,26 @@ public class MoccaPlayer : MonoBehaviour
     {
         targetFrameTime = 1f / fps;
         cdJoints = cdJointSetter.joints;
+        CreateZeroPos();
     }
 
     void Update()
     {
         if (StateUpdater.isRealTimeMode)
             SendAngleRealTimeToRobot(); //실시간으로 실물로봇으로 보낼때 
+    }
+
+    private void CreateZeroPos()
+    {
+        zeroPos = new MotionDataFile();
+        DoubleArray zero = new DoubleArray();
+        zero.Add(0.2);
+        for (int i = 0; i < 8; i++)
+        {
+            zero.Add(0.0);
+        }
+        zero.SetSize();
+        zeroPos.Add(zero);
     }
 
     public void CustomizedMotionFileAdd() //저장된 모션 데이터(O), 방금 녹화된 모션 데이터(X)
@@ -223,6 +238,10 @@ public class MoccaPlayer : MonoBehaviour
             Send("mot:raw(" + JsonUtility.ToJson(motionFileData[i]) + ")\n");
             yield return SSHTime;
         }
+
+        Send("mot:raw(" + JsonUtility.ToJson(zeroPos[0]) + ")\n");
+        yield return SSHTime;
+
         StateUpdater.isMotionPlayingRobot = false;
     }
 
