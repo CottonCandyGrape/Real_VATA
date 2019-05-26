@@ -91,18 +91,20 @@ public class RecordManager : MonoBehaviour
 
     public void ClickedDeleteButton() //존재하는 파일인지 체크 후 모션 데이터 삭제
     {
-        string fileName = filePath + inputField.text + ".json";
-        if (File.Exists(fileName))
-        {
-            File.Delete(fileName);
-            popUpManager.MessegePopUp("파일을 삭제합니다");
-        }
-        else
-        {
-            popUpManager.MessegePopUp("존재하지 않는 파일입니다");
-        }
-        SetDropdownOptions();
-        inputField.text = string.Empty;
+        //string fileName = filePath + inputField.text + ".json";
+        //if (File.Exists(fileName))
+        //{
+        //    File.Delete(fileName);
+        //    popUpManager.MessegePopUp("파일을 삭제합니다");
+        //}
+        //else
+        //{
+        //    popUpManager.MessegePopUp("존재하지 않는 파일입니다");
+        //}
+        //SetDropdownOptions();
+        //inputField.text = string.Empty;
+        string text = recStopButton.GetComponentInParent<Text>().text;
+        Debug.Log(text);
     }
 
     public void ClickedStartButton() //녹화시작 버튼
