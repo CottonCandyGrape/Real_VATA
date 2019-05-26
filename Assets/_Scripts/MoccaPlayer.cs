@@ -189,7 +189,7 @@ public class MoccaPlayer : MonoBehaviour
                     LoadMotionFileForRobot();
                     ChangeAngleForRobot(motionFileForRobot);
                     StartCoroutine(SendMotionFileDataWithSSH(motionFileForRobot));
-                    Debug.Log("로봇한테 보냄쓰");
+                    //Debug.Log("로봇한테 보냄쓰");
                 }
                 else
                 {
