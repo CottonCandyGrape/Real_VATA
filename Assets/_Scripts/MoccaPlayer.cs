@@ -163,7 +163,7 @@ public class MoccaPlayer : MonoBehaviour
     IEnumerator SetZeroPos() //보간하며 기본자세 취함.
     {
         float rotDuration = GetrotDuration();
-        WaitForSeconds rotDurationSec = new WaitForSeconds(rotDuration);
+        WaitForSeconds rotDurationSec = new WaitForSeconds(rotDuration + 0.5f);
 
         for (int i = 0; i < cdJoints.Length; i++)
         {
