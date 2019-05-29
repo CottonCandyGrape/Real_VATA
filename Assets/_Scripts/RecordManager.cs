@@ -25,7 +25,7 @@ public class RecordManager : MonoBehaviour
     private float fps = 5f;
     private float recordTime = 0f;
 
-    private string filePath = "Assets/JsonData/";
+    private string filePath = "JsonData/";
 
     private void Start()
     {
@@ -35,7 +35,6 @@ public class RecordManager : MonoBehaviour
         delayRecordTime = new WaitForSeconds(recordTime);
         flickTime = new WaitForSeconds(1.5f);
 
-        //recStopButton.gameObject.SetActive(false);
         recStopButton.interactable = false;
         recordImage.gameObject.SetActive(false);
 
