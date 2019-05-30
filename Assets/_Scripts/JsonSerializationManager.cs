@@ -30,19 +30,19 @@ public class JsonSerializationManager : MonoBehaviour
         motionDataForRobot = new DoubleArray();
         motionDataForRobot.Add(realTimeFrameDuration);
 
-        for (int i = 3; i < 6; i++) // 실물 모카 왼팔 (시뮬레이터 오른팔)
+        for (int i = 0; i < 3; i++) // 왼팔(거울)
+        {
+            float angle = MathUtil.ConvertAngle(jointSetter.joints[i].angle);
+            motionDataForRobot.Add(MathUtil.Roundoff(angle));
+        }
+
+        for (int i = 3; i < 6; i++) // 오른팔(거울)
         {
             float angle = MathUtil.ConvertAngle(jointSetter.joints[i].angle);
             if (i == 3)
-                motionDataForRobot.Add(MathUtil.Roundoff(angle));
-            else
                 motionDataForRobot.Add(-MathUtil.Roundoff(angle));
-        }
-
-        for (int i = 0; i < 3; i++) // 실물 모카 오른팔 (시뮬레이터 왼팔)
-        {
-            float angle = MathUtil.ConvertAngle(jointSetter.joints[i].angle);
-            motionDataForRobot.Add(-MathUtil.Roundoff(angle));
+            else
+                motionDataForRobot.Add(MathUtil.Roundoff(angle));
         }
 
         for (int i = 6; i < 8; i++) // 실물 모카 목
@@ -51,8 +51,30 @@ public class JsonSerializationManager : MonoBehaviour
             if (i == 7) //tilt 회전 방향이 반대. 30프로 더 회전.
                 motionDataForRobot.Add(-MathUtil.Roundoff(angle) * 1.3);
             else
-                motionDataForRobot.Add(MathUtil.Roundoff(angle));
+                motionDataForRobot.Add(-MathUtil.Roundoff(angle));
         }
+
+        //for (int i = 3; i < 6; i++) // 실물 모카 왼팔 (시뮬레이터 오른팔)
+        //{
+        //    float angle = MathUtil.ConvertAngle(jointSetter.joints[i].angle);
+        //    if (i == 3)
+        //        motionDataForRobot.Add(MathUtil.Roundoff(angle));
+        //    else
+        //        motionDataForRobot.Add(-MathUtil.Roundoff(angle));
+        //}
+        //for (int i = 0; i < 3; i++) // 실물 모카 오른팔 (시뮬레이터 왼팔)
+        //{
+        //    float angle = MathUtil.ConvertAngle(jointSetter.joints[i].angle);
+        //    motionDataForRobot.Add(-MathUtil.Roundoff(angle));
+        //}
+        //for (int i = 6; i < 8; i++) // 실물 모카 목
+        //{
+        //    float angle = MathUtil.ConvertAngle(jointSetter.joints[i].angle);
+        //    if (i == 7) //tilt 회전 방향이 반대. 30프로 더 회전.
+        //        motionDataForRobot.Add(-MathUtil.Roundoff(angle) * 1.3);
+        //    else
+        //        motionDataForRobot.Add(MathUtil.Roundoff(angle));
+        //}
 
         motionDataForRobot.SetSize();
     }
@@ -67,20 +89,3 @@ public class JsonSerializationManager : MonoBehaviour
         return jsonString;
     }
 }
-
-//private WaitForSeconds frameWait;
-
-//private void Awake()
-//{
-//    frameWait = new WaitForSeconds(targetFrameTime);
-//    StartCoroutine(DelayedSend());
-//}
-
-//IEnumerator DelayedSend()
-//{
-//    while (true)
-//    {
-//        yield return frameWait;
-//        Debug.Log("Hello");
-//    }
-//}

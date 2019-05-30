@@ -22,6 +22,7 @@ public class MoccaPlayer : MonoBehaviour
     private CDJoint[] cdJoints;
 
     private string filePath = "JsonData/";
+    //private string filePath = "Assets/JsonData/";
 
     private float fps = 5f;
     private float targetFrameTime = 0f;

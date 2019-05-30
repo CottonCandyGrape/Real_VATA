@@ -26,6 +26,7 @@ public class RecordManager : MonoBehaviour
     private float recordTime = 0f;
 
     private string filePath = "JsonData/";
+    //private string filePath = "Assets/JsonData/";
 
     private void Start()
     {
