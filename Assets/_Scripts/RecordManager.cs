@@ -25,8 +25,8 @@ public class RecordManager : MonoBehaviour
     private float fps = 5f;
     private float recordTime = 0f;
 
-    private string filePath = "JsonData/";
-    //private string filePath = "Assets/JsonData/";
+    //private string filePath = "JsonData/";
+    private string filePath = "Assets/JsonData/";
 
     private void Start()
     {
@@ -107,7 +107,7 @@ public class RecordManager : MonoBehaviour
 
     public void ClickedStartButton() //녹화시작 버튼
     {
-        if (StateUpdater.isConnectingKinect)
+        //if (StateUpdater.isConnectingKinect)
         {
             if (StateUpdater.isRealTimeMode)
             {
@@ -132,10 +132,10 @@ public class RecordManager : MonoBehaviour
                 popUpManager.MessegePopUp("실시간 모드를 실행 해주세요");
             }
         }
-        else
-        {
-            popUpManager.MessegePopUp("Kinect가 연결되어 있지 않습니다.");
-        }
+        //else
+        //{
+        //    popUpManager.MessegePopUp("Kinect가 연결되어 있지 않습니다.");
+        //}
     }
 
     public void ClickedStopButton() //녹화 끝 버튼
@@ -173,7 +173,7 @@ public class RecordManager : MonoBehaviour
         {
             string jsonString = JsonUtility.ToJson(motionFileData, true);
             File.WriteAllText(fileName, jsonString);
-            motionFileData = null;
+            motionFileData = null;//필요 없을 수 도...
             popUpManager.MessegePopUp("모션이 저장되었습니다");
         }
         else

@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-class StateUpdater
+﻿class StateUpdater
 {
     public static bool isConnectingKinect = false;
     public static bool isRealTimeMode = false;

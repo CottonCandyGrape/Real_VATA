@@ -21,8 +21,8 @@ public class MoccaPlayer : MonoBehaviour
     private MotionDataFile zeroPos;
     private CDJoint[] cdJoints;
 
-    private string filePath = "JsonData/";
-    //private string filePath = "Assets/JsonData/";
+    //private string filePath = "JsonData/";
+    private string filePath = "Assets/JsonData/";
 
     private float fps = 5f;
     private float targetFrameTime = 0f;
@@ -139,7 +139,7 @@ public class MoccaPlayer : MonoBehaviour
         StateUpdater.isMotionPlayingSimulator = true;
         WaitForSeconds lerfTime = new WaitForSeconds((float)motionFileData[0][0]);
 
-        if (motionFileForRobot != null)
+        if (motionFileForRobot != null) // 파라메타(motionFileData) 로 검사 안하는 이유 : 파라메타가 시뮬레이터 일수도 로봇일수도 있기때문.
             StateUpdater.isMotionPlayingRobot = true;
 
         for (int i = 0; i < motionFileData.Length; i++)
@@ -164,7 +164,7 @@ public class MoccaPlayer : MonoBehaviour
     IEnumerator SetZeroPos() //보간하며 기본자세 취함.
     {
         float rotDuration = GetrotDuration();
-        WaitForSeconds rotDurationSec = new WaitForSeconds(rotDuration + 0.5f);
+        WaitForSeconds rotDurationSec = new WaitForSeconds(rotDuration + 0.5f); //실물 로봇이 완벽하게 T 자세를 취하기 전에 멈춰버렸기 때문에.
 
         for (int i = 0; i < cdJoints.Length; i++)
         {
