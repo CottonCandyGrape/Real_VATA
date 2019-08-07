@@ -25,8 +25,8 @@ public class RecordManager : MonoBehaviour
     private float fps = 5f;
     private float recordTime = 0f;
 
-    //private string filePath = "JsonData/";
-    private string filePath = "Assets/JsonData/";
+    //private string filePath = "JsonData/"; //ver. build 
+    private string filePath = "Assets/JsonData/"; //ver. not build 
 
     private void Start()
     {
